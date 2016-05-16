@@ -24,8 +24,8 @@
     "vigour-state": "^1.6.3"
   },
   "devDependencies": {
-    "vigour-doc": "^1.1.5",
-    "budo": "^8.2.2"
+    "budo": "^8.2.2",
+    "vigour-doc": "^1.1.5"
   },
   "browserify": {
     "transform": [

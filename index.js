@@ -2,7 +2,6 @@
 const exec = require('child_process').exec
 const fs = require('fs')
 const port = process.argv[3] || 8080
-const command = `budo ./index.js -p ${port} --css ./bundle.css --live -- -r ../package.json:package.json`
 var target = process.argv[2]
 var retryCounter = 0
 var budo, reset
@@ -16,11 +15,13 @@ if (!target) {
   }
 }
 
-console.log(`starting budo on port "${port}" running example "${target}"`)
+const command = `budo ./${target}/index.js -p ${port} --css bundle.css --live -- -r ./package.json:package.json`
+
+console.log(`running on port "${port}" running example "${target}"`)
 
 function initBudo () {
   if (reset) { clearTimeout(reset) }
-  budo = exec(command, { cwd: './' + target })
+  budo = exec(command, { cwd: './' })
   budo.stdout.pipe(process.stdout)
   budo.stdout.once('data', () => {
     reset = setTimeout(() => {

@@ -59,12 +59,13 @@ const elem = {
         on: {
           arrowup (data, stamp) {
             const previous = data.target.previousSibling
-            if (previous) { previous.focus() }
-           else {
-            const rootstate = data.state.getRoot()
-            rootstate.focus.set(rootstate.menu.focus, stamp)
-            rootstate.menu.focus.emit('data', stamp)
-          }
+            if (previous) {
+              previous.focus()
+            } else {
+              const rootstate = data.state.getRoot()
+              rootstate.focus.set(rootstate.menu.focus, stamp)
+              rootstate.menu.focus.emit('data', stamp)
+            }
           },
           arrowdown (data) {
             const next = data.target.nextSibling
@@ -83,9 +84,9 @@ const state = s({
     title: 'im the menu!',
     focus: '$root.menu.items.1',
     items: [
-      { title:'discover!' },
-      { title:'shows!' },
-      { title:'channels!' }
+      { title: 'discover!' },
+      { title: 'shows!' },
+      { title: 'channels!' }
     ]
   },
   episodes: {
@@ -93,21 +94,22 @@ const state = s({
     title: 'episodes!',
     focus: '$root.episodes.items.1',
     items: [
-      { title:'episode 1' },
-      { title:'episode 2' },
-      { title:'episode 3' },
-      { title:'episode 4 '}
+      { title: 'episode 1' },
+      { title: 'episode 2' },
+      { title: 'episode 3' },
+      { title: 'episode 4' }
     ]
   }
 })
 
 var treex
 var topsubs
-document.body.appendChild( render(elem, state,
+document.body.appendChild(render(elem, state,
   (state, type, stamp, nsubs, tree, sType, subs, rTree) => {
- treex = rTree
- topsubs = subs
-}))
+    treex = rTree
+    topsubs = subs
+  })
+)
 
 console.log('---------')
 console.log('rSubs:', topsubs)

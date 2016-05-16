@@ -17,7 +17,7 @@ const state = s({
     c: {
       val: 'c',
       b: 'c/b'
-    },
+    }
   },
   collection: [
     { b: '0/b' },
@@ -75,11 +75,11 @@ document.body.appendChild(render({
           }
         },
         properties: {
-          fatborder:{
+          fatborder: {
             type: 'fatborder'
           }
         },
-        fatborder:{
+        fatborder: {
           $transform (val) {
             return (Math.random() * 30) + 'px ' + val
           }

@@ -98,11 +98,9 @@ const app = {
   ]
 }
 
-
-var subs
-
+// var subs
 document.body.appendChild(render(app, state, (state, type, stamp, nsubs, tree, sType, elem, s, rsubs) => {
-  subs = rsubs
+  // subs = rsubs
   // console.log(
   //   '%cFIRE', 'color: white;background-color: #333; padding: 2px;',
   //   state.path().join('/'), ' - ',
@@ -111,17 +109,17 @@ document.body.appendChild(render(app, state, (state, type, stamp, nsubs, tree, s
   // )
 }))
 
-function logger (a) {
-  for (var i = 0 ; i < a.length; i += 3) {
-    console.log(a[i] + ' : ' + a[i + 2].path().join('/'))
-  }
-}
-console.log(subs)
+// function logger (a) {
+//   for (var i = 0; i < a.length; i += 3) {
+//     console.log(a[i] + ' : ' + a[i + 2].path().join('/'))
+//   }
+// }
+// console.log(subs)
 
-console.log('tList')
-// logger(subs._.tList)
+// console.log('tList')
+// // logger(subs._.tList)
 
-console.log('TOP FIRST TA')
+// console.log('TOP FIRST TA')
 // logger(subs.first._.ta)
 
 state.set({ second: { text: 'second' } })

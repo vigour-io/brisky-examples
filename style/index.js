@@ -53,13 +53,13 @@ const elem = {
 }
 
 const state = s({
-  thing:{
-    x:100,
-    y:20,
+  thing: {
+    x: 100,
+    y: 20,
     h: 100,
     rotate: 30
   },
-  thing2:{
+  thing2: {
     h: '400px',
     rotate: 10
   },

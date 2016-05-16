@@ -1,7 +1,7 @@
 'use strict'
 require('../style.css')
 const s = require('vigour-state/s')
-const render = require('../../lib/render')
+const render = require('brisky/render')
 
 const first = {
   holder: {
@@ -19,6 +19,16 @@ const first = {
     },
     properties: {
       show: {
+        on: {
+          remove (data) {
+            const node = data.target
+            node.style.opacity = 0
+            setTimeout(function () {
+              node.parentNode.removeChild(node)
+              node.style.opacity = 1
+            }, 500)
+          }
+        },
         text: 'Firstscreen Show!',
         title: {
           text: {
@@ -44,8 +54,8 @@ const first = {
           },
           $: 'episodes.$any',
           Child: {
-            text:{
-              $:'title'
+            text: {
+              $: 'title'
             },
             on: {
               click (data) {
@@ -175,17 +185,12 @@ const state = s({
 
 var treex
 var topsubs
-document.body.appendChild( render(elem, state,
+document.body.appendChild(render(elem, state,
   (state, type, stamp, nsubs, tree, sType, subs, rTree) => {
- treex = rTree
- topsubs = subs
-}))
+    treex = rTree
+    topsubs = subs
+  })
+)
 
 console.log('rSubs:', topsubs)
 console.log('rTree', treex)
-
-// setTimeout(function () {
-//   state.set({
-
-//   })
-// })

@@ -22,7 +22,8 @@
     "babelify": "^7.3.0",
     "brisky": "^1.0.0",
     "postcssify": "^2.1.1",
-    "vigour-state": "^1.6.3"
+    "vigour-state": "^1.6.3",
+    "vigour-hub": "https://github.com/vigour-io/hub#refactor/state"
   },
   "devDependencies": {
     "budo": "^8.2.2",

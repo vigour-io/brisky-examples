@@ -1,6 +1,7 @@
 const Hub = require('vigour-hub')
 const render = require('brisky/render')
 const state = global.state = Hub({ connect: 'ws://localhost:3031' })
+const vstamp = require('vigour-stamp')
 
 state.connected.on(function () {
   // want to be able to subscribe on this -- important!
@@ -9,16 +10,20 @@ state.connected.on(function () {
 })
 
 const app = {
-  inputfield: {
-    node: 'input',
-    class: 'basic-item',
-    props: {
-      value: { $: 'field' }
-    },
-    on: {
-      keyup (e, stamp) {
-        console.log(stamp)
-        e.state.set({ field: e.target.value })
+  top: {
+    class: 'complex-item',
+    title: { text: { $: 'field' } },
+    inputfield: {
+      node: 'input',
+      class: 'basic-item',
+      props: {
+        value: { $: 'field' }
+      },
+      on: {
+        keyup (e, stamp) {
+          console.log(stamp)
+          e.state.set({ field: e.target.value }, stamp)
+        }
       }
     }
   },

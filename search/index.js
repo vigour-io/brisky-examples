@@ -26,7 +26,7 @@ const elem = {
     node: 'input',
     on: {
       input (data, stamp) {
-        data.state.getRoot().query.set(data.target.value, stamp)
+        data.state.getRoot().query.set(data.target.value)
       }
     }
   },

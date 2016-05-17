@@ -26,7 +26,7 @@ const elem = {
     node: 'input',
     on: {
       input (data, stamp) {
-        data.state.getRoot().query.set(data.target.value)
+        data.state.getRoot().query.set(data.target.value, stamp)
       }
     }
   },
@@ -37,14 +37,12 @@ const elem = {
       $: '$condition',
       $condition: {
         val (state) {
-          var query = state.getRoot().query.compute()
+          const query = state.getRoot().query.compute()
           if (!query) {
             return true
           } else {
-            var title = state.title && state.title.compute()
-            if (title) {
-              return title.toLowerCase().indexOf(query.toLowerCase()) !== -1
-            }
+            const title = state.title && state.title.compute()
+            return title && title.toLowerCase().indexOf(query.toLowerCase()) !== -1
           }
         },
         $subs: {
@@ -55,9 +53,9 @@ const elem = {
       props: {
         tabindex: 0
       },
-      // focus: {
-      //   $: 'focus'
-      // },
+      focus: {
+        $: 'focus'
+      },
       on: {
         arrowup (data) {
           let target = data.target
@@ -70,11 +68,10 @@ const elem = {
             }
             while (prev) {
               if (prev.offsetLeft <= center && prev.offsetLeft + prev.offsetWidth >= center) {
-                prev.focus()
-                return
+                return prev.focus()
+              } else {
+                target = prev = prev.previousSibling
               }
-              target = prev
-              prev = prev.previousSibling
             }
             if (target) {
               target.focus()
@@ -93,11 +90,10 @@ const elem = {
           }
           while (next) {
             if (next.offsetLeft <= center && (next.offsetLeft + next.offsetWidth >= center)) {
-              next.focus()
-              return
+              return next.focus()
+            } else {
+              target = next = next.nextSibling
             }
-            target = next
-            next = next.nextSibling
           }
           if (target) {
             target.focus()
@@ -118,6 +114,11 @@ const elem = {
           $: 'title'
         }
       },
+      searchtitle: {
+        text: {
+          $: '$root.title'
+        }
+      },
       subtitle: [
         {
           type: 'text',
@@ -134,6 +135,7 @@ const elem = {
 }
 
 const state = s({
+  title: 'search app',
   query: '',
   movies: {
     items: movies
@@ -148,22 +150,16 @@ state.set({
   focus: state.movies.focus
 })
 
-document.body.appendChild(render(elem, state))
+var treex
+var topsubs
+document.body.appendChild(render(elem, state,
+  (state, type, stamp, nsubs, tree, sType, subs, rTree) => {
+    treex = rTree
+    topsubs = subs
+  })
+)
 
-console.log('data length:', Object.keys(movies).length)
-
-// function jump () {
-//   setTimeout(function () {
-//     state.query.set('jump')
-//     matthew()
-//   }, 1000)
-// }
-
-// function matthew () {
-//   setTimeout(function () {
-//     state.query.set('inter')
-//     jump()
-//   }, 1000)
-// }
-
-// jump()
+console.log('---------')
+console.log('rSubs:', topsubs)
+console.log('rTree', treex)
+console.log('---------')

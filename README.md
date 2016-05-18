@@ -34,7 +34,7 @@ Switches between pages
 `npm start context`
 
 ####order
-Ordered lists, shared components creation and deletion
+Order property, shared components
 
 `npm start order`
 

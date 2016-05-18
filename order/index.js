@@ -1,6 +1,6 @@
 'use strict'
 require('../style.css')
-const render = require('../../lib/render')
+const render = require('brisky/render')
 const components = require('./components')
 const s = require('vigour-state/s')
 const state = s({ title: 'third' })
@@ -30,7 +30,6 @@ const app = {
   toggle: {
     class: 'basic-item',
     text: {
-      // completely wrong allready
       $: 'first.text',
       $transform (val) {
         return !val ? 'add first' : 'remove ' + val
@@ -98,47 +97,7 @@ const app = {
   ]
 }
 
-// var subs
-document.body.appendChild(render(app, state, (state, type, stamp, nsubs, tree, sType, elem, s, rsubs) => {
-  // subs = rsubs
-  // console.log(
-  //   '%cFIRE', 'color: white;background-color: #333; padding: 2px;',
-  //   state.path().join('/'), ' - ',
-  //   type, ' - ',
-  //   sType || 'normal', '\n\n'
-  // )
-}))
-
-// function logger (a) {
-//   for (var i = 0; i < a.length; i += 3) {
-//     console.log(a[i] + ' : ' + a[i + 2].path().join('/'))
-//   }
-// }
-// console.log(subs)
-
-// console.log('tList')
-// // logger(subs._.tList)
-
-// console.log('TOP FIRST TA')
-// logger(subs.first._.ta)
+document.body.appendChild(render(app, state))
 
 state.set({ second: { text: 'second' } })
 state.set({ first: { text: 'first' } })
-
-// console.log('----reset first-------')
-// state.set({ first: { text: 'haha' } })
-// state.set({ rootspawner: {} })
-
-// HAS TO BE DONE BY TMRW!
-// ROOT
-// {
-//   $: 'rootspawner',
-//   class: 'complex-item',
-//   symbol: {},
-//   title: { text: 'no context' },
-//   subtitle: { text: 'root subscription' },
-//   // now this does nto fire... on remove
-//   // and fires one to may after the remove for b
-//   first: { class: 'basic-item', $: '$root.a.first', text: 'first' },
-//   second: { class: 'basic-item', $: '$root.b.second', text: 'second' }
-// }

@@ -134,7 +134,7 @@ const elem = {
   }
 }
 
-const state = s({
+const state = global.state = s({
   title: 'search app',
   query: '',
   movies: {

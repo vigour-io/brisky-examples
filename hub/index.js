@@ -1,7 +1,6 @@
 const Hub = require('vigour-hub')
 const render = require('brisky/render')
 const state = global.state = Hub({ connect: 'ws://localhost:3031' })
-const vstamp = require('vigour-stamp')
 
 state.connected.on(function () {
   // want to be able to subscribe on this -- important!

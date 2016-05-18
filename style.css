@@ -1,5 +1,4 @@
-/*@import url('https://fonts.googleapis.com/css?family=Droid+Sans+Mono');*/
-@import './fonts/style.css';
+@import https://fonts.googleapis.com/css?family=Droid+Sans+Mono;
 
 :root {
   --bg: rgb(38, 50, 56);
@@ -33,7 +32,7 @@ input:focus {
   font-size: 18px;
   padding: 15px;
   color: var(--white);
-  font-family: 'Droid-Sans-Mono';
+  font-family: 'Droid Sans Mono';
   background-color: var(--fg2);
 }
 
@@ -43,7 +42,7 @@ input:focus {
 
 body {
   background-color: var(--bg);
-  font-family: 'Droid-Sans-Mono';
+  font-family: 'Droid Sans Mono';
   color: var(--white);
 }
 

@@ -2,8 +2,8 @@
 require('../style.css')
 const s = require('vigour-state/s')
 const render = require('brisky/render')
-const movies = require('./data.json')
 const nav = require('dom-nav')
+const http = require('http')
 
 require('brisky').prototype.set({
   properties: {
@@ -13,18 +13,15 @@ require('brisky').prototype.set({
 
 const elem = {
   key: 'app',
-  style: {
-    textAlign: 'center'
-  },
-  text: 'search page!',
-  field: {
-    $: 'query',
-    style: {
-      width: '100%',
-      height: '60px',
-      textAlign: 'center'
-    },
+  text: 'search',
+  search: {
     node: 'input',
+    class: 'title',
+    $: 'query',
+    props: {
+      placeholder: 'search movies...',
+      value: { $: true }
+    },
     focus: { $: '$root.focus' },
     on: {
       input (data, stamp) {
@@ -54,13 +51,14 @@ const elem = {
     $: 'movies.items.$any',
     Child: {
       $: '$condition',
-      class: 'basic-item',
-      focus: {
-        $: '$parent.$parent.focus'
+      class: 'complex-item',
+      focus: { $: '$parent.$parent.focus' },
+      poster: {
+        node: 'img',
+        props: { src: { $: 'poster' } }
       },
-      text: {
-        $: 'title'
-      },
+      title: { text: { $: 'title' } },
+      text: { $: 'year' },
       $condition: {
         val (state) {
           const query = state.getRoot().query.compute()
@@ -77,6 +75,14 @@ const elem = {
         }
       },
       on: {
+        click (e, stamp) {
+          global.location = 'http://www.imdb.com/title/' + e.state.key
+        },
+        keyup (e, stamp) {
+          if (e.event.keyCode === 13) {
+            this.emit('click', e, stamp)
+          }
+        },
         arrowup (data, stamp) {
           let target = nav.up(data.target)
           if (target) {
@@ -104,31 +110,54 @@ const elem = {
 
 const state = global.state = s({
   title: 'search app',
-  query: '',
+  query: {
+    on: {
+      data () {
+        const val = this.compute()
+        global.localStorage.query = val
+        http.get(`http://www.omdbapi.com/?s=${val}&r=json&type=movie`, (res) => {
+          var data = ''
+          res.on('data', (chunk) => { data += chunk })
+          res.on('end', () => {
+            data = JSON.parse(data)
+            if (!data.Error) {
+              data = data.Search
+              let payload = {}
+              for (let i = 0, len = data.length; i < len; i++) {
+                let movie = data[i]
+                payload[movie.imdbID] = {
+                  title: movie.Title,
+                  poster: movie.Poster,
+                  year: movie.Year
+                }
+              }
+              state.set({ movies: { items: payload } })
+            }
+          })
+        })
+      }
+    }
+  },
   movies: {
     title: 'movies list!',
-    items: movies
+    focus: {
+      val: global.localStorage.focusMovie,
+      on: {
+        data () {
+          global.localStorage.focusMovie = this.serialize().val
+        }
+      }
+    }
+  },
+  focus: {
+    val: global.localStorage.focus || '$root.query',
+    on: {
+      data () {
+        global.localStorage.focus = this.serialize().val
+      }
+    }
   }
 })
 
-state.movies.set({
-  focus: state.movies.items[1927]
-})
-
-state.set({
-  focus: state.movies.focus
-})
-
-var treex
-var topsubs
-document.body.appendChild(render(elem, state,
-  (state, type, stamp, nsubs, tree, sType, subs, rTree) => {
-    treex = rTree
-    topsubs = subs
-  })
-)
-
-console.log('---------')
-console.log('rSubs:', topsubs)
-console.log('rTree', treex)
-console.log('---------')
+state.query.set(global.localStorage.query || '')
+document.body.appendChild(render(elem, state))

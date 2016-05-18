@@ -10,7 +10,6 @@ const amount = 50
 const state = s(getData(amount))
 // -------------------------
 const app = {
-  key: 'app',
   stats: {
     text: {
       $: 'fps',
@@ -25,7 +24,7 @@ const app = {
       $: 'databases.$any',
       Child: {
         node: 'tr',
-        dbname: {
+        name: {
           node: 'td',
           text: {
             $: true,

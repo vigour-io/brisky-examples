@@ -1,4 +1,5 @@
 'use strict'
+// -------------------------
 // http://mathieuancelin.github.io/js-repaint-perfs/
 // -------------------------
 require('./style.css')
@@ -7,7 +8,7 @@ const s = require('vigour-state/s')
 const getData = require('./data')
 const amount = 50
 const state = s(getData(amount))
-
+// -------------------------
 const app = {
   key: 'app',
   stats: {
@@ -65,18 +66,23 @@ const app = {
     }
   }
 }
-
+// -------------------------
 document.body.appendChild(render(app, state))
 // -------------------------
-var total = 0
-var t = 0
+var total = []
 var d
 function update () {
-  total++
+  var time = 0
   state.set(getData(amount))
-  if (d) { t += (Date.now() - d) }
+  if (d) { total.push(Date.now() - d) }
+  if (total.length > 50) {
+    total.shift()
+  }
   d = Date.now()
-  state.set({ fps: 1000 / (t / total) })
+  for (let i = 0, len = total.length; i < len; i++) {
+    time += total[i]
+  }
+  state.set({ fps: 1000 / (time / total.length) })
   setTimeout(update, 0)
 }
 update()

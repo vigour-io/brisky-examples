@@ -1,9 +1,5 @@
 'use strict'
 // http://mathieuancelin.github.io/js-repaint-perfs/
-// this example assumes no special hackery in the data -- (see inferno dbmon)
-// https://github.com/trueadm/inferno/tree/master/examples/dbmonster
-// -------------------------
-const stats = require('./stats')
 // -------------------------
 require('./style.css')
 const render = require('brisky/render')
@@ -14,6 +10,12 @@ const state = s(getData(amount))
 
 const app = {
   key: 'app',
+  stats: {
+    text: {
+      $: 'fps',
+      $transform: (val) => 'Repaint rate: ' + ~~(val * 100) / 100 + '/sec'
+    }
+  },
   table: {
     node: 'table',
     class: 'table-striped latest-data',
@@ -66,11 +68,16 @@ const app = {
 
 document.body.appendChild(render(app, state))
 // -------------------------
+var total = 0
+var t = 0
+var d
 function update () {
-  stats.begin()
+  total++
   state.set(getData(amount))
-  stats.end()
-  setTimeout(update)
+  if (d) { t += (Date.now() - d) }
+  d = Date.now()
+  state.set({ fps: 1000 / (t / total) })
+  setTimeout(update, 0)
 }
 update()
 // -------------------------

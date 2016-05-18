@@ -20,7 +20,7 @@ Rendering of 14k dom elements, uses optmization strategies for static items
 `npm start collection`
 
 ####snake
-Uses brisky as an animation framework
+Uses brisky as an animation engine
 
 `npm start snake`
 

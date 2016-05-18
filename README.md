@@ -1,5 +1,5 @@
 # brisky-examples
-Examples of the [brisky](https://github.com/vigour-io/brisky) a blazing fast js ui libary
+Examples for most features of [brisky](https://github.com/vigour-io/brisky) a blazing fast js ui libary
 
 Install and start the basic example
 `npm i & npm start basic`

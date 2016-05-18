@@ -4,7 +4,7 @@ install and start the basic example
 `npm i & npm start basic`
 
 ####dbmon
-Db monster -- currently faster then all implementations on [js-repaint-perf](http://mathieuancelin.github.io/js-repaint-perfs/) even faster then the vanilla example!
+Db monster -- currently faster then all implementations on [js-repaint-perf](http://mathieuancelin.github.io/js-repaint-perfs/) even faster then the [vanilla](http://mathieuancelin.github.io/js-repaint-perfs/vanilla-optimized/) example! When comparing make sure to move the slider to max updates
 
 `npm start dbmon`
 

@@ -1,10 +1,10 @@
 @import ./bootstrap.min.css;
 
-.Query {
+.query {
   position: relative;
 }
 
-.Query:hover .popover {
+.query:hover .popover {
   margin-top: -20px;
   left: -100%;
   width: 100%;

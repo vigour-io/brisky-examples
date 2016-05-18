@@ -1,11 +1,9 @@
 'use strict'
 // http://mathieuancelin.github.io/js-repaint-perfs/
+// this example assumes no special hackery in the data -- (see inferno dbmon)
+// https://github.com/trueadm/inferno/tree/master/examples/dbmonster
 // -------------------------
-const Stats = require('stats-js')
-const stats = new Stats()
-stats.setMode(0)
-stats.domElement.className = 'stats'
-document.body.appendChild(stats.domElement)
+const stats = require('./stats')
 // -------------------------
 require('./style.css')
 const render = require('brisky/render')
@@ -47,7 +45,7 @@ const app = {
           $: 'queries.$any',
           Child: {
             node: 'td',
-            class: 'Query',
+            class: 'query',
             text: {
               $: 'elapsed',
               $transform: (val) => val && ~~(val * 100) / 100
@@ -67,12 +65,12 @@ const app = {
 }
 
 document.body.appendChild(render(app, state))
-
+// -------------------------
 function update () {
   stats.begin()
   state.set(getData(amount))
-  global.requestAnimationFrame(update)
   stats.end()
+  setTimeout(update)
 }
-
 update()
+// -------------------------

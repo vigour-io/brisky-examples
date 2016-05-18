@@ -3,6 +3,7 @@ require('../style.css')
 const s = require('vigour-state/s')
 const render = require('brisky/render')
 const movies = require('./data.json')
+const nav = require('dom-nav')
 
 require('brisky').prototype.set({
   properties: {
@@ -50,94 +51,37 @@ const elem = {
           $root: { query: {} }
         }
       },
-      props: {
-        tabindex: 0
-      },
-      focus: {
-        $: 'focus'
+      text: {
+        $: '$parent.$parent.title'
       },
       on: {
         arrowup (data) {
-          let target = data.target
-          let prev = target.previousSibling
-          if (prev) {
-            const top = target.offsetTop
-            const center = target.offsetLeft + target.offsetWidth * 0.5
-            while (prev && prev.offsetTop >= top) {
-              prev = prev.previousSibling
-            }
-            while (prev) {
-              if (prev.offsetLeft <= center && prev.offsetLeft + prev.offsetWidth >= center) {
-                return prev.focus()
-              } else {
-                target = prev = prev.previousSibling
-              }
-            }
-            if (target) {
-              target.focus()
-            }
-          } else {
-
-          }
+          let target = nav.up(data.target)
+          if (target) { target.focus() }
         },
         arrowdown (data) {
-          let target = data.target
-          let next = target.nextSibling
-          const top = target.offsetTop
-          const center = target.offsetLeft + target.offsetWidth * 0.5
-          while (next && next.offsetTop <= top) {
-            next = next.nextSibling
-          }
-          while (next) {
-            if (next.offsetLeft <= center && (next.offsetLeft + next.offsetWidth >= center)) {
-              return next.focus()
-            } else {
-              target = next = next.nextSibling
-            }
-          }
-          if (target) {
-            target.focus()
-          }
+          let target = nav.down(data.target)
+          if (target) { target.focus() }
         },
         arrowleft (data) {
-          const prev = data.target.previousSibling
-          if (prev) { prev.focus() }
+          let target = nav.left(data.target)
+          if (target) { target.focus() }
         },
         arrowright (data) {
-          const next = data.target.nextSibling
-          if (next) { next.focus() }
+          let target = nav.right(data.target)
+          if (target) { target.focus() }
         }
       },
-      class: 'complex-item',
-      title: {
-        text: {
-          $: 'title'
-        }
-      },
-      searchtitle: {
-        text: {
-          $: '$root.title'
-        }
-      },
-      subtitle: [
-        {
-          type: 'text',
-          $: 'releaseYear',
-          $add: ' - '
-        },
-        {
-          type: 'text',
-          $: 'releaseCountry'
-        }
-      ]
+      class: 'complex-item'
     }
   }
 }
 
 const state = s({
   title: 'search app',
-  query: '',
+  query: 'w',
   movies: {
+    title: 'movies list!',
     items: movies
   }
 })
@@ -154,6 +98,7 @@ var treex
 var topsubs
 document.body.appendChild(render(elem, state,
   (state, type, stamp, nsubs, tree, sType, subs, rTree) => {
+    console.log('---->', state.path())
     treex = rTree
     topsubs = subs
   })

@@ -1,15 +1,7 @@
 'use strict'
 require('../style.css')
-const s = require('vigour-state/s')
 const render = require('brisky/render')
 const nav = require('dom-nav')
-const http = require('http')
-
-require('brisky').prototype.set({
-  properties: {
-    $condition: true
-  }
-})
 
 const elem = {
   key: 'app',
@@ -51,7 +43,7 @@ const elem = {
     $: 'movies.items.$any',
     Child: {
       $: '$condition',
-      class: 'complex-item',
+      class: 'complex-item poster-item',
       focus: { $: '$parent.$parent.focus' },
       poster: {
         node: 'img',
@@ -88,7 +80,7 @@ const elem = {
           if (target) {
             target.focus()
           } else {
-            state.focus.set(state.query, stamp)
+            data.state.getRoot().focus.set(data.state.getRoot().query, stamp)
           }
         },
         arrowdown (data) {
@@ -108,56 +100,4 @@ const elem = {
   }
 }
 
-const state = global.state = s({
-  title: 'search app',
-  query: {
-    on: {
-      data () {
-        const val = this.compute()
-        global.localStorage.query = val
-        http.get(`http://www.omdbapi.com/?s=${val}&r=json&type=movie`, (res) => {
-          var data = ''
-          res.on('data', (chunk) => { data += chunk })
-          res.on('end', () => {
-            data = JSON.parse(data)
-            if (!data.Error) {
-              data = data.Search
-              let payload = {}
-              for (let i = 0, len = data.length; i < len; i++) {
-                let movie = data[i]
-                payload[movie.imdbID] = {
-                  title: movie.Title,
-                  poster: movie.Poster,
-                  year: movie.Year
-                }
-              }
-              state.set({ movies: { items: payload } })
-            }
-          })
-        })
-      }
-    }
-  },
-  movies: {
-    title: 'movies list!',
-    focus: {
-      val: global.localStorage.focusMovie,
-      on: {
-        data () {
-          global.localStorage.focusMovie = this.serialize().val
-        }
-      }
-    }
-  },
-  focus: {
-    val: global.localStorage.focus || '$root.query',
-    on: {
-      data () {
-        global.localStorage.focus = this.serialize().val
-      }
-    }
-  }
-})
-
-state.query.set(global.localStorage.query || '')
-document.body.appendChild(render(elem, state))
+document.body.appendChild(render(elem, require('./state')))

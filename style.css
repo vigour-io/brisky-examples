@@ -93,6 +93,24 @@ body {
   }
 }
 
+.basic-item.focus {
+  border-width: 3px !important;
+  padding: 3px !important;
+}
+
+.poster-item {
+  & .poster {
+    display: inline-block;
+    width: 200px;
+    height: 300px;
+    object-fit: cover;
+  }
+  width: 230px;
+  & .title {
+    font-size: 12px !important;
+  }
+}
+
 .complex-item {
   box-sizing: border-box;
   vertical-align: middle;
@@ -113,12 +131,6 @@ body {
   & .nested * {
     padding: 5px;
     border: 1px solid var(--white);
-  }
-  & .poster {
-    display: inline-block;
-    width: 150px;
-    height: 250px;
-    object-fit: cover;
   }
   & .img {
     padding: 10px;

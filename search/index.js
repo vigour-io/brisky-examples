@@ -25,17 +25,42 @@ const elem = {
       textAlign: 'center'
     },
     node: 'input',
+    focus: { $: '$root.focus' },
     on: {
       input (data, stamp) {
-        data.state.getRoot().query.set(data.target.value)
+        data.state.getRoot().query.set(data.target.value, stamp)
+      },
+      change (data, stamp) {
+        const rootstate = data.state.getRoot()
+        const moviesfocus = rootstate.movies.focus
+        rootstate.focus.set(moviesfocus, stamp)
+        moviesfocus.emit('data', stamp)
+        if (document.activeElement === data.target) {
+          data.target.parentNode.childNodes[2].firstChild.focus()
+        }
+      },
+      arrowdown (data, stamp) {
+        const rootstate = data.state.getRoot()
+        const moviesfocus = rootstate.movies.focus
+        rootstate.focus.set(moviesfocus, stamp)
+        moviesfocus.emit('data', stamp)
+        if (document.activeElement === data.target) {
+          data.target.parentNode.childNodes[2].firstChild.focus()
+        }
       }
     }
   },
   holder: {
-    class: 'complex-item',
     $: 'movies.items.$any',
     Child: {
       $: '$condition',
+      class: 'basic-item',
+      focus: {
+        $: '$parent.$parent.focus'
+      },
+      text: {
+        $: 'title'
+      },
       $condition: {
         val (state) {
           const query = state.getRoot().query.compute()
@@ -51,13 +76,14 @@ const elem = {
           $root: { query: {} }
         }
       },
-      text: {
-        $: '$parent.$parent.title'
-      },
       on: {
-        arrowup (data) {
+        arrowup (data, stamp) {
           let target = nav.up(data.target)
-          if (target) { target.focus() }
+          if (target) {
+            target.focus()
+          } else {
+            state.focus.set(state.query, stamp)
+          }
         },
         arrowdown (data) {
           let target = nav.down(data.target)
@@ -71,15 +97,14 @@ const elem = {
           let target = nav.right(data.target)
           if (target) { target.focus() }
         }
-      },
-      class: 'complex-item'
+      }
     }
   }
 }
 
 const state = s({
   title: 'search app',
-  query: 'w',
+  query: '',
   movies: {
     title: 'movies list!',
     items: movies
@@ -98,7 +123,6 @@ var treex
 var topsubs
 document.body.appendChild(render(elem, state,
   (state, type, stamp, nsubs, tree, sType, subs, rTree) => {
-    console.log('---->', state.path())
     treex = rTree
     topsubs = subs
   })

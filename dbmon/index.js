@@ -66,7 +66,7 @@ const app = {
     }
   }
 }
-// -------------------------
+
 document.body.appendChild(render(app, state))
 // -------------------------
 var total = []
@@ -75,7 +75,7 @@ function update () {
   var time = 0
   state.set(getData(amount))
   if (d) { total.push(Date.now() - d) }
-  if (total.length > 50) {
+  if (total.length > 120) {
     total.shift()
   }
   d = Date.now()

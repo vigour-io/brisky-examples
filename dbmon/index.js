@@ -51,6 +51,13 @@ const app = {
             text: {
               $: 'elapsed',
               $transform: (val) => val && ~~(val * 100) / 100
+            },
+            popover: {
+              class: 'left',
+              arrow: {},
+              'popover-content': {
+                text: { $: 'query' }
+              }
             }
           }
         }

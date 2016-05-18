@@ -5,6 +5,7 @@
 }
 
 .Query:hover .popover {
+  margin-top: -20px;
   left: -100%;
   width: 100%;
   display: block;

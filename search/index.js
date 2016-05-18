@@ -12,6 +12,7 @@ const elem = {
     $: 'query',
     props: {
       placeholder: 'search movies...',
+      type: 'search',
       value: { $: true }
     },
     focus: { $: '$root.focus' },
@@ -46,8 +47,12 @@ const elem = {
       class: 'complex-item poster-item',
       focus: { $: '$parent.$parent.focus' },
       poster: {
-        node: 'img',
-        props: { src: { $: 'poster' } }
+        node: 'object',
+        props: {
+          data: { $: 'poster' },
+          type: 'image/jpg'
+        },
+        symbol: {}
       },
       title: { text: { $: 'title' } },
       text: { $: 'year' },

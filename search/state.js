@@ -1,7 +1,7 @@
 'use strict'
 const http = require('http')
 const s = require('vigour-state/s')
-const state = module.exports = s({
+const state = global.state = module.exports = s({
   title: 'search app',
   query: {
     on: {

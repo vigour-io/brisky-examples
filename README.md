@@ -1,6 +1,7 @@
 # brisky-examples
+Examples of the [brisky](https://github.com/vigour-io/brisky) a blazing fast js ui libary
 
-install and start the basic example
+Install and start the basic example
 `npm i & npm start basic`
 
 ####dbmon

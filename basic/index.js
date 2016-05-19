@@ -14,7 +14,7 @@ benchmark.loop(
     holder: {
       $: 'collection.$any',
       Child: {
-        node: 'span',
+        tag: 'span',
         class: 'basic-item',
         text: { $: 'title' } // lookup 2 per thing and then one extra for the parent very very bad
       }

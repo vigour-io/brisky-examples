@@ -13,7 +13,7 @@ const app = {
     class: 'complex-item',
     title: { text: { $: 'field' } },
     inputfield: {
-      node: 'input',
+      tag: 'input',
       class: 'basic-item',
       props: {
         value: { $: 'field' }

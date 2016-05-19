@@ -7,7 +7,7 @@ const elem = {
   key: 'app',
   text: 'search',
   search: {
-    node: 'input',
+    tag: 'input',
     class: 'title',
     $: 'query',
     props: {
@@ -47,7 +47,7 @@ const elem = {
       class: 'complex-item poster-item',
       focus: { $: '$parent.$parent.focus' },
       poster: {
-        node: 'object',
+        tag: 'object',
         props: {
           data: { $: 'poster' },
           type: 'image/jpg'

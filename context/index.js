@@ -55,7 +55,7 @@ document.body.appendChild(render({
       t4: { $: false, val: 'static' }
     },
     cat: {
-      node: 'img',
+      tag: 'img',
       class: {
         'basic-item': true,
         'whitefilter': true

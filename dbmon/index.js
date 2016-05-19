@@ -17,24 +17,24 @@ const app = {
     }
   },
   table: {
-    node: 'table',
+    tag: 'table',
     class: 'table-striped latest-data',
     body: {
-      node: 'tbody',
+      tag: 'tbody',
       $: 'databases.$any',
       Child: {
-        node: 'tr',
+        tag: 'tr',
         name: {
-          node: 'td',
+          tag: 'td',
           text: {
             $: true,
             $transform: (val) => val.key
           }
         },
         count: {
-          node: 'td',
+          tag: 'td',
           label: {
-            node: 'span',
+            tag: 'span',
             text: { $: 'length' },
             class: {
               $: 'length',
@@ -43,10 +43,10 @@ const app = {
           }
         },
         queries: {
-          node: 'fragment',
+          tag: 'fragment',
           $: 'queries.$any',
           Child: {
-            node: 'td',
+            tag: 'td',
             class: 'query',
             text: {
               $: 'elapsed',

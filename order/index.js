@@ -10,7 +10,6 @@ const app = {
   key: 'app',
   Child: { class: 'holder' },
   properties: { texts: { type: 'texts' } },
-  texts: [ '-', { $: 'first.text' }, '-' ],
   updateText: {
     class: 'basic-item',
     text: 'update all text',
@@ -44,7 +43,6 @@ const app = {
   toggle2: {
     class: 'basic-item',
     text: {
-      // completely wrong allready
       $: 'second.text',
       $transform (val) {
         return !val ? 'add second' : 'remove ' + val

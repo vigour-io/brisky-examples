@@ -44,7 +44,6 @@ const app = {
   toggle2: {
     class: 'basic-item',
     text: {
-      // completely wrong allready
       $: 'second.text',
       $transform (val) {
         return !val ? 'add second' : 'remove ' + val

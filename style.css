@@ -28,7 +28,6 @@ input:focus {
   text-align: center;
   background: none;
   border: none;
-  // border: 1px solid var(--white);
   font-size: 18px;
   padding: 15px;
   color: var(--white);

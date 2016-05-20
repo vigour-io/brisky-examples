@@ -47,12 +47,15 @@ const elem = {
       class: 'complex-item poster-item',
       focus: { $: '$parent.$parent.focus' },
       poster: {
-        tag: 'object',
+        tag: 'img',
         props: {
-          data: { $: 'poster' },
-          type: 'image/jpg'
-        },
-        symbol: {}
+          src: { $: 'poster' },
+          onerror (e) {
+            // not very nice ofc...
+            console.log('lullz', this, e)
+            // this.style.opacity = 0.5
+          }
+        }
       },
       title: { text: { $: 'title' } },
       text: { $: 'year' },

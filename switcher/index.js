@@ -51,7 +51,7 @@ const first = {
                 isWidget: true,
                 on: {
                   remove (data) {
-
+                    console.error('remove!')
                   }
                 }
               },

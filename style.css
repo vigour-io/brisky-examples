@@ -126,6 +126,14 @@ body {
     margin-top: 7.5px;
     margin-bottom: 7.5px;
   }
+  & .input {
+    width: 100%;
+    background: none;
+    border: 1px solid var(--white);
+    margin-top: 7.5px;
+    margin-bottom: 7.5px;
+    color: var(--white);
+  }
   & .nested * {
     padding: 5px;
     border: 1px solid var(--white);
@@ -154,12 +162,19 @@ body {
   }
 }
 
+.complex-item .input:focus {
+  outline: none;
+  background-color: var(--white);
+  color: var(--fg2);
+}
+
 .complex-item.focus {
   border-width: 3px !important;
   padding: 13px !important;
 }
 
 .symbol {
+  transition: opacity 1s ease-in-out;
   position: relative;
   display: inline-block;
   width: 40px;

@@ -1,51 +1,59 @@
 const Hub = require('vigour-hub')
 const render = require('brisky/render')
-const state = global.state = Hub({ connect: 'ws://localhost:3031' })
+const state = global.state = new Hub({
+  url: 'ws://imac:3031'
+})
 
 state.connected.on(function () {
-  // want to be able to subscribe on this -- important!
-  // add it in client (?)
-  console.log('yo connected!', this.val)
+  console.log('yo connected!', this.compute(), this.parent.id)
 })
 
 const app = {
-  top: {
-    class: 'complex-item',
-    title: { text: { $: 'field' } },
-    inputfield: {
-      tag: 'input',
-      class: 'basic-item',
-      props: {
-        value: { $: 'field' }
-      },
-      on: {
-        keyup (e, stamp) {
-          console.log(stamp)
-          e.state.set({ field: e.target.value }, stamp)
-        }
-      }
-    }
-  },
-  addMovie: {
-    class: 'basic-item',
-    text: 'add movie',
-    on: {
-      click (e) {
-        var cnt = Date.now()
-        state.set({
-          movies: {
-            [cnt]: {
-              title: 'movie ' + cnt
-            }
+  text: { $: 'title' },
+  holder: {
+    top: {
+      class: 'complex-item',
+      title: { text: { $: 'query' } },
+      symbol: {
+        style: {
+          opacity: {
+            $: 'connected',
+            $transform: (val) => val === true ? 1 : 0.4
           }
-        })
+        }
+      },
+      input: {
+        tag: 'input',
+        class: 'basic-item',
+        props: {
+          value: { $: 'query' }
+        },
+        on: {
+          keyup (e, stamp) {
+            e.state.set({ query: e.target.value }, stamp)
+          }
+        }
+      },
+      addMovie: {
+        class: 'basic-item',
+        text: 'add movie',
+        on: {
+          click (e) {
+            const cnt = Date.now()
+            state.set({
+              movies: {
+                items: { [cnt]: { title: 'movie ' + cnt } }
+              }
+            })
+          }
+        }
       }
     }
   },
   movies: {
     class: 'holder',
     title: { text: 'movies' },
-    $: 'movies.$any',
+    $: 'movies.items.$any',
     Child: {
       class: 'complex-item',
       title: { text: { $: 'title' } },

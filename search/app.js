@@ -72,7 +72,7 @@ module.exports = {
   holder: {
     $: 'movies.items.$any',
     Child: {
-      $: '$condition',
+      $: '$test',
       class: 'complex-item poster-item',
       focus: { $: '$parent.$parent.focus' },
       poster: {
@@ -98,7 +98,7 @@ module.exports = {
         class: 'nested',
         text: { $: 'description' }
       },
-      $condition: {
+      $test: {
         val (state) {
           const $root = state.getRoot()
           var query = $root.query && $root.query.compute()
@@ -120,7 +120,7 @@ module.exports = {
             return titleResult || state.year && state.year.compute() === query
           }
         },
-        $subs: {
+        $: {
           title: {},
           $root: { query: {}, rating: {} }
         }

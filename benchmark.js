@@ -1,5 +1,5 @@
 'use strict'
-require('vigour-util/require')()
+require('vigour-util/require')() // fix for css requires in node
 require('./benchmark.css')
 const render = require('brisky/render')
 const State = require('vigour-state')
@@ -27,15 +27,28 @@ exports.ui = {
   }
 }
 
-exports.init = function (amount, app, method, update) {
+exports.init = function (amount, app, method, update, state) {
   app.inject = exports.ui
-  var state = { collection: {}, ms: {} }
+  if (state) {
+    if (state.isState) {
+      state.set({
+        collection: {},
+        ms: { syncUp: false, syncDown: false }
+      }, false)
+    } else {
+      state.collection = {}
+      state.ms = {}
+    }
+  } else {
+    state = { collection: {}, ms: {} }
+  }
   for (let i = 0; i < amount; i++) {
     state.collection[i] = method(i, 0)
   }
-  state = new State(state, false)
+  if (!state.isState) {
+    state = new State(state, false)
+  }
   if (update) { update(state, 0) }
-  // init measure
   var ms = Date.now()
   if (document.body) {
     document.body.appendChild(render(app, state))
@@ -45,9 +58,9 @@ exports.init = function (amount, app, method, update) {
   return state
 }
 
-exports.loop = function (amount, app, method, update) {
+exports.loop = function (amount, app, method, update, passState) {
   setTimeout(function () {
-    const state = exports.init(amount, app, method, update)
+    const state = exports.init(amount, app, method, update, passState)
     var cnt = 0
     var total = 0
     function loop () {

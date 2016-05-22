@@ -1,12 +1,6 @@
-const Hub = require('vigour-hub')
+'use strict'
 const render = require('brisky/render')
-const state = global.state = new Hub({
-  url: 'ws://imac:3031'
-})
-
-state.connected.on(function () {
-  console.log('yo connected!', this.compute(), this.parent.id)
-})
+const state = require('./client')
 
 const app = {
   text: { $: 'title' },

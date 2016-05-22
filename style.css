@@ -12,6 +12,12 @@ div:focus {
   outline: none;
   background-color: var(--white);
   color: var(--fg2);
+  & .title {
+    border-bottom: 1px solid var(--fg2);
+  }
+  & .basic-item {
+    border: 1px solid var(--fg2);
+  }
 }
 
 input:focus {
@@ -20,19 +26,55 @@ input:focus {
   color: var(--fg2);
 }
 
-.search {
-  display: block;
+* {
+  box-sizing: border-box;
+}
+
+.holder .search.title {
   width: 100%;
+  max-width: 400px;
   margin-top:10px;
   margin-bottom: 15px;
   text-align: center;
   background: none;
   border: none;
   font-size: 18px;
-  padding: 15px;
   color: var(--white);
   font-family: 'Droid Sans Mono';
   background-color: var(--fg2);
+  display: inline-block;
+  margin-left: 15px;
+  margin-right: 15px;
+  border: 1px solid white;
+  padding: 20px;
+  // padding-bottom: 15px;
+}
+
+.filter {
+  margin-left: 15px;
+  margin-left: 15px;
+  display: inline-block;
+}
+
+input[type=range] {
+  appearance: none;
+  border: none;
+  background-color: #fff;
+  height: 1px;
+  margin-top: -30px;
+}
+
+input[type='range']:focus {
+  background-color: --var(bg);
+}
+
+input[type='range']::-webkit-slider-thumb {
+  appearance: none;
+  background-color: var(--fg2);
+  border: 1px solid #fff;
+  width: 5px;
+  height: 15px;
+  cursor: pointer;
 }
 
 .search::placeholder {
@@ -99,11 +141,10 @@ body {
 .poster-item {
   & .poster {
     display: inline-block;
-    width: 200px;
-    height: 300px;
+    width: 300px;
     object-fit: cover;
   }
-  width: 230px;
+  width: 330px;
   & .title {
     font-size: 12px !important;
   }

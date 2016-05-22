@@ -19,17 +19,42 @@ const first = {
     },
     properties: {
       show: {
+        on: {
+          remove (data) {
+            const node = data.target
+            node.style.opacity = 0
+            setTimeout(function () {
+              node.parentNode.removeChild(node)
+              node.style.opacity = 1
+            }, 500)
+          }
+        },
         text: 'Firstscreen Show!',
         title: {
           text: {
             $: 'title'
           }
         },
-        holder: {
+        holder2: {
           $: 'currentEpisode.$switch',
           map: () => 'episode',
           properties: {
             episode: {
+              player: {
+                class: 'basic-item',
+                text: 'im a player!',
+                more: {
+                  text: {
+                    $: 'title'
+                  }
+                },
+                isWidget: true,
+                on: {
+                  remove (data) {
+                    console.error('remove!')
+                  }
+                }
+              },
               text: {
                 $: 'title'
               }
@@ -113,6 +138,7 @@ const elem = {
   modes: {
     $: 'mode.$switch',
     map: (state) => {
+      console.log('mode!', state.key)
       return state.key
     },
     properties: { first, second }
@@ -122,6 +148,7 @@ const elem = {
     text: 'switch page',
     on: {
       click () {
+        console.log('---switch page----')
         const navigation = state.first.navigation
         navigation.set(navigation.val === state.first.content.showData
           ? '$root.first.content.discoverData'
@@ -134,6 +161,7 @@ const elem = {
     text: 'switch mode',
     on: {
       click () {
+        console.log('---switch mode----')
         const navigation = state.mode
         navigation.set(navigation.val === state.first
           ? '$root.second'
@@ -144,21 +172,29 @@ const elem = {
 }
 
 const state = s({
-  navigation: '$root.first.content.showData',
-  content: {
-    showData: {
-      title: 'awesome show!',
-      currentEpisode: '$root.first.content.showData.episodes.0',
-      episodes: [
-        { title: 'Jersey Mania!' },
-        { title: 'Kijken Met Vrienden!' },
-        { title: 'Abu Dhabi Live!' },
-        { title: 'Ik Vertrek!' }
-      ]
-    },
-    discoverData: {
-      title: 'discover it!'
+  mode: '$root.first',
+  first: {
+    title: 'Oh! First?',
+    navigation: '$root.first.content.showData',
+    content: {
+      showData: {
+        title: 'awesome show!',
+        currentEpisode: '$root.first.content.showData.episodes.0',
+        episodes: [
+          { title: 'Jersey Mania!' },
+          { title: 'Kijken Met Vrienden!' },
+          { title: 'Abu Dhabi Live!' },
+          { title: 'Ik Vertrek!' }
+        ]
+      },
+      discoverData: {
+        title: 'discover it!'
+      }
     }
+  },
+  second: {
+    title: 'Yay, second screen!',
+    navigation: '$root.first.navigation'
   }
 })
 

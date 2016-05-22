@@ -39,7 +39,7 @@ document.body.appendChild(render({
   text: 'context',
   key: 'app',
   Child: { class: 'holder' },
-  components: {
+  types: {
     t: {
       type: 'text',
       $: 'b',
@@ -68,7 +68,7 @@ document.body.appendChild(render({
         // }
       },
       style: {
-        components: {
+        types: {
           fatborder: {
             name: 'border',
             $: 'border'
@@ -93,7 +93,7 @@ document.body.appendChild(render({
         }
       },
       props: {
-        components: {
+        types: {
           greeting: {
             $: 'greeting',
             $transform (val) {

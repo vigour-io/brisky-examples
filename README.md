@@ -25,7 +25,7 @@ Uses brisky as an animation engine
 `npm start snake`
 
 ####context
-Demonstrates usage of shared components
+Demonstrates usage of shared types
 
 `npm start context`
 
@@ -35,7 +35,7 @@ Switches between pages
 `npm start context`
 
 ####order
-Order property, shared components
+Order property, shared types
 
 `npm start order`
 

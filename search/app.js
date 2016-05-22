@@ -54,14 +54,16 @@ module.exports = {
           e.state.getRoot().set({ query: e.target.value }, stamp)
         },
         change (data, stamp) {
-          this._on.arrowdown.emit(this, stamp, data)
+          this.emit('arrowdown', data, stamp)
         },
         arrowdown (data, stamp) {
           const rootstate = data.state.getRoot()
           const moviesfocus = rootstate.get('movies.focus', {})
           console.log(moviesfocus, rootstate)
           rootstate.set({ focus: moviesfocus }, stamp)
-          moviesfocus.emit('data', stamp)
+
+          // total wrong emit
+          moviesfocus.emit('data', void 0, stamp)
           if (document.activeElement === data.target) {
             data.target.parentNode.parentNode.childNodes[2].firstChild.focus()
           }

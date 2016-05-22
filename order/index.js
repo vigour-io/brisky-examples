@@ -1,11 +1,11 @@
 'use strict'
 require('../style.css')
 const render = require('brisky/render')
-const components = require('./components')
+const types = require('./types')
 const s = require('vigour-state/s')
 const state = s({ title: 'third' })
 const app = {
-  inject: components,
+  inject: types,
   text: 'order',
   key: 'app',
   Child: { class: 'holder' },

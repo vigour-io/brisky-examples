@@ -1,5 +1,5 @@
 'use strict'
-exports.components = {
+exports.types = {
   basic: {
     class: 'basic-item',
     Child: { class: 'basic-item' },

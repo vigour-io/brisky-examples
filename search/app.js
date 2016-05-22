@@ -7,10 +7,7 @@ module.exports = {
   key: 'app',
   text: {
     $: 'movies.items',
-    $transform (val) {
-      return 'movies total:' + val.keys().length +
-      ' dom nodes total:' + document.getElementsByTagName('*').length
-    }
+    $transform: (val) => 'movies total:' + val.keys().length
   },
   filters: {
     class: 'holder',
@@ -26,9 +23,10 @@ module.exports = {
           step: 0.1
         },
         on: {
-          input (data, stamp) {
+          input (e, stamp) {
+            // this way you can change the stamp name
             // stamp = vstamp.create(this.path().join('-'))
-            data.state.set({ rating: data.target.value }, stamp)
+            e.state.set({ rating: e.target.value }, stamp)
             // vstamp.close(stamp)
           }
         }
@@ -50,29 +48,29 @@ module.exports = {
           $transform: (val) => typeof val === 'string' ? val : ''
         }
       },
-      // focus: { $: '$root.focus' },
+      focus: { $: '$root.focus' },
       on: {
-        input (data, stamp) {
-          data.state.getRoot().query.set(data.target.value, stamp)
+        input (e, stamp) {
+          e.state.getRoot().set({ query: e.target.value }, stamp)
+        },
+        change (data, stamp) {
+          const rootstate = data.state.getRoot()
+          const moviesfocus = rootstate.get('movies.focus', {})
+          rootstate.focus.set(moviesfocus, stamp)
+          moviesfocus.emit('data', stamp)
+          if (document.activeElement === data.target) {
+            data.target.parentNode.childNodes[2].firstChild.focus()
+          }
+        },
+        arrowdown (data, stamp) {
+          const rootstate = data.state.getRoot()
+          const moviesfocus = rootstate.get('movies.focus', {})
+          rootstate.focus.set(moviesfocus, stamp)
+          moviesfocus.emit('data', stamp)
+          if (document.activeElement === data.target) {
+            data.target.parentNode.childNodes[2].firstChild.focus()
+          }
         }
-      //   change (data, stamp) {
-      //     const rootstate = data.state.getRoot()
-      //     const moviesfocus = rootstate.get('movies.focus', {})
-      //     rootstate.focus.set(moviesfocus, stamp)
-      //     moviesfocus.emit('data', stamp)
-      //     if (document.activeElement === data.target) {
-      //       data.target.parentNode.childNodes[2].firstChild.focus()
-      //     }
-      //   },
-      //   arrowdown (data, stamp) {
-      //     const rootstate = data.state.getRoot()
-      //     const moviesfocus = rootstate.get('movies.focus', {})
-      //     rootstate.focus.set(moviesfocus, stamp)
-      //     moviesfocus.emit('data', stamp)
-      //     if (document.activeElement === data.target) {
-      //       data.target.parentNode.childNodes[2].firstChild.focus()
-      //     }
-      //   }
       }
     }
   },
@@ -81,7 +79,7 @@ module.exports = {
     Child: {
       $: '$condition',
       class: 'complex-item poster-item',
-      // focus: { $: '$parent.$parent.focus' },
+      focus: { $: '$parent.$parent.focus' },
       poster: {
         tag: 'img',
         props: {
@@ -133,31 +131,31 @@ module.exports = {
         }
       },
       on: {
-        // keyup (e, stamp) {
-        //   if (e.event.keyCode === 13) {
-        //     this.emit('click', e, stamp)
-        //   }
-        // },
-        // arrowup (data, stamp) {
-        //   let target = nav.up(data.target)
-        //   if (target) {
-        //     target.focus()
-        //   } else {
-        //     data.state.getRoot().focus.set(data.state.getRoot().query, stamp)
-        //   }
-        // },
-        // arrowdown (data) {
-        //   let target = nav.down(data.target)
-        //   if (target) { target.focus() }
-        // },
-        // arrowleft (data) {
-        //   let target = nav.left(data.target)
-        //   if (target) { target.focus() }
-        // },
-        // arrowright (data) {
-        //   let target = nav.right(data.target)
-        //   if (target) { target.focus() }
-        // }
+        keyup (e, stamp) {
+          if (e.event.keyCode === 13) {
+            this.emit('click', e, stamp)
+          }
+        },
+        arrowup (e, stamp) {
+          let target = nav.up(e.target)
+          if (target) {
+            target.focus()
+          } else {
+            e.state.getRoot().focus.set(e.state.getRoot().query, stamp)
+          }
+        },
+        arrowdown (e) {
+          let target = nav.down(e.target)
+          if (target) { target.focus() }
+        },
+        arrowleft (e) {
+          let target = nav.left(e.target)
+          if (target) { target.focus() }
+        },
+        arrowright (e) {
+          let target = nav.right(e.target)
+          if (target) { target.focus() }
+        }
       }
     }
   }

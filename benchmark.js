@@ -21,6 +21,18 @@ exports.ui = {
         $add: ' ms periodic updates'
       }
     },
+    update: {
+      $: 'updating',
+      text: {
+        $: true,
+        $transform: (val) => val === true ? 'updating' : 'paused'
+      },
+      on: {
+        click (e, stamp) {
+          e.state.set(!e.state.val, stamp)
+        }
+      }
+    },
     elems: {
       text: { $: 'elems', $add: ' dom-nodes' }
     }
@@ -32,8 +44,9 @@ exports.init = function (amount, app, method, update, state) {
   if (state) {
     if (state.isState) {
       state.set({
-        collection: {},
-        ms: { syncUp: false, syncDown: false }
+        collection: { sync: false },
+        elems: { sync: false },
+        ms: { sync: false }
       }, false)
     } else {
       state.collection = {}
@@ -52,7 +65,7 @@ exports.init = function (amount, app, method, update, state) {
   var ms = Date.now()
   if (document.body) {
     document.body.appendChild(render(app, state))
-    state.set({ first: Date.now() - ms })
+    state.set({ first: { val: Date.now() - ms, sync: false } })
     state.set({ elems: document.getElementsByTagName('*').length })
   }
   return state
@@ -63,23 +76,28 @@ exports.loop = function (amount, app, method, update, passState) {
     const state = exports.init(amount, app, method, update, passState)
     var cnt = 0
     var total = 0
+    if (!state.updating) {
+      state.set({ updating: false }, false)
+    }
     function loop () {
-      cnt++
-      var ms = Date.now()
-      if (!update) {
-        var obj = {}
-        for (let i = 0; i < amount; i++) {
-          obj[i] = method(i, cnt)
+      if (state.updating.val === true) {
+        cnt++
+        var ms = Date.now()
+        if (!update) {
+          var obj = {}
+          for (let i = 0; i < amount; i++) {
+            obj[i] = method(i, cnt)
+          }
+          state.collection.set(obj)
+        } else {
+          update(state, cnt, amount)
         }
-        state.collection.set(obj)
-      } else {
-        update(state, cnt, amount)
-      }
-      if (!state.first) {
-        state.set({ first: Date.now() - ms })
-      } else {
-        total += (Date.now() - ms)
-        state.ms.set(total / cnt)
+        if (!state.first) {
+          state.set({ first: Date.now() - ms })
+        } else {
+          total += (Date.now() - ms)
+          state.ms.set(total / cnt)
+        }
       }
       raf(loop)
     }

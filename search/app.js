@@ -54,21 +54,16 @@ module.exports = {
           e.state.getRoot().set({ query: e.target.value }, stamp)
         },
         change (data, stamp) {
-          const rootstate = data.state.getRoot()
-          const moviesfocus = rootstate.get('movies.focus', {})
-          rootstate.focus.set(moviesfocus, stamp)
-          moviesfocus.emit('data', stamp)
-          if (document.activeElement === data.target) {
-            data.target.parentNode.childNodes[2].firstChild.focus()
-          }
+          this._on.arrowdown.emit(this, stamp, data)
         },
         arrowdown (data, stamp) {
           const rootstate = data.state.getRoot()
           const moviesfocus = rootstate.get('movies.focus', {})
-          rootstate.focus.set(moviesfocus, stamp)
+          console.log(moviesfocus, rootstate)
+          rootstate.set({ focus: moviesfocus }, stamp)
           moviesfocus.emit('data', stamp)
           if (document.activeElement === data.target) {
-            data.target.parentNode.childNodes[2].firstChild.focus()
+            data.target.parentNode.parentNode.childNodes[2].firstChild.focus()
           }
         }
       }
@@ -141,7 +136,7 @@ module.exports = {
           if (target) {
             target.focus()
           } else {
-            e.state.getRoot().focus.set(e.state.getRoot().query, stamp)
+            e.state.getRoot().set({ focus: e.state.getRoot().query }, stamp)
           }
         },
         arrowdown (e) {

@@ -77,7 +77,7 @@ exports.loop = function (amount, app, method, update, passState) {
     var cnt = 0
     var total = 0
     if (!state.updating) {
-      state.set({ updating: false }, false)
+      state.set({ updating: true })
     }
     function loop () {
       if (state.updating.val === true) {

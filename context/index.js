@@ -35,7 +35,7 @@ const state = s({
   ]
 })
 
-document.body.appendchild(render({
+document.body.appendChild(render({
   text: 'context',
   key: 'app',
   child: { class: 'holder' },

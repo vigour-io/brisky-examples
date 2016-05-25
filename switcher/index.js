@@ -200,7 +200,7 @@ const state = s({
 
 var treex
 var topsubs
-document.body.appendchild(render(elem, state,
+document.body.appendChild(render(elem, state,
   (state, type, stamp, nsubs, tree, sType, subs, rTree) => {
     treex = rTree
     topsubs = subs

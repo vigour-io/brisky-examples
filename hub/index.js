@@ -65,4 +65,4 @@ const app = {
   }
 }
 
-document.body.appendchild(render(app, state))
+document.body.appendChild(render(app, state))

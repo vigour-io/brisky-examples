@@ -96,7 +96,7 @@ const app = {
   ]
 }
 
-document.body.appendchild(render(app, state))
+document.body.appendChild(render(app, state))
 
 state.set({ second: { text: 'second' } })
 state.set({ first: { text: 'first' } })

@@ -64,7 +64,7 @@ exports.init = function (amount, app, method, update, state) {
   if (update) { update(state, 0) }
   var ms = Date.now()
   if (document.body) {
-    document.body.appendChild(render(app, state))
+    document.body.appendchild(render(app, state))
     state.set({ first: { val: Date.now() - ms, sync: false } })
     state.set({ elems: document.getElementsByTagName('*').length })
   }

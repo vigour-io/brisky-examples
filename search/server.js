@@ -3,7 +3,7 @@ const Hub = require('vigour-hub')
 const http = require('http')
 const url = 'http://api.themoviedb.org/3/'
 const apikey = '&api_key=7049bfd41c073cdc48a026969d0cb3e1'
-const hub = new Hub({
+const hub = global.hub = new Hub({
   port: 3031,
   title: 'hub',
   query: {

@@ -14,7 +14,7 @@ const first = {
         return 'discover'
       }
     },
-    Child: {
+    child: {
       class: 'complex-item'
     },
     properties: {
@@ -24,7 +24,7 @@ const first = {
             const node = data.target
             node.style.opacity = 0
             setTimeout(function () {
-              node.parentNode.removeChild(node)
+              node.parentNode.removechild(node)
               node.style.opacity = 1
             }, 500)
           }
@@ -68,7 +68,7 @@ const first = {
             text: 'episode list:'
           },
           $: 'episodes.$any',
-          Child: {
+          child: {
             text: {
               $: 'title'
             },
@@ -118,7 +118,7 @@ const second = {
           return 'discover'
         }
       },
-      Child: {
+      child: {
         class: 'complex-item'
       },
       properties: {
@@ -200,7 +200,7 @@ const state = s({
 
 var treex
 var topsubs
-document.body.appendChild(render(elem, state,
+document.body.appendchild(render(elem, state,
   (state, type, stamp, nsubs, tree, sType, subs, rTree) => {
     treex = rTree
     topsubs = subs

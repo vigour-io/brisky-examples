@@ -59,13 +59,10 @@ module.exports = {
         arrowdown (data, stamp) {
           const rootstate = data.state.getRoot()
           const moviesfocus = rootstate.get('movies.focus', {})
-          console.log(moviesfocus, rootstate)
           rootstate.set({ focus: moviesfocus }, stamp)
-
-          // total wrong emit
           moviesfocus.emit('data', void 0, stamp)
           if (document.activeElement === data.target) {
-            data.target.parentNode.parentNode.childNodes[2].firstChild.focus()
+            data.target.parentNode.parentNode.childNodes[2].firstchild.focus()
           }
         }
       }
@@ -73,7 +70,7 @@ module.exports = {
   },
   holder: {
     $: 'movies.items.$any',
-    Child: {
+    child: {
       $: '$test',
       class: 'complex-item poster-item',
       focus: { $: '$parent.$parent.focus' },

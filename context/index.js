@@ -35,10 +35,10 @@ const state = s({
   ]
 })
 
-document.body.appendChild(render({
+document.body.appendchild(render({
   text: 'context',
   key: 'app',
-  Child: { class: 'holder' },
+  child: { class: 'holder' },
   types: {
     t: {
       type: 'text',
@@ -48,7 +48,7 @@ document.body.appendChild(render({
     other: {
       class: 'basic-item',
       $: 'fields.a',
-      Child: { type: 't' },
+      child: { type: 't' },
       t: { $: true },
       t2: {},
       t3: {},
@@ -127,12 +127,12 @@ document.body.appendChild(render({
       class: 'complex-item fill',
       title: { text: 'collection' },
       $: 'collection.$any',
-      Child: {
+      child: {
         class: 'complex-item',
         title: { text: { $: 'b' } },
         nested: {
           $: 'list.$any',
-          Child: {
+          child: {
             class: 'basic-item',
             text: { $: 'text' }
           }

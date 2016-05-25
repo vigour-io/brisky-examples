@@ -22,4 +22,4 @@ benchmark.loop(
 )
 
 // const render = require('brisky/render')
-// document.body.appendChild(render(, state))
+// document.body.appendchild(render(require('./app'), state))

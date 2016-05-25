@@ -8,7 +8,7 @@ const app = {
   inject: types,
   text: 'order',
   key: 'app',
-  Child: { class: 'holder' },
+  child: { class: 'holder' },
   properties: { texts: { type: 'texts' } },
   texts: [ '-', { $: 'first.text' }, '-' ],
   updateText: {
@@ -96,7 +96,7 @@ const app = {
   ]
 }
 
-document.body.appendChild(render(app, state))
+document.body.appendchild(render(app, state))
 
 state.set({ second: { text: 'second' } })
 state.set({ first: { text: 'first' } })

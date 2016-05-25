@@ -13,7 +13,7 @@ benchmark.loop(
     text: 'basic',
     holder: {
       $: 'collection.$any',
-      Child: {
+      child: {
         tag: 'span',
         class: 'basic-item',
         text: { $: '$root.title' }

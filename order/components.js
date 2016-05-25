@@ -2,7 +2,7 @@
 exports.types = {
   basic: {
     class: 'basic-item',
-    Child: { class: 'basic-item' },
+    child: { class: 'basic-item' },
     first: {
       $: 'first',
       text: { $: 'text' },
@@ -10,14 +10,14 @@ exports.types = {
     },
     second: { text: 'static-second' }
   },
-  texts: { Child: { type: 'text' } },
+  texts: { child: { type: 'text' } },
   complex: {
     class: 'complex-item',
     first: {
       $: 'first',
       class: 'nested',
       a: {
-        Child: { class: 'basic-item' },
+        child: { class: 'basic-item' },
         dynamic: { text: { $: 'text' } },
         static: {
           text: 'static-second',

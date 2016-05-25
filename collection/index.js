@@ -8,7 +8,7 @@ const app = {
     holder1: {
       class: 'holder',
       $: 'collection.$any',
-      Child: {
+      child: {
         class: 'basic-item',
         text: { $: 'title' }
       }
@@ -16,7 +16,7 @@ const app = {
     holder2: {
       class: 'holder',
       $: 'collection.$any',
-      Child: {
+      child: {
         class: 'complex-item',
         on: {
           remove (val, stamp, node) {

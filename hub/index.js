@@ -48,7 +48,7 @@ const app = {
     class: 'holder',
     title: { text: 'movies' },
     $: 'movies.items.$any',
-    Child: {
+    child: {
       class: 'complex-item',
       title: { text: { $: 'title' } },
       removebtn: {
@@ -65,4 +65,4 @@ const app = {
   }
 }
 
-document.body.appendChild(render(app, state))
+document.body.appendchild(render(app, state))

@@ -9,7 +9,7 @@ benchmark.loop(
     key: 'app',
     holder1: {
       $: 'collection.$any',
-      Child: {
+      child: {
         class: 'snake-dot',
         field: { text: 'snake' },
         style: {

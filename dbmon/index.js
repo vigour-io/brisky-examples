@@ -22,7 +22,7 @@ const app = {
     body: {
       tag: 'tbody',
       $: 'databases.$any',
-      Child: {
+      child: {
         tag: 'tr',
         name: {
           tag: 'td',
@@ -45,7 +45,7 @@ const app = {
         queries: {
           tag: 'fragment',
           $: 'queries.$any',
-          Child: {
+          child: {
             tag: 'td',
             class: 'query',
             text: {
@@ -66,7 +66,7 @@ const app = {
   }
 }
 
-document.body.appendChild(render(app, state))
+document.body.appendchild(render(app, state))
 // -------------------------
 var total = []
 var d

@@ -10,6 +10,10 @@ const amount = 50
 const state = s(getData(amount))
 // -------------------------
 const app = {
+  child: {
+    class: true,
+    child: 'Constructor'
+  },
   stats: {
     text: {
       $: 'fps',

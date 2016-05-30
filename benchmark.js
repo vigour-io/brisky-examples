@@ -9,6 +9,7 @@ const raf = global.requestAnimationFrame || process.nextTick
 exports.ui = {
   class: { shiftdown: true },
   benchmark: {
+    class: 'benchmark',
     init: {
       text: { $: 'first', $add: ' ms initial render' }
     },

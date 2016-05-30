@@ -9,9 +9,10 @@ require('../style.css')
 benchmark.loop(
   25e2,
   {
-    key: 'app',
+    class: 'app',
     text: 'basic',
     holder: {
+      class: true,
       $: 'collection.$any',
       child: {
         tag: 'span',

@@ -5,6 +5,10 @@ const nav = require('dom-nav')
 
 module.exports = {
   key: 'app',
+  child: {
+    class: true,
+    child: 'Constructor'
+  },
   text: {
     $: 'movies.items',
     $transform: (val) => 'movies total:' + val.keys().length

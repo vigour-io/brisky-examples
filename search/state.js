@@ -5,6 +5,7 @@ const apikey = '&api_key=7049bfd41c073cdc48a026969d0cb3e1'
 module.exports = {
   title: 'hub',
   query: {
+    val: '',
     on: {
       data () {
         const val = this.compute()
@@ -19,13 +20,14 @@ module.exports = {
     val: '$root.query'
   },
   define: {
-    init () {
+    scrapeSomeMovies () {
       var i = 0
+      var state = this
       function discover () {
         i++
         if (i < 100) {
           console.log('discover movies', i)
-          getMovies(`${url}discover/movie?sort_by=popularity.desc&page=${i}${apikey}`, this, discover)
+          getMovies(`${url}discover/movie?sort_by=popularity.desc&page=${i}${apikey}`, state, discover)
         }
       }
       discover()

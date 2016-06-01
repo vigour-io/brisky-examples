@@ -11,6 +11,7 @@ benchmark.loop(
   {
     class: 'app',
     text: 'basic',
+    update: false,
     holder: {
       class: true,
       $: 'collection.$any',

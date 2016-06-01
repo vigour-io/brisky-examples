@@ -15,7 +15,7 @@ module.exports = {
   },
   filters: {
     class: 'holder',
-    filter: {
+    rating: {
       class: 'complex-item',
       slider: {
         tag: 'input',

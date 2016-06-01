@@ -125,7 +125,7 @@ document.body.appendChild(render({
     },
     collection: {
       class: 'complex-item fill',
-      title: { text: 'collection' },
+      title: { text: 'collection koekoek' },
       $: 'collection.$any',
       child: {
         class: 'complex-item',

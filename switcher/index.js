@@ -7,7 +7,7 @@ const first = {
   holder: {
     class: 'basic-item',
     $: 'navigation.$switch',
-    map (state, type, stamp, subs, tree, sType) {
+    $switch (state, type, stamp, subs, tree, sType) {
       if (state.key === 'showData') {
         return 'show'
       } else if (state.key === 'discoverData') {
@@ -22,11 +22,17 @@ const first = {
         on: {
           remove (data) {
             const node = data.target
-            node.style.opacity = 0
-            setTimeout(function () {
-              node.parentNode.removechild(node)
-              node.style.opacity = 1
-            }, 500)
+            node.style.opacity = 1
+            fadeOut()
+            function fadeOut () {
+              node.style.opacity -= 0.005
+              if (node.style.opacity > 0) {
+                global.requestAnimationFrame(fadeOut)
+              } else {
+                node.parentNode.removeChild(node)
+                node.style.opacity = 1
+              }
+            }
           }
         },
         text: 'Firstscreen Show!',
@@ -37,7 +43,7 @@ const first = {
         },
         holder2: {
           $: 'currentEpisode.$switch',
-          map: () => 'episode',
+          $switch: () => 'episode',
           properties: {
             episode: {
               player: {
@@ -111,7 +117,7 @@ const second = {
     switcher: {
       class: 'complex-item',
       $: 'navigation.$switch',
-      map (state, type, stamp, subs, tree, sType) {
+      $switch (state, type, stamp, subs, tree, sType) {
         if (state.key === 'showData') {
           return 'show'
         } else if (state.key === 'discoverData') {
@@ -135,14 +141,6 @@ const second = {
 
 const elem = {
   key: 'app',
-  modes: {
-    $: 'mode.$switch',
-    map: (state) => {
-      console.log('mode!', state.key)
-      return state.key
-    },
-    properties: { first, second }
-  },
   switchpage: {
     class: 'basic-item',
     text: 'switch page',
@@ -168,6 +166,14 @@ const elem = {
           : '$root.first')
       }
     }
+  },
+  modes: {
+    $: 'mode.$switch',
+    $switch: (state) => {
+      console.log('mode!', state.key)
+      return state.key
+    },
+    properties: { first, second }
   }
 }
 
@@ -201,7 +207,7 @@ const state = s({
 var treex
 var topsubs
 document.body.appendChild(render(elem, state,
-  (state, type, stamp, nsubs, tree, sType, subs, rTree) => {
+  (subs, rTree) => {
     treex = rTree
     topsubs = subs
   })

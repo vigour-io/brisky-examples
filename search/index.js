@@ -17,7 +17,7 @@ benchmark.loop(
   (state, cnt) => {
     let movies = state.get('movies.items')
     if (movies) {
-      let q = movies[movies._keys[~~(Math.random() * movies._keys.length)]].title.val
+      let q = movies[movies._keys[~~(Math.random() * movies._keys.length)]].get('title.val')
       state.query && state.query.set({ val: q, sync: false })
     }
   },

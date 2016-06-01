@@ -13,6 +13,7 @@ exports.types = {
   texts: { child: { type: 'text' } },
   complex: {
     class: 'complex-item',
+    sort: 'order',
     first: {
       $: 'first',
       class: 'nested',

@@ -6,7 +6,8 @@
   "scripts": {
     "test": "node_modules/standard/bin/cmd.js",
     "start": "node index.js",
-    "docs": "node_modules/vigour-doc/bin/vdoc"
+    "docs": "node_modules/vigour-doc/bin/vdoc",
+    "build-search": "browserify ./search/index.js | uglifyjs > bundle.min.js"
   },
   "repository": {
     "type": "git",

@@ -66,7 +66,7 @@ module.exports = {
           rootstate.set({ focus: moviesfocus }, stamp)
           moviesfocus.emit('data', void 0, stamp)
           if (document.activeElement === data.target) {
-            data.target.parentNode.parentNode.childNodes[2].firstchild.focus()
+            data.target.parentNode.parentNode.childNodes[2].firstChild.focus()
           }
         }
       }

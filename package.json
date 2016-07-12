@@ -1,7 +1,7 @@
 {
   "name": "brisky-examples",
   "description": "Examples using Brisky",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "index.js",
   "scripts": {
     "test": "node_modules/standard/bin/cmd.js",

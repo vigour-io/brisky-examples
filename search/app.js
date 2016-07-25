@@ -70,6 +70,23 @@ module.exports = {
           }
         }
       }
+    },
+    year: {
+      tag: 'input',
+      class: 'title',
+      props: {
+        placeholder: 'year...',
+        type: 'search',
+        value: {
+          $: 'year',
+          $transform: (val) => typeof val === 'string' ? val : ''
+        }
+      },
+      on: {
+        input (e, stamp) {
+          e.state.getRoot().set({ year: e.target.value }, stamp)
+        }
+      }
     }
   },
   holder: {

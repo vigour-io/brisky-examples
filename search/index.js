@@ -1,11 +1,11 @@
 'use strict'
-// const Hub = require('vigour-hub')
-// const state = global.state = new Hub({
-  // url: 'ws://imac:3031'
-  // context:  // default context is your ip address
-// })
-const State = require('vigour-state')
-const state = global.state = new State(require('./state'))
+const Hub = require('vigour-hub')
+const state = global.state = new Hub({
+  url: 'ws://jim.local:3031',
+  context: false  // default context is your ip address
+})
+// const State = require('vigour-state')
+// const state = global.state = new State(require('./state'))
 // state.scrapeSomeMovies()
 
 // const benchmark = require('../benchmark')

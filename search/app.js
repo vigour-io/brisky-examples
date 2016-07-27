@@ -43,16 +43,15 @@ module.exports = {
     search: {
       tag: 'input',
       class: 'title',
-      $: 'query',
       props: {
         placeholder: 'search movies...',
         type: 'search',
         value: {
-          $: true,
+          $: 'query',
           $transform: (val) => typeof val === 'string' ? val : ''
         }
       },
-      focus: { $: '$root.focus' },
+      // focus: { $: '$root.focus' },
       on: {
         input (e, stamp) {
           e.state.getRoot().set({ query: e.target.value }, stamp)
@@ -94,7 +93,7 @@ module.exports = {
     child: {
       $: '$test',
       class: 'complex-item poster-item',
-      focus: { $: '$parent.$parent.focus' },
+      // focus: { $: '$parent.$parent.focus' },
       poster: {
         tag: 'img',
         props: {

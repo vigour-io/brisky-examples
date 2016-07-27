@@ -5,7 +5,7 @@ const apikey = '&api_key=7049bfd41c073cdc48a026969d0cb3e1'
 module.exports = {
   title: 'hub',
   query: {
-    val: '',
+    // val: '',
     on: {
       data () {
         const val = this.compute()

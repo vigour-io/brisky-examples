@@ -51,7 +51,7 @@ module.exports = {
           $transform: (val) => typeof val === 'string' ? val : ''
         }
       },
-      // focus: { $: '$root.focus' },
+      focus: { $: '$root.focus' },
       on: {
         input (e, stamp) {
           e.state.getRoot().set({ query: e.target.value }, stamp)
@@ -93,7 +93,7 @@ module.exports = {
     child: {
       $: '$test',
       class: 'complex-item poster-item',
-      // focus: { $: '$parent.$parent.focus' },
+      focus: { $: '$parent.$parent.focus' },
       poster: {
         tag: 'img',
         props: {
@@ -119,13 +119,17 @@ module.exports = {
       },
       $test: {
         val (state) {
-          const $root = state.getRoot()
+          var $root = state.getRoot()
           var query = $root.query && $root.query.compute()
           if (typeof query !== 'string') {
             query = false
           }
           var rating = $root.rating ? $root.rating.compute() : 0
           if (state.rating && state.rating.compute() < rating) {
+            return false
+          }
+          var year = $root.year && $root.year.compute()
+          if (year && state.year && state.year.compute() !== year) {
             return false
           }
           if (!query) {
@@ -136,12 +140,12 @@ module.exports = {
               title = false
             }
             const titleResult = title && title.toLowerCase().indexOf(query.toLowerCase()) !== -1
-            return titleResult || state.year && state.year.compute() === query
+            return titleResult
           }
         },
         $: {
           title: {},
-          $root: { query: {}, rating: {} }
+          $root: { query: {}, rating: {}, year: {} }
         }
       },
       on: {

@@ -1,13 +1,30 @@
 'use strict'
+require('../style.css')
 const render = require('brisky/render')
 const state = require('./client')
+// const vstamp = require('vigour-stamp')
 
 const app = {
-  // need this in all examples
+  types: {
+    dimensions: {
+      style: {
+        border: '3px solid white',
+        width: {
+          $: 'width',
+          $transform: (val) => val * 0.05
+        },
+        height: {
+          $: 'height',
+          $transform: (val) => val * 0.05
+        }
+      }
+    }
+  },
   child: {
     class: true,
     child: 'Constructor'
   },
+  dimensions: { type: 'dimensions', $: 'client' },
   text: { $: 'title' },
   holder: {
     top: {
@@ -55,6 +72,7 @@ const app = {
     $: 'clients.$any',
     child: {
       class: 'basic-item',
+      dimensions: { type: 'dimensions' },
       style: {
         background: {
           $: true,
@@ -63,7 +81,22 @@ const app = {
             : null
         }
       },
-      text: { $: 'id' }
+      device: { text: { $: 'device' } },
+      browser: { text: { $: 'browser' } },
+      input: {
+        tag: 'input',
+        props: {
+          value: { $: 'label' }
+        },
+        on: {
+          keyup (e) {
+            e.state.set({ label: e.target.value })
+          }
+        }
+      },
+      id: { text: { $: 'id' } },
+      ip: { text: { $: 'ip' } },
+      upstream: { text: { $: 'upstream' } }
     }
   },
   movies: {
@@ -115,4 +148,24 @@ const app = {
   }
 }
 
-document.body.appendChild(render(app, state))
+// make this an injectable
+function resize () {
+  state.client.origin().set({
+    width: global.innerWidth,
+    height: global.innerHeight
+  })
+}
+
+global.onresize = resize
+// resending is pretty hard
+state.get('connected', {}).on((val, stamp) => {
+  setTimeout(() => {
+    state.client.origin().height.emit('data', global.innerHeight)
+    state.client.origin().width.emit('data', global.innerWidth)
+  })
+})
+resize()
+
+document.body.appendChild(render(app, state, (s) => {
+  global.s = s
+}))

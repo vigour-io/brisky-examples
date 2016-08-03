@@ -32,7 +32,7 @@ Demonstrates usage of shared types
 ####switcher
 Switches between pages
 
-`npm start context`
+`npm start switcher`
 
 ####order
 Order property, shared types

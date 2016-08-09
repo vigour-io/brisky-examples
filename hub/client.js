@@ -18,5 +18,6 @@ module.exports.set({
 }, false)
 
 module.exports = global.state = new Hub({
-  url: 'ws://imac.local:3031'
+  url: 'ws://imac.local:3031',
+  context: false
 })

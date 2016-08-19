@@ -2,6 +2,7 @@
 
 .query {
   position: relative;
+  width: 20%;
 }
 
 .query:hover .popover {

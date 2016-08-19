@@ -22,7 +22,7 @@ const app = {
   },
   table: {
     tag: 'table',
-    class: 'table-striped latest-data',
+    class: 'table table-striped latest-data',
     body: {
       tag: 'tbody',
       $: 'databases.$any',
@@ -42,7 +42,7 @@ const app = {
             text: { $: 'length' },
             class: {
               $: 'length',
-              $transform: (val) => val > 4 ? 'label-warning' : 'label-success'
+              $transform: (val) => val > 4 ? 'label label-warning' : 'label label-success'
             }
           }
         },
@@ -57,7 +57,7 @@ const app = {
               $transform: (val) => val && ~~(val * 100) / 100
             },
             popover: {
-              class: 'left',
+              class: 'popover left',
               arrow: {},
               'popover-content': {
                 text: { $: 'query' }

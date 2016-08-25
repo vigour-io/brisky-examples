@@ -27,7 +27,7 @@
     "brisky-events": "^1.0.0",
     "vigour-state": "^4.0.0",
     "vigour-util": "^3.0.0",
-    "brisky-hub": "https://github.com/vigour-io/hub"
+    "brisky-hub": "https://github.com/vigour-io/brisky-hub"
   },
   "devDependencies": {
     "budo": "^8.2.2",

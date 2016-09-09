@@ -7,9 +7,7 @@ const state = global.state = new Hub({
 // const State = require('vigour-state')
 // const state = global.state = new State(require('./state'))
 // state.scrapeSomeMovies()
-
 // const benchmark = require('../benchmark')
-
 // benchmark.loop(
 //   0,
 //   require('./app'),

@@ -1,5 +1,5 @@
 'use strict'
-const Hub = require('vigour-hub')
+const Hub = require('brisky-hub')
 const state = global.state = new Hub({
   url: 'ws://imac.local:3031',
   context: false  // default context is your ip address

@@ -1,5 +1,5 @@
 'use strict'
-const Hub = require('vigour-hub')
+const Hub = require('brisky-hub')
 const State = require('vigour-state')
 module.exports = global.state = new State({
   // url: 'ws://imac.local:3031',

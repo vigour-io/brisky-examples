@@ -21,6 +21,7 @@ const app = {
     }
   },
   child: {
+    // make a util for these kind of things
     class: true,
     child: 'Constructor'
   },
@@ -42,11 +43,11 @@ const app = {
       input: {
         tag: 'input',
         props: {
-          value: { $: 'query' }
+          value: { $: 'context' }
         },
         on: {
           keyup (e, stamp) {
-            e.state.set({ query: e.target.value }, stamp)
+            e.state.set({ context: e.target.value }, stamp)
           }
         }
       },
@@ -118,13 +119,14 @@ const app = {
       },
       style: {
         // maybe its a problem with group 100 double check this...
+        // not with group has to do with drag rly weird...
         // transform: {
         //   x: { $: 'x' },
         //   y: { $: 'y' }
         // },
-        // position: 'absolute',
-        // top: { $: 'y' },
-        // left: { $: 'x' }
+        position: 'absolute',
+        top: { $: 'y' },
+        left: { $: 'x' }
       },
       on: {
         drag (e, stamp) {

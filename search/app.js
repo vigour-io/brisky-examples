@@ -8,13 +8,13 @@ module.exports = {
     class: true,
     child: 'Constructor'
   },
-  text: {
-    $: 'movies.items',
-    sync: false,
-    $transform (val) {
-      return val.keys().length
-    }
-  },
+  // text: {
+  //   $: 'movies.items',
+  //   sync: false,
+  //   $transform (val) {
+  //     return val.keys().length
+  //   }
+  // },
   // text: {
   //   // non syncing again... / need to check what to do for this..
   //   $: 'movies.items',
@@ -86,6 +86,7 @@ module.exports = {
     $: 'movies.items.$any',
     child: {
       class: 'complex-item poster-item',
+      $: '$test',
       // poster: {
       //   tag: 'img',
       //   props: {
@@ -93,7 +94,7 @@ module.exports = {
       //   }
       // },
       title: { text: { $: 'title' } },
-      // substitle: { text: { $: '$root.query' } },
+      // substitle: { text: { $: '$root.xxx' } },
       // year: {
       //   class: 'basic-item',
       //   text: { $: 'year' }
@@ -106,46 +107,43 @@ module.exports = {
       //   class: 'basic-item',
       //   text: { $: 'votes', $prepend: 'votes: ' }
       // },
-      description: {
-        class: 'nested',
-        text: { $: 'description' }
-      },
-      // $test: {
-      //   val (state) {
-      //     // return true
-      //     var $root = state.getRoot()
-      //     var query = $root.query && $root.query.compute()
-      //     if (typeof query !== 'string') {
-      //       query = false
-      //     }
-      //     var rating = $root.rating ? $root.rating.compute() : 0
-      //     if (state.rating && state.rating.compute() < rating) {
-      //       return false
-      //     }
-      //     var year = $root.year && $root.year.compute()
-      //     if (year && state.year && state.year.compute() !== year) {
-      //       return false
-      //     }
-      //     if (!query) {
-      //       return true
-      //     } else {
-      //       var title = state.title && state.title.compute()
-      //       if (typeof title !== 'string') {
-      //         title = false
-      //       }
-      //       const titleResult = title && title.toLowerCase().indexOf(query.toLowerCase()) !== -1
-      //       return titleResult
-      //     }
-      //   },
-      //   $: {
-      //     title: {},
-      //     year: {},
-      //     // $root: { query: {} }
-      //   }
-      //   //   year: {},
-      //   //   $root: { query: {}, rating: {}, year: {} }
-      //   // }
-      // }
+      // description: {
+      //   class: 'nested',
+      //   text: { $: 'description' }
+      // },
+      $test: {
+        val (state) {
+          // return true
+          var $root = state.getRoot()
+          var query = $root.query && $root.query.compute()
+          if (typeof query !== 'string') {
+            query = false
+          }
+          var rating = $root.rating ? $root.rating.compute() : 0
+          if (state.rating && state.rating.compute() < rating) {
+            return false
+          }
+          var year = $root.year && $root.year.compute()
+          if (year && state.year && state.year.compute() !== year) {
+            return false
+          }
+          if (!query) {
+            return true
+          } else {
+            var title = state.title && state.title.compute()
+            if (typeof title !== 'string') {
+              title = false
+            }
+            const titleResult = title && title.toLowerCase().indexOf(query.toLowerCase()) !== -1
+            return titleResult
+          }
+        },
+        $: {
+          title: {},
+          year: {},
+          $root: { query: {}, rating: {}, year: {} }
+        }
+      }
     }
   }
 }

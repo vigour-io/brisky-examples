@@ -5,6 +5,18 @@ const state = global.state = new Hub({
   context: false  // default context is your ip address
 })
 // const State = require('vigour-state')
+
+// const state = global.state = new State({})
+
+// var obj = { movies: { items: {} } }
+// var x = obj.movies.items
+// for (var i = 0; i < 5e3; i++) {
+//   x[i] = {
+//     title: i,
+//     stamp: i
+//   }
+// }
+
 // const state = global.state = new State(require('./state'))
 // state.scrapeSomeMovies()
 // const benchmark = require('../benchmark')
@@ -26,5 +38,7 @@ const render = require('brisky/render')
 document.body.appendChild(render(require('./app'), state, (s) => {
   global.s = s
 }))
+
+// state.set(obj)
 
 console.info(global.s)

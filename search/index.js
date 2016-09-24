@@ -23,4 +23,8 @@ const state = global.state = new Hub({
 // )
 
 const render = require('brisky/render')
-document.body.appendChild(render(require('./app'), state))
+document.body.appendChild(render(require('./app'), state, (s) => {
+  global.s = s
+}))
+
+console.info(global.s)

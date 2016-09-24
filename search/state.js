@@ -25,7 +25,7 @@ module.exports = {
       var state = this
       function discover () {
         i++
-        if (i < 100) {
+        if (i < 300) {
           console.log('discover movies', i)
           getMovies(`${url}discover/movie?sort_by=popularity.desc&page=${i}${apikey}`, state, discover)
         }

@@ -2,6 +2,6 @@
 const Hub = require('brisky-hub')
 const hub = global.hub = new Hub({
   inject: require('./state'),
-  port: 3031
+  port: 3032
 }, 'init')
 hub.scrapeSomeMovies()

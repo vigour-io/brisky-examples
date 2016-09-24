@@ -1,0 +1,9 @@
+{
+  "name": "example-hub",
+  "scripts": {
+    "start": "node ./server.js"
+  }
+  "dependencies": {
+    "brisky-hub": "https://github.com/vigour-io/brisky-hub#feature/reuseSubs"
+  }
+}

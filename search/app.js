@@ -8,18 +8,13 @@ module.exports = {
     class: true,
     child: 'Constructor'
   },
-  // text: {
-  //   $: 'movies.items',
-  //   sync: false,
-  //   $transform (val) {
-  //     return val.keys().length
-  //   }
-  // },
-  // text: {
-  //   // non syncing again... / need to check what to do for this..
-  //   $: 'movies.items',
-  //   $transform: (val) => 'movies total:' + val.keys().length
-  // },
+  text: {
+    $: 'movies.items',
+    sync: false, // very important else val: true
+    $transform (val) {
+      return val.keys().length
+    }
+  },
   filters: {
     class: 'holder',
     // rating: {

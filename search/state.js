@@ -28,7 +28,7 @@ module.exports = {
       if (cache) {
         fs.exists(cachePath, exists => exists
           ? this.getMoviesFromCache()
-          : this.getMovies()
+          : this.getMovies(cache)
         )
       } else {
         this.getMovies()
@@ -37,42 +37,50 @@ module.exports = {
     getMoviesFromCache () {
       const cache = fs.createReadStream(cachePath)
       const state = this
+      const page = '{"page":'
       var obj = ''
+      var i = 0
       cache.on('data', chunk => {
-        console.log('data')
         chunk = chunk.toString()
-
-        console.log(chunk.slice(0, 20))
         var next, prev
-        const index = chunk.indexOf('{"page":')
-
+        const index = chunk.indexOf(page)
         if (obj && index !== -1) {
           next = chunk.slice(index)
-          prev = chunk.slice(0, index - 1)
-          console.log('index', index)
+          prev = chunk.slice(0, index)
           obj += prev
           if (obj) {
-            console.log('parse page')
-            parseMovies(JSON.parse(obj), state)
+            obj.split(page).filter(val => val)
+              .map(val => page + val)
+              .forEach(val => {
+                i++
+                console.log('load page', i)
+                parseMovies(JSON.parse(val), state)
+              })
+
+            obj = next
           }
+        } else {
+          obj += chunk
         }
-        obj = next || chunk
       })
-      cache.on('end', () => {
-        console.log('END')
-        parseMovies(JSON.parse(obj), state)
-        obj = ''
-      })
+      cache.on('end', () => { obj = '' })
     },
-    getMovies () {
-      // const cache = fs.createWriteStream(cachePath)
+    getMovies (cache) {
+      if (cache) {
+        cache = fs.createWriteStream(cachePath)
+      }
       const state = this
       var i = 0
       function discover () {
         i++
         if (i < 300) {
-          console.log('discover movies', i)
-          getMovies(`${url}discover/movie?sort_by=popularity.desc&page=${i}${apikey}`, state, discover)
+          console.log('load page', i)
+          getMovies(
+            `${url}discover/movie?sort_by=popularity.desc&page=${i}${apikey}`,
+            state,
+            discover,
+            cache
+          )
         }
       }
       discover()
@@ -110,7 +118,7 @@ function getMovies (url, state, next, cache) {
   http.get(url, res => {
     var data = ''
     res.on('data', chunk => {
-      // cache.write(chunk)
+      if (cache) { cache.write(chunk) }
       data += chunk
     })
     res.on('end', () => {

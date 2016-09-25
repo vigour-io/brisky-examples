@@ -3,6 +3,6 @@ const Hub = require('brisky-hub')
 const hub = global.hub = new Hub({
   inject: require('./state'),
   port: process.argv[2] || 80
-}, 'init')
-// process.argv[3] === '--cache'
-hub.init()
+})
+hub.init(process.argv.indexOf('--cache') !== -1)
+console.log('start hub', process.argv.slice(2))

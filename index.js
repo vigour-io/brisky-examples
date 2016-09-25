@@ -15,7 +15,7 @@ if (!target) {
   }
 }
 
-const command = `budo ./${target}/index.js -p ${port} --css bundle.css --live -- -r ./package.json:package.json`
+const command = `budo ./${target}/index.js -p ${port} --css bundle.css --live`
 
 console.log(`running on port "${port}" running example "${target}"`)
 

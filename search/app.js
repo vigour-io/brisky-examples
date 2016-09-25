@@ -61,7 +61,7 @@ module.exports = {
           e.state.getRoot().set({ query: e.target.value }, stamp)
         }
       }
-    },
+    }
     // year: {
     //   tag: 'input',
     //   class: 'title',

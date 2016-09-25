@@ -9,7 +9,7 @@ const cachePath = path.join(__dirname, '/cache')
 module.exports = {
   title: 'hub',
   query: {
-    // val: '',
+    val: 'star',
     on: {
       data () {
         const val = this.compute()
@@ -88,6 +88,23 @@ module.exports = {
   }
 }
 
+function getMovies (url, state, next, cache) {
+  http.get(url, res => {
+    var data = ''
+    res.on('data', chunk => {
+      if (cache) { cache.write(chunk) }
+      data += chunk
+    })
+    res.on('end', () => {
+      data = JSON.parse(data)
+      if (!data.Error) {
+        parseMovies(data, state)
+        if (next) { next() }
+      }
+    })
+  })
+}
+
 function parseMovies (data, state) {
   data = data.results
   let payload = {}
@@ -112,23 +129,6 @@ function parseMovies (data, state) {
     }
   }
   state.set({ movies: { items: payload } })
-}
-
-function getMovies (url, state, next, cache) {
-  http.get(url, res => {
-    var data = ''
-    res.on('data', chunk => {
-      if (cache) { cache.write(chunk) }
-      data += chunk
-    })
-    res.on('end', () => {
-      data = JSON.parse(data)
-      if (!data.Error) {
-        parseMovies(data, state)
-        if (next) { next() }
-      }
-    })
-  })
 }
 
 /*

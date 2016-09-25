@@ -39,19 +39,24 @@ module.exports = {
       const state = this
       var obj = ''
       cache.on('data', chunk => {
-        console.log('datax')
+        console.log('data')
         chunk = chunk.toString()
 
         console.log(chunk.slice(0, 20))
+        var next, prev
+        const index = chunk.indexOf('{"page":')
 
-        if (/{"page":/.test(chunk)) {
-          // if (obj) {
-          //   console.log('parse page')
-          //   parseMovies(JSON.parse(obj), state)
-          // }
-          obj = ''
+        if (obj && index !== -1) {
+          next = chunk.slice(index)
+          prev = chunk.slice(0, index - 1)
+          console.log('index', index)
+          obj += prev
+          if (obj) {
+            console.log('parse page')
+            parseMovies(JSON.parse(obj), state)
+          }
         }
-        obj += chunk
+        obj = next || chunk
       })
       cache.on('end', () => {
         console.log('END')

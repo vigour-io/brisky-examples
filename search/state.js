@@ -65,14 +65,14 @@ module.exports = {
       })
     },
     getMovies () {
-      const cache = fs.createWriteStream(cachePath)
+      // const cache = fs.createWriteStream(cachePath)
       const state = this
       var i = 0
       function discover () {
         i++
         if (i < 300) {
           console.log('discover movies', i)
-          getMovies(`${url}discover/movie?sort_by=popularity.desc&page=${i}${apikey}`, state, discover, cache)
+          getMovies(`${url}discover/movie?sort_by=popularity.desc&page=${i}${apikey}`, state, discover)
         }
       }
       discover()
@@ -110,7 +110,7 @@ function getMovies (url, state, next, cache) {
   http.get(url, res => {
     var data = ''
     res.on('data', chunk => {
-      cache.write(chunk)
+      // cache.write(chunk)
       data += chunk
     })
     res.on('end', () => {

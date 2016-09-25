@@ -26,3 +26,4 @@ browserstack-run.pid
 .now.json
 temp.yml
 _package.json
+cache

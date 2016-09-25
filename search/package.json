@@ -1,10 +1,10 @@
 {
   "name": "example-hub",
   "scripts": {
-    "start": "node ./server.js"
+    "start": "node ./server.js",
+    "now-build": "echo gogo && cp uws_musl_hack/uws_linux* ./node_modules/uws"
   },
   "dependencies": {
     "brisky-hub": "https://github.com/vigour-io/brisky-hub#feature/reuseSubs"
-  },
-  "now-build": "echo gogo && cp uws_musl_hack/uws_linux* ./node_modules/uws"
+  }
 }

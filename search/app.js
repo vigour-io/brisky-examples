@@ -17,31 +17,34 @@ module.exports = {
   },
   filters: {
     class: 'holder',
-    rating: {
-      class: 'complex-item',
-      slider: {
-        tag: 'input',
-        props: {
-          type: 'range',
-          min: 0,
-          max: 10,
-          value: { $: 'rating' },
-          step: 0.1
-        },
-        on: {
-          input (e, stamp) {
-            // this way you can change the stamp name
-            // stamp = vstamp.create(this.path().join('-'))
-            e.state.set({ rating: e.target.value }, stamp)
-            // vstamp.close(stamp)
-          }
-        }
-      },
-      rating: {
-        class: 'basic-item',
-        text: { $: 'rating' }
-      }
-    },
+    // rating: {
+    //   class: 'complex-item',
+    //   slider: {
+    //     tag: 'input',
+    //     props: {
+    //       type: 'range',
+    //       min: 0,
+    //       max: 10,
+    //       value: { $: 'rating' },
+    //       step: 0.1
+    //     },
+    //     on: {
+    //       input (e, stamp) {
+    //         // this way you can change the stamp name
+    //         // stamp = vstamp.create(this.path().join('-'))
+    //         if (e.state.timer) {
+    //           clearTimeout(e.state.timer)
+    //         }
+    //         e.state.timer = setTimeout(() => e.state.set({ rating: e.target.value }, stamp), 200)
+    //         // vstamp.close(stamp)
+    //       }
+    //     }
+    //   },
+    //   rating: {
+    //     class: 'basic-item',
+    //     text: { $: 'rating' }
+    //   }
+    // },
     search: {
       tag: 'input',
       class: 'title',
@@ -59,23 +62,23 @@ module.exports = {
         }
       }
     },
-    year: {
-      tag: 'input',
-      class: 'title',
-      props: {
-        placeholder: 'year...',
-        type: 'search',
-        value: {
-          $: 'year',
-          $transform: (val) => typeof val === 'string' ? val : ''
-        }
-      },
-      on: {
-        input (e, stamp) {
-          e.state.getRoot().set({ year: e.target.value }, stamp)
-        }
-      }
-    }
+    // year: {
+    //   tag: 'input',
+    //   class: 'title',
+    //   props: {
+    //     placeholder: 'year...',
+    //     type: 'search',
+    //     value: {
+    //       $: 'year',
+    //       $transform: (val) => typeof val === 'string' ? val : ''
+    //     }
+    //   },
+    //   on: {
+    //     input (e, stamp) {
+    //       e.state.getRoot().set({ year: e.target.value }, stamp)
+    //     }
+    //   }
+    // }
   },
   holder: {
     $: 'movies.items.$any',

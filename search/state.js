@@ -4,7 +4,7 @@ const url = 'http://api.themoviedb.org/3/'
 const apikey = '&api_key=7049bfd41c073cdc48a026969d0cb3e1'
 const fs = require('fs')
 const path = require('path')
-const cachePath = path.join(__dirname, '/cache')
+const cachePath = path.join(__dirname, 'cache')
 
 module.exports = {
   title: 'hub',

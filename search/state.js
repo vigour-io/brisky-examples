@@ -9,7 +9,7 @@ const cachePath = path.join(__dirname, 'cache')
 module.exports = {
   title: 'hub',
   query: {
-    val: 'star',
+    val: '',
     on: {
       data () {
         const val = this.compute()
@@ -34,6 +34,7 @@ module.exports = {
         this.getMovies()
       }
     },
+    // for fast devving
     getMoviesFromCache () {
       const cache = fs.createReadStream(cachePath)
       const state = this

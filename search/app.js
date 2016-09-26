@@ -1,6 +1,5 @@
 'use strict'
 require('../style.css')
-const nav = require('dom-nav')
 // const vstamp = require('vigour-stamp')
 
 module.exports = {
@@ -11,35 +10,41 @@ module.exports = {
   },
   text: {
     $: 'movies.items',
-    $transform: (val) => 'movies total:' + val.keys().length
+    sync: false, // very important else val: true
+    $transform (val) {
+      return val.keys().length
+    }
   },
   filters: {
     class: 'holder',
-    rating: {
-      class: 'complex-item',
-      slider: {
-        tag: 'input',
-        props: {
-          type: 'range',
-          min: 0,
-          max: 10,
-          value: { $: 'rating' },
-          step: 0.1
-        },
-        on: {
-          input (e, stamp) {
-            // this way you can change the stamp name
-            // stamp = vstamp.create(this.path().join('-'))
-            e.state.set({ rating: e.target.value }, stamp)
-            // vstamp.close(stamp)
-          }
-        }
-      },
-      rating: {
-        class: 'basic-item',
-        text: { $: 'rating' }
-      }
-    },
+    // rating: {
+    //   class: 'complex-item',
+    //   slider: {
+    //     tag: 'input',
+    //     props: {
+    //       type: 'range',
+    //       min: 0,
+    //       max: 10,
+    //       value: { $: 'rating' },
+    //       step: 0.1
+    //     },
+    //     on: {
+    //       input (e, stamp) {
+    //         // this way you can change the stamp name
+    //         // stamp = vstamp.create(this.path().join('-'))
+    //         if (e.state.timer) {
+    //           clearTimeout(e.state.timer)
+    //         }
+    //         e.state.timer = setTimeout(() => e.state.set({ rating: e.target.value }, stamp), 200)
+    //         // vstamp.close(stamp)
+    //       }
+    //     }
+    //   },
+    //   rating: {
+    //     class: 'basic-item',
+    //     text: { $: 'rating' }
+    //   }
+    // },
     search: {
       tag: 'input',
       class: 'title',
@@ -51,74 +56,64 @@ module.exports = {
           $transform: (val) => typeof val === 'string' ? val : ''
         }
       },
-      focus: { $: '$root.focus' },
       on: {
         input (e, stamp) {
           e.state.getRoot().set({ query: e.target.value }, stamp)
-        },
-        change (data, stamp) {
-          this.emit('arrowdown', data, stamp)
-        },
-        arrowdown (data, stamp) {
-          const rootstate = data.state.getRoot()
-          const moviesfocus = rootstate.get('movies.focus', {})
-          rootstate.set({ focus: moviesfocus }, stamp)
-          moviesfocus.emit('data', void 0, stamp)
-          if (document.activeElement === data.target) {
-            data.target.parentNode.parentNode.childNodes[2].firstChild.focus()
-          }
-        }
-      }
-    },
-    year: {
-      tag: 'input',
-      class: 'title',
-      props: {
-        placeholder: 'year...',
-        type: 'search',
-        value: {
-          $: 'year',
-          $transform: (val) => typeof val === 'string' ? val : ''
-        }
-      },
-      on: {
-        input (e, stamp) {
-          e.state.getRoot().set({ year: e.target.value }, stamp)
         }
       }
     }
+    // year: {
+    //   tag: 'input',
+    //   class: 'title',
+    //   props: {
+    //     placeholder: 'year...',
+    //     type: 'search',
+    //     value: {
+    //       $: 'year',
+    //       $transform: (val) => typeof val === 'string' ? val : ''
+    //     }
+    //   },
+    //   on: {
+    //     input (e, stamp) {
+    //       e.state.getRoot().set({ year: e.target.value }, stamp)
+    //     }
+    //   }
+    // }
   },
   holder: {
     $: 'movies.items.$any',
     child: {
-      $: '$test',
       class: 'complex-item poster-item',
-      focus: { $: '$parent.$parent.focus' },
-      poster: {
-        tag: 'img',
-        props: {
-          src: { $: 'poster' }
-        }
-      },
+      $: '$test',
+      // poster: {
+      //   tag: 'img',
+      //   props: {
+      //     src: {
+      //       $: 'poster',
+      //       $transform: val => `https://vigour-4f98.kxcdn.com/409668-0/proxy=${encodeURI(val)}`
+      //     }
+      //   }
+      // },
       title: { text: { $: 'title' } },
-      year: {
-        class: 'basic-item',
-        text: { $: 'year' }
-      },
-      rating: {
-        class: 'basic-item',
-        text: { $: 'rating' }
-      },
-      votes: {
-        class: 'basic-item',
-        text: { $: 'votes', $prepend: 'votes: ' }
-      },
-      description: {
-        class: 'nested',
-        text: { $: 'description' }
-      },
+      // year: {
+      //   class: 'basic-item',
+      //   text: { $: 'year' }
+      // },
+      // rating: {
+      //   class: 'basic-item',
+      //   text: { $: 'rating' }
+      // },
+      // votes: {
+      //   class: 'basic-item',
+      //   text: { $: 'votes', $prepend: 'votes: ' }
+      // },
+      // description: {
+      //   class: 'nested',
+      //   text: { $: 'description' }
+      // },
       $test: {
         val (state) {
+          // return true
           var $root = state.getRoot()
           var query = $root.query && $root.query.compute()
           if (typeof query !== 'string') {
@@ -145,34 +140,8 @@ module.exports = {
         },
         $: {
           title: {},
+          year: {},
           $root: { query: {}, rating: {}, year: {} }
-        }
-      },
-      on: {
-        keyup (e, stamp) {
-          if (e.event.keyCode === 13) {
-            this.emit('click', e, stamp)
-          }
-        },
-        arrowup (e, stamp) {
-          let target = nav.up(e.target)
-          if (target) {
-            target.focus()
-          } else {
-            e.state.getRoot().set({ focus: e.state.getRoot().query }, stamp)
-          }
-        },
-        arrowdown (e) {
-          let target = nav.down(e.target)
-          if (target) { target.focus() }
-        },
-        arrowleft (e) {
-          let target = nav.left(e.target)
-          if (target) { target.focus() }
-        },
-        arrowright (e) {
-          let target = nav.right(e.target)
-          if (target) { target.focus() }
         }
       }
     }

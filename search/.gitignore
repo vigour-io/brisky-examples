@@ -8,7 +8,6 @@ docs/*
 bundles/
 bundle.css
 bundle.js
-bundle.min.js
 bundle.js.map
 build.css
 build.js

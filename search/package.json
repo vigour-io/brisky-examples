@@ -1,0 +1,24 @@
+{
+  "name": "example-hub",
+  "scripts": {
+    "start": "node ./server.js",
+    "build-html": "browserify ./index.js --css static/default/bundle.css | uglifyjs > static/default/bundle.min.js",
+    "now-build": "echo gogo && cp uws_musl_hack/uws_linux* ./node_modules/uws"
+  },
+  "browserify": {
+    "transform": [
+      "postcssify",
+      [
+        "babelify",
+        {
+          "presets": [
+            "es2015"
+          ]
+        }
+      ]
+    ]
+  },
+  "dependencies": {
+    "brisky-hub": "https://github.com/vigour-io/brisky-hub#feature/reuseSubs"
+  }
+}

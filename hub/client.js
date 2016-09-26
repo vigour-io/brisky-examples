@@ -4,6 +4,13 @@ const Hub = require('brisky-hub')
 
 module.exports = global.state = new Hub({
   url: 'ws://imac.local:3030',
-  context: false
+  context: false,
+  clients: {
+    on: {
+      data () {
+        console.log('hello')
+      }
+    }
+  }
   // client: '$root.clients.client'
 })

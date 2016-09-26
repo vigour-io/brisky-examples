@@ -124,9 +124,9 @@ const app = {
         //   x: { $: 'x' },
         //   y: { $: 'y' }
         // },
-        position: 'absolute',
-        top: { $: 'y' },
-        left: { $: 'x' }
+        // position: 'absolute',
+        // top: { $: 'y' },
+        // left: { $: 'x' }
       },
       on: {
         drag (e, stamp) {

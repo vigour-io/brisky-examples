@@ -14,3 +14,13 @@ module.exports = global.state = new Hub({
   }
   // client: '$root.clients.client'
 })
+
+setTimeout(() => {
+  module.exports.set({
+    movies: {
+      items: [
+        { title: 'xxxx' }
+      ]
+    }
+  })
+}, 2e3)

@@ -11,9 +11,7 @@ module.exports = {
   text: {
     $: 'movies.items',
     sync: false, // very important else val: true
-    $transform (val) {
-      return val.keys().length
-    }
+    $transform: val => `movies in state: ${val.keys().length}`
   },
   filters: {
     class: 'holder',
@@ -139,9 +137,8 @@ module.exports = {
           }
         },
         $: {
-          title: {},
-          year: {},
-          $root: { query: {}, rating: {}, year: {} }
+          title: true,
+          $root: { query: true }
         }
       }
     }

@@ -19,6 +19,6 @@
     ]
   },
   "dependencies": {
-    "brisky-hub": "https://github.com/vigour-io/brisky-hub#feature/reuseSubs"
+    "brisky-hub": "^1.0.0"
   }
 }

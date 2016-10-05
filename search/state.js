@@ -9,7 +9,7 @@ const cachePath = path.join(__dirname, 'cache')
 module.exports = {
   title: 'hub',
   query: {
-    val: 'denis',
+    val: '',
     on: {
       data () {
         const val = this.compute()

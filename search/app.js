@@ -2,27 +2,7 @@
 require('../style.css')
 // const vstamp = require('vigour-stamp')
 
-const someModule = {}
-someModule.types = {
-  blurf: {
-    text: {
-      $prepend: '----> '
-    }
-  }
-}
-
 module.exports = {
-  types: {
-    title: {
-      type: 'blurf',
-      class: 'title',
-      text: {
-        $: 'title',
-        $add: '!'
-      }
-    }
-  },
-  inject: someModule,
   key: 'app',
   child: {
     class: true,
@@ -64,7 +44,10 @@ module.exports = {
       //     }
       //   }
       // },
-      title: { type: 'title' },
+      title: {
+        class: 'title',
+        text: { $: 'title' }
+      },
       // year: {
       //   class: 'basic-item',
       //   text: { $: 'year' }

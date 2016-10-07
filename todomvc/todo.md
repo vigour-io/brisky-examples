@@ -19,3 +19,6 @@ console.log('Event: %O || Stamp: %O', e, stamp)
 
 Note: 
 - In benchmark, I have to define object to allow update.
+
+          const test = e.state.get('todos', {}).keys().length
+          console.log('test: %O', test)

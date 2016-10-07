@@ -42,7 +42,6 @@ const item = {
   tag: 'li',
   view: {
     class: 'view',
-    // $: 'root',
     toggle: {
       tag: 'input',
       class: 'toggle',
@@ -71,11 +70,6 @@ const item = {
         click: (e, stamp) => e.state.remove(stamp) // Delete item from state
       }
     }
-    // $test: (state) => {
-    //   if (state) {
-    //     console.log('state: %O', state)
-    //   }
-    // }
   }
 }
 
@@ -83,33 +77,11 @@ const footer = {
   counter: {
     class: 'todo-count',
     tag: 'span',
-    text: 'X items left'
-
-    // text: {
-    //  $: 'todos.$any',
-    //  $transform: (val) => {
-
-    //  }
-    // }
-
-    // text: {
-    //   $: 'todos.$any',
-    //   $transform: (val) => {
-    //     // `${todos.length()} items left`
-    //     // e.state.get('todos', {}).each((p) => {
-    //     // })
-    //   }
-    // }
-
+    text: {
+      $: 'todos',
+      $transform: val => val && `${val.keys().length} items left`
+    }
   },
-  // child: {
-  //   on: {
-  //     click () {
-  //       console.log(this.parent.key)
-  //     }
-  //   }
-  // },
-
   filters: {
     tag: 'ul',
     child: {
@@ -122,7 +94,13 @@ const footer = {
         class: 'selected',
         on: {
           click: (e, stamp) => {
+
+            e.state.set({ selectedFilter: 'all' }, stamp)
+            const selectedFilter = e.state.root.get('selectedFilter')
+
             console.log(e)
+
+            console.log('Event: %O || Stamp: %O', e, stamp)
           }
         }
       }
@@ -132,6 +110,7 @@ const footer = {
         text: 'Active',
         on: {
           click: (e, stamp) => {
+            e.state.set({ selectedFilter: 'active' }, stamp)
             console.log(e)
           }
         }
@@ -142,6 +121,7 @@ const footer = {
         text: 'Completed',
         on: {
           click: (e, stamp) => {
+            e.state.set({ selectedFilter: 'active' }, stamp)
             console.log(e)
           }
         }
@@ -161,13 +141,15 @@ const todoapp = {
       class: 'toggle-all',
       on: {
         click: (e, stamp) => {
-          const root = e.state.root
-          const itemsChecked = root.get('checkAllItems') ? root.get('checkAllItems').val : false
+          const checkAllItems = e.state.root.get('checkAllItems')
+          const itemsChecked = checkAllItems ? checkAllItems.val : false
 
           e.state.set({ checkAllItems: itemsChecked ? false : true }, stamp)
           e.state.get('todos', {}).each((p) => { // Depending on boolean checkAllItems, toggle items.
             p.set({ done: itemsChecked ? false : true }, stamp)
           })
+
+          console.log('Event: %O || Stamp: %O', e, stamp)
         }
       }
     },
@@ -194,31 +176,31 @@ document.body.appendChild(render(app, state))
  **/
 
 // Log time before benchmark:
-var date = Date.now()
+// var date = Date.now()
 
-// Define todos and iteration:
-let object = { todos: {} }
-let iteration = 0
+// // Define todos and iteration:
+// let object = { todos: {} }
+// let iteration = 0
 
-// Spawn 10 items:
-for (iteration = 0; iteration < 10; iteration++) {
-  object.todos[iteration] = { text: 'todo it' }
-}
-state.set(object)
+// // Spawn 10 items:
+// for (iteration = 0; iteration < 10; iteration++) {
+//   object.todos[iteration] = { text: 'todo it' }
+// }
+// state.set(object)
 
-// Update 10 items:
-object = { todos: {} }
-iteration = 0
-for (iteration = 0; iteration < 10; iteration++) {
-  object.todos[iteration] = { done: true }
-}
-state.set(object)
+// // Update 10 items:
+// object = { todos: {} }
+// iteration = 0
+// for (iteration = 0; iteration < 10; iteration++) {
+//   object.todos[iteration] = { done: true }
+// }
+// state.set(object)
 
 // Remove 10 items:
-state.todos.remove()
+// state.todos.remove()
 
 // Output time spent until items are spawned, updated and deleted:
-console.log(Date.now() - date, 'ms')
+// console.log(Date.now() - date, 'ms')
 
 /**
  * Debugging - Spawn 3 items:

@@ -42,6 +42,7 @@ const item = {
   tag: 'li',
   view: {
     class: 'view',
+    // $: 'root',
     toggle: {
       tag: 'input',
       class: 'toggle',
@@ -70,6 +71,11 @@ const item = {
         click: (e, stamp) => e.state.remove(stamp) // Delete item from state
       }
     }
+    // $test: (state) => {
+    //   if (state) {
+    //     console.log('state: %O', state)
+    //   }
+    // }
   }
 }
 
@@ -80,9 +86,9 @@ const footer = {
     text: 'X items left'
 
     // text: {
-    //  $: 'todos.items',
-    //  $transform: val => {
-    //    return `todos completed`
+    //  $: 'todos.$any',
+    //  $transform: (val) => {
+
     //  }
     // }
 
@@ -99,7 +105,7 @@ const footer = {
   child: {
     on: {
       click () {
-        // alert(this.parent.key)
+        console.log(this.parent.key)
       }
     }
   },
@@ -149,31 +155,34 @@ const todoapp = {
   header: { type: 'header' },
   main: {
     tag: 'section',
-    // $: 'allChecked.$any',
     toggle: {
       tag: 'input',
       props: { type: 'checkbox' },
       class: 'toggle-all',
       on: {
         click: (e, stamp) => {
-          // e.state.set({ allChecked: true }, stamp)
+          const root = e.state.root
+          const itemsChecked = root.get('checkAllItems') ? root.get('checkAllItems').val : false
 
-          e.state.get('todos', {}).each((p) => {
-            p.set({ done: true }, stamp)
-          })
-
-          console.log('Event: %O // Stamp: %O', e, stamp)
+          if (itemsChecked) {
+            e.state.set({ checkAllItems: false }, stamp)
+            e.state.get('todos', {}).each((p) => {
+              p.set({ done: false }, stamp)
+            })
+          } else {
+            e.state.set({ checkAllItems: true }, stamp)
+            e.state.get('todos', {}).each((p) => {
+              p.set({ done: true }, stamp)
+            })
+          }
         }
       }
     },
     list: {
       tag: 'ul',
       class: 'todo-list',
-
-      // Whenever todos are added to state, add item to DOM.
-
       $: 'todos.$any',
-      child: item
+      child: item // Whenever todos are added to state, spawn item in DOM.
     }
   },
   footer
@@ -187,20 +196,20 @@ const app = {
 document.body.appendChild(render(app, state))
 
 // Benchmarking code:
-var d = Date.now()
-var obj = { todos: {} }
+var date = Date.now()
+var object = { todos: {} }
 for (var i = 0; i < 10; i++) {
-  obj.todos[i] = { text: 'todo it ' }
+  object.todos[i] = { text: 'todo it' }
 }
-state.set(obj)
+state.set(object)
 
-// var obj = { todos: {} }
-// for(var i = 0; i < 1e3; i++) {
-//   obj.todos[i] = { done: true }
+// var object = { todos: {} }
+// for(var i = 0; i < 10; i++) {
+//   object.todos[i] = { done: true }
 // }
-// state.set(obj)
+// state.set(object)
 
 // state.todos.remove()
 
-console.log(Date.now() - d, 'ms')
+console.log(Date.now() - date, 'ms')
 

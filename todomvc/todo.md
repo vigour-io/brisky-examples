@@ -12,3 +12,5 @@
   // When active is clicked, done items needs hidden class.
   // When completed is clicked, invert.
   // For all, remove hidden class completely.
+
+  console.log('Event: %O || Stamp: %O', e, stamp)

@@ -39,4 +39,6 @@ Order property, shared types
 
 `npm start order`
 
-
+###todomvc
+Standard TodoMV* implementation done in Brisky
+- Also showcases speed benchmark in comparison with other frameworks.

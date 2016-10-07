@@ -8,18 +8,10 @@ require('./style.css')
 
 const render = require('brisky/render')
 const s = require('vigour-state/s')
-const Hub = require('brisky-hub')
 const state = global.state = s({})
-//const state = global.state = new Hub({ url: 'ws://localhost:3030' })
 
-/*
-
-Dirtydo-do:
-
-- Add filtering options.
-- Fix global done checkbox.
-
-*/
+// const Hub = require('brisky-hub')
+// const state = global.state = new Hub({ url: 'ws://localhost:3030' })
 
 const header = {
   class: 'header',
@@ -33,9 +25,8 @@ const header = {
     on: {
       enter: (e, stamp) => {
         if (e.target.value) {
-
           // Store new item w/ text in state.
-          e.state.set({ 
+          e.state.set({
             todos: {
               [Date.now()]: { text: e.target.value }
             }
@@ -43,7 +34,6 @@ const header = {
 
           // Reset value after adding todo.
           e.target.value = ''
-
         }
       }
     }
@@ -57,9 +47,9 @@ const item = {
     toggle: {
       tag: 'input',
       class: 'toggle',
-      props: { 
+      props: {
         type: 'checkbox',
-        checked: { 
+        checked: {
           $: 'done',
 
           // If item is done, set checked to true.
@@ -77,10 +67,12 @@ const item = {
       tag: 'label',
       text: { $: 'text' },
       class: {
-       strikethrough: { $: 'done' }
-      },
+        strikethrough: { $: 'done' }
+      }
+
       // Subscribe to corresponding item in state
       // if done, add class 'strikethrough', etc.
+
     },
     destroy: {
       tag: 'button',
@@ -106,21 +98,21 @@ const footer = {
     text: {
       $: 'done',
       $transform: (val) => {
-
         // `${todos.length()} items left`
 
-        e.state.get('todos', {}).each((p) => {
-          
-        })
+        // e.state.get('todos', {}).each((p) => {
 
+        // })
       }
-    },
+    }
 
   },
   child: {
     on: {
       click () {
+
         // alert(this.parent.key)
+
       }
     }
   },
@@ -132,31 +124,28 @@ const footer = {
 
   filters: {
     tag: 'ul',
-    child: { 
+    child: {
       tag: 'li',
-      href: { tag: 'a' } 
+      href: { tag: 'a' }
     },
-    all: { 
-      href: { 
+    all: {
+      href: {
         text: 'All',
         class: 'selected',
         on: {
           click: (e, stamp) => {
+            console.log(e)
 
-            console.log(e);
-
-            e.state.set({ 
+            e.state.set({
               filter: {
-                [Date.now()]: { 
+                [Date.now()]: {
                   selected: true
                 }
               }
             }, stamp)
-
-            
           }
         }
-      } 
+      }
     },
     active: { href: { text: 'Active' } },
     completed: { href: { text: 'Completed' } }
@@ -168,19 +157,20 @@ const todoapp = {
   header: { type: 'header' },
   main: {
     tag: 'section',
+    // $: 'allChecked.$any',
     toggle: {
       tag: 'input',
       props: { type: 'checkbox' },
       class: 'toggle-all',
       on: {
         click: (e, stamp) => {
-
-          console.log('Event: %O // Stamp: %O', e, stamp);
+          // e.state.set({ allChecked: true }, stamp)
 
           e.state.get('todos', {}).each((p) => {
             p.set({ done: true }, stamp)
           })
 
+          console.log('Event: %O // Stamp: %O', e, stamp)
         }
       }
     },
@@ -192,7 +182,7 @@ const todoapp = {
 
       $: 'todos.$any',
       child: item
-    }   
+    }
   },
   footer
 }
@@ -204,12 +194,14 @@ const app = {
 
 document.body.appendChild(render(app, state))
 
+// Benchmarking code:
 var d = Date.now()
 var obj = { todos: {} }
-for(var i = 0; i < 10; i++) {
-  obj.todos[i] = { text: 'todo it ' + i, ref: state.morten }
+for (var i = 0; i < 10; i++) {
+  obj.todos[i] = { text: 'todo it ' }
 }
 state.set(obj)
+
 // var obj = { todos: {} }
 // for(var i = 0; i < 1e3; i++) {
 //   obj.todos[i] = { done: true }

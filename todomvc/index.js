@@ -186,23 +186,48 @@ const app = {
   todoapp
 }
 
+// Add app to DOM, initialize render:
 document.body.appendChild(render(app, state))
 
-// Benchmarking code:
+/**
+ * Benchmarking code:
+ **/
+
+// Log time before benchmark:
 var date = Date.now()
-var object = { todos: {} }
-for (var i = 0; i < 10; i++) {
-  object.todos[i] = { text: 'todo it' }
+
+// Define todos and iteration:
+let object = { todos: {} }
+let iteration = 0
+
+// Spawn 10 items:
+for (iteration = 0; iteration < 10; iteration++) {
+  object.todos[iteration] = { text: 'todo it' }
 }
 state.set(object)
 
-// var object = { todos: {} }
-// for(var i = 0; i < 10; i++) {
-//   object.todos[i] = { done: true }
-// }
-// state.set(object)
+// Update 10 items:
+object = { todos: {} }
+iteration = 0
+for (iteration = 0; iteration < 10; iteration++) {
+  object.todos[iteration] = { done: true }
+}
+state.set(object)
 
-// state.todos.remove()
+// Remove 10 items:
+state.todos.remove()
 
+// Output time spent until items are spawned, updated and deleted:
 console.log(Date.now() - date, 'ms')
+
+/**
+ * Debugging - Spawn 3 items:
+ **/
+
+object = { todos: {} }
+iteration = 0
+for (iteration = 0; iteration < 3; iteration++) {
+  object.todos[iteration] = { text: 'todo it' }
+}
+state.set(object)
 

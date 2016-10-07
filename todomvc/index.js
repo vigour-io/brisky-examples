@@ -94,13 +94,7 @@ const footer = {
         class: 'selected',
         on: {
           click: (e, stamp) => {
-
             e.state.set({ selectedFilter: 'all' }, stamp)
-            const selectedFilter = e.state.root.get('selectedFilter')
-
-            console.log(e)
-
-            console.log('Event: %O || Stamp: %O', e, stamp)
           }
         }
       }
@@ -111,7 +105,6 @@ const footer = {
         on: {
           click: (e, stamp) => {
             e.state.set({ selectedFilter: 'active' }, stamp)
-            console.log(e)
           }
         }
       }
@@ -121,8 +114,7 @@ const footer = {
         text: 'Completed',
         on: {
           click: (e, stamp) => {
-            e.state.set({ selectedFilter: 'active' }, stamp)
-            console.log(e)
+            e.state.set({ selectedFilter: 'completed' }, stamp)
           }
         }
       }
@@ -170,46 +162,3 @@ const app = {
 
 // Add app to DOM, initialize render:
 document.body.appendChild(render(app, state))
-
-/**
- * Benchmarking code:
- **/
-
-// Log time before benchmark:
-// var date = Date.now()
-
-// // Define todos and iteration:
-// let object = { todos: {} }
-// let iteration = 0
-
-// // Spawn 10 items:
-// for (iteration = 0; iteration < 10; iteration++) {
-//   object.todos[iteration] = { text: 'todo it' }
-// }
-// state.set(object)
-
-// // Update 10 items:
-// object = { todos: {} }
-// iteration = 0
-// for (iteration = 0; iteration < 10; iteration++) {
-//   object.todos[iteration] = { done: true }
-// }
-// state.set(object)
-
-// Remove 10 items:
-// state.todos.remove()
-
-// Output time spent until items are spawned, updated and deleted:
-// console.log(Date.now() - date, 'ms')
-
-/**
- * Debugging - Spawn 3 items:
- **/
-
-object = { todos: {} }
-iteration = 0
-for (iteration = 0; iteration < 3; iteration++) {
-  object.todos[iteration] = { text: 'todo it' }
-}
-state.set(object)
-

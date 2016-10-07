@@ -79,7 +79,16 @@ const footer = {
     tag: 'span',
     text: {
       $: 'todos',
-      $transform: val => val && `${val.keys().length} items left`
+      $transform: () => {
+        let count = 0
+        state.get('todos', {}).each((item) => {
+          if (!item.get('done', false).compute()) {
+            count++
+          }
+        })
+
+        return `${count} items left`
+      }
     }
   },
   filters: {
@@ -93,9 +102,7 @@ const footer = {
         text: 'All',
         class: 'selected',
         on: {
-          click: (e, stamp) => {
-            e.state.set({ selectedFilter: 'all' }, stamp)
-          }
+          click: (e, stamp) => e.state.set({ selectedFilter: 'all' }, stamp)
         }
       }
     },
@@ -103,9 +110,7 @@ const footer = {
       href: {
         text: 'Active',
         on: {
-          click: (e, stamp) => {
-            e.state.set({ selectedFilter: 'active' }, stamp)
-          }
+          click: (e, stamp) => e.state.set({ selectedFilter: 'active' }, stamp)
         }
       }
     },
@@ -113,9 +118,7 @@ const footer = {
       href: {
         text: 'Completed',
         on: {
-          click: (e, stamp) => {
-            e.state.set({ selectedFilter: 'completed' }, stamp)
-          }
+          click: (e, stamp) => e.state.set({ selectedFilter: 'completed' }, stamp)
         }
       }
     }
@@ -125,7 +128,12 @@ const footer = {
 const todoapp = {
   types: { header },
   header: { type: 'header' },
+
+  // Do not render main if no todos are in state.
+
   main: {
+    // $: 'todos.item.$test', // state && state.compute()
+
     tag: 'section',
     toggle: {
       tag: 'input',
@@ -162,3 +170,14 @@ const app = {
 
 // Add app to DOM, initialize render:
 document.body.appendChild(render(app, state))
+
+/**
+ * Debugging - Spawn 3 items:
+ **/
+
+// let object = { todos: {} }
+// let iteration = 0
+// for (iteration = 0; iteration < 3; iteration++) {
+//   object.todos[iteration] = { text: 'todo it' }
+// }
+// state.set(object)

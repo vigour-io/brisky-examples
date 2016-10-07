@@ -2,12 +2,12 @@
 
 ###Todo:
 
-- Add filtering options.
-- Fix global done checkbox.
-- Footer: Subscribe to amount of items in state, show total + ' items left'.
+- Make better fix for global done checkbox.
 
-- Filters:
+- Cleanup Subscribe to amount of items in state, show total + ' items left'.
+-- Add default value to counter.
 
+- Add filtering options. Filters:
 -- Add filtering options.
 -- When active is clicked, done items needs hidden class.
 -- When completed is clicked, invert.

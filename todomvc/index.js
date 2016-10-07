@@ -10,6 +10,7 @@ const render = require('brisky/render')
 const s = require('vigour-state/s')
 const state = global.state = s({})
 
+// --- Use below to add connectivity:
 // const Hub = require('brisky-hub')
 // const state = global.state = new Hub({ url: 'ws://localhost:3030' })
 
@@ -25,15 +26,12 @@ const header = {
     on: {
       enter: (e, stamp) => {
         if (e.target.value) {
-          // Store new item w/ text in state.
           e.state.set({
             todos: {
-              [Date.now()]: { text: e.target.value }
+              [Date.now()]: { text: e.target.value } // Question: Why add Date.now()?
             }
-          }, stamp)
-
-          // Reset value after adding todo.
-          e.target.value = ''
+          }, stamp) // Store new item w/ text in state.
+          e.target.value = '' // Reset value after adding a todo.
         }
       }
     }
@@ -51,37 +49,25 @@ const item = {
         type: 'checkbox',
         checked: {
           $: 'done',
-
-          // If item is done, set checked to true.
-          $transform: (val) => val || null
-
+          $transform: (val) => val || null // Either add or remove checked attribute.
         }
       },
       on: {
-
-        // Boolean, either done or not.
-        change: (e, stamp) => e.state.set({ done: e.target.checked }, stamp)
+        change: (e, stamp) => e.state.set({ done: e.target.checked }, stamp) // Boolean, either done or not.
       }
     },
     label: {
       tag: 'label',
       text: { $: 'text' },
       class: {
-        strikethrough: { $: 'done' }
+        linethrough: { $: 'done' }
       }
-
-      // Subscribe to corresponding item in state
-      // if done, add class 'strikethrough', etc.
-
     },
     destroy: {
       tag: 'button',
       class: 'destroy',
       on: {
-
-        // Delete item from state when clicked.∏π∏
-        click: (e, stamp) => e.state.remove(stamp)
-
+        click: (e, stamp) => e.state.remove(stamp) // Delete item from state
       }
     }
   }
@@ -91,36 +77,32 @@ const footer = {
   counter: {
     class: 'todo-count',
     tag: 'span',
+    text: 'X items left'
 
-    // Subscribe to amount of items in state
-    // show total + ' items left'
+    // text: {
+    //  $: 'todos.items',
+    //  $transform: val => {
+    //    return `todos completed`
+    //  }
+    // }
 
-    text: {
-      $: 'done',
-      $transform: (val) => {
-        // `${todos.length()} items left`
-
-        // e.state.get('todos', {}).each((p) => {
-
-        // })
-      }
-    }
+    // text: {
+    //   $: 'todos.$any',
+    //   $transform: (val) => {
+    //     // `${todos.length()} items left`
+    //     // e.state.get('todos', {}).each((p) => {
+    //     // })
+    //   }
+    // }
 
   },
   child: {
     on: {
       click () {
-
         // alert(this.parent.key)
-
       }
     }
   },
-
-  // Add filtering options.
-  // When active is clicked, done items needs hidden class.
-  // When completed is clicked, invert.
-  // For all, remove hidden class completely.
 
   filters: {
     tag: 'ul',
@@ -135,20 +117,30 @@ const footer = {
         on: {
           click: (e, stamp) => {
             console.log(e)
-
-            e.state.set({
-              filter: {
-                [Date.now()]: {
-                  selected: true
-                }
-              }
-            }, stamp)
           }
         }
       }
     },
-    active: { href: { text: 'Active' } },
-    completed: { href: { text: 'Completed' } }
+    active: {
+      href: {
+        text: 'Active',
+        on: {
+          click: (e, stamp) => {
+            console.log(e)
+          }
+        }
+      }
+    },
+    completed: {
+      href: {
+        text: 'Completed',
+        on: {
+          click: (e, stamp) => {
+            console.log(e)
+          }
+        }
+      }
+    }
   }
 }
 

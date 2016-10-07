@@ -102,13 +102,13 @@ const footer = {
     // }
 
   },
-  child: {
-    on: {
-      click () {
-        console.log(this.parent.key)
-      }
-    }
-  },
+  // child: {
+  //   on: {
+  //     click () {
+  //       console.log(this.parent.key)
+  //     }
+  //   }
+  // },
 
   filters: {
     tag: 'ul',
@@ -164,17 +164,10 @@ const todoapp = {
           const root = e.state.root
           const itemsChecked = root.get('checkAllItems') ? root.get('checkAllItems').val : false
 
-          if (itemsChecked) {
-            e.state.set({ checkAllItems: false }, stamp)
-            e.state.get('todos', {}).each((p) => {
-              p.set({ done: false }, stamp)
-            })
-          } else {
-            e.state.set({ checkAllItems: true }, stamp)
-            e.state.get('todos', {}).each((p) => {
-              p.set({ done: true }, stamp)
-            })
-          }
+          e.state.set({ checkAllItems: itemsChecked ? false : true }, stamp)
+          e.state.get('todos', {}).each((p) => { // Depending on boolean checkAllItems, toggle items.
+            p.set({ done: itemsChecked ? false : true }, stamp)
+          })
         }
       }
     },

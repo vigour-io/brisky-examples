@@ -22,4 +22,4 @@ const state = s({
   }
 })
 
-document.appendchild(render(element, state))
+document.body.appendChild(render(element, state))

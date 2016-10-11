@@ -18,22 +18,23 @@ const state = global.state = s({})
 
 const header = {
   class: 'header',
-  title: { tag: 'h1', text: 'todos' },
-  input: {
-    tag: 'input',
-    class: 'new-todo',
-    props: {
-      placeholder: 'What needs to be done?'
-    },
-    on: {
-      enter: (e, stamp) => {
-        if (e.target.value) {
-          e.state.set({
-            todos: {
-              [Date.now()]: { text: e.target.value } // Question: Why add Date.now()?
-            }
-          }, stamp) // Store new item w/ text in state.
-          e.target.value = '' // Reset value after adding a todo.
+  wrapper: {
+    input: {
+      tag: 'input',
+      class: 'new-todo',
+      props: {
+        placeholder: 'What needs to be done?'
+      },
+      on: {
+        enter: (e, stamp) => {
+          if (e.target.value) {
+            e.state.set({
+              todos: {
+                [Date.now()]: { text: e.target.value } // Question: Why add Date.now()?
+              }
+            }, stamp) // Store new item w/ text in state.
+            e.target.value = '' // Reset value after adding a todo.
+          }
         }
       }
     }
@@ -130,14 +131,9 @@ const footer = {
 }
 
 const todoapp = {
-  types: { header },
-  header: { type: 'header' },
-
-  // Do not render main if no todos are in state.
-
+  class: 'todo-app',
+  header,
   main: {
-    // $: 'todos.item.$test', // state && state.compute()
-
     tag: 'section',
     toggle: {
       tag: 'input',
@@ -169,6 +165,7 @@ const todoapp = {
 
 const app = {
   child: { class: true, child: 'Constructor' },
+  title: { tag: 'h1', text: 'todos' },
   todoapp
 }
 
@@ -182,6 +179,6 @@ document.body.appendChild(render(app, state))
 // let object = { todos: {} }
 // let iteration = 0
 // for (iteration = 0; iteration < 3; iteration++) {
-//   object.todos[iteration] = { text: 'todo it' }
+//   object.todos[iteration] = { text: 'lets do this' }
 // }
 // state.set(object)

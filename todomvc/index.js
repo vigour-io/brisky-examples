@@ -29,7 +29,10 @@ const header = {
           const itemsChecked = e.state.root.get('checkAllItems') ? e.state.root.get('checkAllItems').val : true
           e.state.root.set({ checkAllItems: !itemsChecked }, stamp)
           e.state.each((item) => {
-            item.set({ done: itemsChecked }, stamp)
+            const doneState = item.get('done') && item.get('done').val
+            if (doneState !== itemsChecked) {
+              item.set({ done: itemsChecked }, stamp)
+            }
           })
         }
       }
@@ -47,14 +50,18 @@ const header = {
               todos: {
                 [Date.now()]: { text: e.target.value, done: false }
               }
-            }, stamp) // Store new item w/ text in state.
-            e.target.value = '' // Reset value after adding a todo.
+            }, stamp)
+            clearInputField(e)
           }
         },
-        blur: (e) => e.target.value = ''
+        blur: clearInputField
       }
     }
   }
+}
+
+function clearInputField (e) {
+  e.target.value = ''
 }
 
 const item = {
@@ -84,33 +91,29 @@ const item = {
     class: 'view',
     toggle: {
       tag: 'input',
-      class: 'toggle',
-      props: {
-        type: 'checkbox',
-        checked: {
-          $: 'done',
-          $transform: (val) => val || null // Either add or remove checked attribute.
-        }
+      class: {
+        checked: { $: 'done' }
       },
+      props: { type: 'checkbox' },
       on: {
-        change: (e, stamp) => e.state.set({ done: e.target.checked }, stamp) // Boolean, either done or not.
+        change: (e, stamp) => e.state.set({ done: e.target.checked }, stamp)
       }
     },
     destroy: {
       tag: 'button',
       class: 'destroy',
       on: {
-        click: (e, stamp) => e.state.remove(stamp) // Delete item from state
+        click: (e, stamp) => e.state.remove(stamp)
       }
     }
   },
   edit: {
+    tag: 'input',
     class: {
       done: { $: 'done' }
     },
-    tag: 'input',
     props: {
-      value: { $: 'text' },
+      value: { $: 'text' }
     },
     on: {
       enter: setTodoText,
@@ -210,7 +213,7 @@ const footer = {
   },
   $test: (state) => {
     return state.todos && state.todos.compute()
-  },
+  }
 }
 
 function checkForCompletedTodos (state) {
@@ -233,10 +236,10 @@ const todoapp = {
   main: {
     tag: 'section',
     list: {
-      $: 'todos.$any', // only add item if todo exists in state
+      $: 'todos.$any',
       tag: 'ul',
       class: 'todo-list',
-      child: item // Whenever todos are added to state, spawn item in DOM.
+      child: item
     }
   },
   footer

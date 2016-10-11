@@ -299,6 +299,7 @@ label[for='toggle-all'] {
 
 .filters li {
   display: inline;
+  cursor: pointer;
 }
 
 .filters li a {

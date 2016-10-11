@@ -135,7 +135,12 @@ const footer = {
     all: {
       href: {
         text: 'All',
-        class: 'selected',
+        class: {
+          selected: {
+            $: 'selectedFilter',
+            $transform: (val) => (val === 'all')
+          }
+        },
         on: {
           click: (e, stamp) => e.state.set({ selectedFilter: 'all' }, stamp)
         }
@@ -144,6 +149,12 @@ const footer = {
     active: {
       href: {
         text: 'Active',
+        class: {
+          selected: {
+            $: 'selectedFilter',
+            $transform: (val) => (val === 'active')
+          }
+        },
         on: {
           click: (e, stamp) => e.state.set({ selectedFilter: 'active' }, stamp)
         }
@@ -152,6 +163,12 @@ const footer = {
     completed: {
       href: {
         text: 'Completed',
+        class: {
+          selected: {
+            $: 'selectedFilter',
+            $transform: (val) => (val === 'completed')
+          }
+        },
         on: {
           click: (e, stamp) => e.state.set({ selectedFilter: 'completed' }, stamp)
         }
@@ -213,6 +230,9 @@ const app = {
   title: { tag: 'h1', text: 'todos' },
   todoapp
 }
+
+let selectedFilter = { selectedFilter: 'all' }
+state.set(selectedFilter)
 
 // Add app to DOM, initialize render:
 document.body.appendChild(render(app, state, function (subs, tree, state, type, stamp, nsubs, ntree, sType, elem) {

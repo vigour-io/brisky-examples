@@ -62,6 +62,27 @@ const header = {
 }
 
 const item = {
+  $: '$test',
+  $test: (state) => {
+    let filterType = null
+    const itemIsComplete = state.get('done', true).compute()
+    const selectedFilter = state.root.get('selectedFilter')
+    if (selectedFilter) {
+      filterType = selectedFilter.val
+    }
+
+    if (filterType === 'all') {
+      return true
+    }
+
+    if (filterType === 'active' && !itemIsComplete) {
+      return true
+    }
+
+    if (filterType === 'complete' && itemIsComplete) {
+      return true
+    }
+  },
   tag: 'li',
   view: {
     class: 'view',

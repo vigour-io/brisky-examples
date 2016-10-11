@@ -88,13 +88,21 @@ function setTodoText (e, stamp) {
 }
 
 const footer = {
+  $: '$test',
   counter: {
     class: 'todo-count',
     tag: 'span',
     text: {
       $: 'todos',
       $transform: () => {
+        let count = 0
+        state.get('todos', {}).each((item) => {
+          if (!item.get('done', false).compute()) {
+            count++
+          }
+        })
 
+        return `${count} items left`
       }
     }
   },
@@ -135,27 +143,34 @@ const footer = {
     tag: 'button',
     class: 'clear-completed',
     text: 'Clear completed',
-    $test: checkForTodos,
+    $test: checkForCompletedTodos,
     on: {
       click: (e, stamp) => {
-
+        e.state.get('todos', {}).each((item, stamp) => {
+          if (item.get('done', true).compute()) {
+            item.remove(stamp)
+          }
+        })
       }
     }
-  }
+  },
+  $test: (state) => {
+    return state.todos && state.todos.compute()
+  },
 }
 
-function checkForTodos (state) {
-  let todosExist = false
+function checkForCompletedTodos (state) {
+  let completedTodosExist = false
   var todos = state.todos && state.todos.compute()
   if (todos) {
     state.get('todos', {}).each((item) => {
       if (item.get('done', true).compute()) {
-        todosExist = true
+        completedTodosExist = true
       }
     })
   }
 
-  return todosExist
+  return completedTodosExist
 }
 
 const todoapp = {
@@ -180,9 +195,9 @@ const todoapp = {
       }
     },
     list: {
+      $: 'todos.$any', // only add item if todo exists in state
       tag: 'ul',
       class: 'todo-list',
-      $: 'todos.$any', // only add item if todo exists in state
       child: item // Whenever todos are added to state, spawn item in DOM.
     }
   },
@@ -197,7 +212,7 @@ const app = {
 
 // Add app to DOM, initialize render:
 document.body.appendChild(render(app, state, function (subs, tree, state, type, stamp, nsubs, ntree, sType, elem) {
-  console.log('subscriptions:', subs)
+  // console.log('subscriptions:', subs)
 }))
 
 /**

@@ -35,7 +35,8 @@ const header = {
             }, stamp) // Store new item w/ text in state.
             e.target.value = '' // Reset value after adding a todo.
           }
-        }
+        },
+        blur: (e) => e.target.value = ''
       }
     }
   }
@@ -69,22 +70,21 @@ const item = {
   },
   edit: {
     class: {
-      'edit': true,
-      linethrough: { $: 'done' }
+      done: { $: 'done' }
     },
     tag: 'input',
     props: {
       value: { $: 'text' },
     },
     on: {
-      enter: (e, stamp) => {
-        e.state.set({ text: e.target.value }, stamp)
-      },
-      blur: (e, stamp) => {
-        e.state.set({ text: e.target.value }, stamp)
-      }
+      enter: setTodoText,
+      blur: setTodoText
     }
   }
+}
+
+function setTodoText (e, stamp) {
+  e.state.set({ text: e.target.value }, stamp)
 }
 
 const footer = {
@@ -137,6 +137,42 @@ const footer = {
         }
       }
     }
+  },
+  button: {
+    $: '$test',
+    tag: 'button',
+    class: 'clear-completed',
+    text: 'Clear completed',
+    $test: (state) => {
+
+      // console.log(state)
+
+      // var todos = state.todos.compute()
+      // console.log('todos', todos)
+
+
+
+      // if (todos && todos.done) {
+      //   return (state.todos.compute().indexOf(done) > -1)
+      // }
+
+      /*
+        if (item.get('done').compute()) {
+          return true
+        } else {
+          return false
+        }
+      */
+    },
+    on: {
+      click: (e, stamp) => {
+        e.state.get('todos', {}).each((item, stamp) => {
+          if (item.get('done').compute()) {
+            item.remove(stamp)
+          }
+        })
+      }
+    }
   }
 }
 
@@ -155,8 +191,8 @@ const todoapp = {
           const itemsChecked = checkAllItems ? checkAllItems.val : false
 
           e.state.set({ checkAllItems: itemsChecked ? false : true }, stamp)
-          e.state.get('todos', {}).each((p) => { // Depending on boolean checkAllItems, toggle items.
-            p.set({ done: itemsChecked ? false : true }, stamp)
+          e.state.get('todos', {}).each((item) => { // Depending on boolean checkAllItems, toggle items.
+            item.set({ done: itemsChecked ? false : true }, stamp)
           })
 
           console.log('Event: %O || Stamp: %O', e, stamp)

@@ -100,6 +100,11 @@ body {
   box-shadow: inset 0 -2px 1px rgba(0,0,0,0.03);
 }
 
+.edit {
+  font-style: normal;
+  transition: color 0.4s;
+}
+
 .edit:active,
 .edit:focus {
   border: 1px solid black;
@@ -127,8 +132,9 @@ body {
 
 /* TODO: Replace placeholder with CSSNext & */
 
-.linethrough {
+.done {
   text-decoration: line-through;
+  color: #d9d9d9;
 }
 
 

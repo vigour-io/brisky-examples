@@ -26,13 +26,9 @@ const header = {
       class: 'toggle-all',
       on: {
         click: (e, stamp) => {
-          let itemsChecked = true
-          if (e.state.root.get('checkAllItems')) {
-            itemsChecked = e.state.root.get('checkAllItems').val
-          }
-
+          const itemsChecked = e.state.root.get('checkAllItems') ? e.state.root.get('checkAllItems').val : true
           e.state.root.set({ checkAllItems: !itemsChecked }, stamp)
-          e.state.root.get('todos', {}).each((item) => { // Depending on boolean checkAllItems, toggle items.
+          e.state.each((item) => {
             item.set({ done: itemsChecked }, stamp)
           })
         }

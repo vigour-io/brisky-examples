@@ -29,8 +29,7 @@ const header = {
           const itemsChecked = e.state.root.get('checkAllItems') ? e.state.root.get('checkAllItems').val : true
           e.state.root.set({ checkAllItems: !itemsChecked }, stamp)
           e.state.each((item) => {
-            const doneState = item.get('done') && item.get('done').val
-            if (doneState !== itemsChecked) {
+            if (item.get('done').val !== itemsChecked) {
               item.set({ done: itemsChecked }, stamp)
             }
           })
@@ -67,23 +66,15 @@ function clearInputField (e) {
 const item = {
   $: '$test',
   $test: (state) => {
-    let filterType = null
-    const itemIsComplete = state.get('done', true).compute()
-    const selectedFilter = state.root.get('selectedFilter')
-    if (selectedFilter) {
-      filterType = selectedFilter.val
-    }
-
-    if (filterType === 'all') {
-      return true
-    }
-
-    if (filterType === 'active' && !itemIsComplete) {
-      return true
-    }
-
-    if (filterType === 'complete' && itemIsComplete) {
-      return true
+    const filterType = state.root.get('selectedFilter') && state.root.get('selectedFilter').val || null
+    const itemIsComplete = state.get('done').compute()
+    switch (filterType) {
+      case 'all':
+        return true
+      case 'active':
+        return !itemIsComplete
+      case 'completed':
+        return itemIsComplete
     }
   },
   tag: 'li',

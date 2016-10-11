@@ -144,30 +144,23 @@ const footer = {
     class: 'clear-completed',
     text: 'Clear completed',
     $test: (state) => {
+      let todosExist = false
 
-      // console.log(state)
+      var todos = state.todos && state.todos.compute()
+      if (todos) {
+        state.get('todos', {}).each((item) => {
+          if (item.get('done', true).compute()) {
+            todosExist = true
+          }
+        })
+      }
 
-      // var todos = state.todos.compute()
-      // console.log('todos', todos)
-
-
-
-      // if (todos && todos.done) {
-      //   return (state.todos.compute().indexOf(done) > -1)
-      // }
-
-      /*
-        if (item.get('done').compute()) {
-          return true
-        } else {
-          return false
-        }
-      */
+      return todosExist
     },
     on: {
       click: (e, stamp) => {
         e.state.get('todos', {}).each((item, stamp) => {
-          if (item.get('done').compute()) {
+          if (item.get('done', true).compute()) {
             item.remove(stamp)
           }
         })

@@ -152,12 +152,13 @@ label[for='toggle-all'] {
 
 .toggle-all {
   position: absolute;
-  top: -55px;
+  top: 12px;
   left: -12px;
   width: 60px;
   height: 34px;
   text-align: center;
   border: none; /* Mobile Safari */
+  z-index: 10;
 }
 
 .toggle-all:before {

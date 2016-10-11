@@ -19,6 +19,23 @@ const state = global.state = s({})
 const header = {
   class: 'header',
   wrapper: {
+    toggle: {
+      $: 'todos',
+      tag: 'input',
+      props: { type: 'checkbox' },
+      class: 'toggle-all',
+      on: {
+        click: (e, stamp) => {
+          const checkAllItems = e.state.root.get('checkAllItems')
+          const itemsChecked = checkAllItems ? checkAllItems.val : false
+
+          e.state.root.set({ checkAllItems: itemsChecked ? false : true }, stamp)
+          e.state.root.get('todos', {}).each((item) => { // Depending on boolean checkAllItems, toggle items.
+            item.set({ done: itemsChecked ? false : true }, stamp)
+          })
+        }
+      }
+    },
     input: {
       tag: 'input',
       class: 'new-todo',
@@ -85,6 +102,7 @@ const item = {
 
 function setTodoText (e, stamp) {
   e.state.set({ text: e.target.value }, stamp)
+  e.target.blur()
 }
 
 const footer = {
@@ -178,22 +196,6 @@ const todoapp = {
   header,
   main: {
     tag: 'section',
-    toggle: {
-      tag: 'input',
-      props: { type: 'checkbox' },
-      class: 'toggle-all',
-      on: {
-        click: (e, stamp) => {
-          const checkAllItems = e.state.root.get('checkAllItems')
-          const itemsChecked = checkAllItems ? checkAllItems.val : false
-
-          e.state.set({ checkAllItems: itemsChecked ? false : true }, stamp)
-          e.state.get('todos', {}).each((item) => { // Depending on boolean checkAllItems, toggle items.
-            item.set({ done: itemsChecked ? false : true }, stamp)
-          })
-        }
-      }
-    },
     list: {
       $: 'todos.$any', // only add item if todo exists in state
       tag: 'ul',
@@ -212,7 +214,7 @@ const app = {
 
 // Add app to DOM, initialize render:
 document.body.appendChild(render(app, state, function (subs, tree, state, type, stamp, nsubs, ntree, sType, elem) {
-  // console.log('subscriptions:', subs)
+  console.log('subscriptions:', subs)
 }))
 
 /**

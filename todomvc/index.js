@@ -49,7 +49,7 @@ const header = {
           if (e.target.value) {
             e.state.set({
               todos: {
-                [Date.now()]: { text: e.target.value, done: false } // Question: Why add Date.now()?
+                [Date.now()]: { text: e.target.value, done: false }
               }
             }, stamp) // Store new item w/ text in state.
             e.target.value = '' // Reset value after adding a todo.
@@ -135,11 +135,11 @@ const footer = {
     tag: 'span',
     text: {
       $: 'todos',
-      $transform: () => {
-        let count = 0
-        state.get('todos', {}).each((item) => {
-          if (!item.get('done', false).compute()) {
-            count++
+      $transform: (data) => {
+        let count = data.keys().length
+        data.each((item) => {
+          if (item.get('done', true).compute()) {
+            count--
           }
         })
 

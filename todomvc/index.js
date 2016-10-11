@@ -26,12 +26,14 @@ const header = {
       class: 'toggle-all',
       on: {
         click: (e, stamp) => {
-          const checkAllItems = e.state.root.get('checkAllItems')
-          const itemsChecked = checkAllItems ? checkAllItems.val : false
+          let itemsChecked = true
+          if (e.state.root.get('checkAllItems')) {
+            itemsChecked = e.state.root.get('checkAllItems').val
+          }
 
-          e.state.root.set({ checkAllItems: itemsChecked ? false : true }, stamp)
+          e.state.root.set({ checkAllItems: !itemsChecked }, stamp)
           e.state.root.get('todos', {}).each((item) => { // Depending on boolean checkAllItems, toggle items.
-            item.set({ done: itemsChecked ? false : true }, stamp)
+            item.set({ done: itemsChecked }, stamp)
           })
         }
       }
@@ -214,7 +216,7 @@ const app = {
 
 // Add app to DOM, initialize render:
 document.body.appendChild(render(app, state, function (subs, tree, state, type, stamp, nsubs, ntree, sType, elem) {
-  console.log('subscriptions:', subs)
+  // console.log('subscriptions:', subs)
 }))
 
 /**

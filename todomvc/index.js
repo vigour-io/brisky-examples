@@ -59,19 +59,29 @@ const item = {
         change: (e, stamp) => e.state.set({ done: e.target.checked }, stamp) // Boolean, either done or not.
       }
     },
-    label: {
-      tag: 'label',
-      text: { $: 'text' },
-      class: {
-        'input': true,
-        linethrough: { $: 'done' }
-      }
-    },
     destroy: {
       tag: 'button',
       class: 'destroy',
       on: {
         click: (e, stamp) => e.state.remove(stamp) // Delete item from state
+      }
+    }
+  },
+  edit: {
+    class: {
+      'edit': true,
+      linethrough: { $: 'done' }
+    },
+    tag: 'input',
+    props: {
+      value: { $: 'text' },
+    },
+    on: {
+      enter: (e, stamp) => {
+        e.state.set({ text: e.target.value }, stamp)
+      },
+      blur: (e, stamp) => {
+        e.state.set({ text: e.target.value }, stamp)
       }
     }
   }

@@ -2,7 +2,7 @@
   --white: rgb(255, 255, 255);
   --black: rgb(0, 0, 0);
   --background: rgb(245, 245, 245);
-  --font-family: 'Droid Sans Mono', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* "Droid Sans Mono" */
   --default-font-color: rgb(77, 77, 77);
   --header-font-color: rgba(175, 47, 47, 0.15);
   --info-font-color: rgb(191, 191, 191);
@@ -72,7 +72,8 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-.new-todo {
+.new-todo,
+.edit {
   font-style: italic;
   font-weight: 300;
   color: #e6e6e6;
@@ -94,10 +95,37 @@ body {
   -moz-font-smoothing: antialiased;
   font-smoothing: antialiased;
   padding: 16px 16px 16px 60px;
-  border: none;
+  border: 1px solid transparent;
   background: rgba(0, 0, 0, 0.003);
   box-shadow: inset 0 -2px 1px rgba(0,0,0,0.03);
 }
+
+.edit:active,
+.edit:focus {
+  border: 1px solid black;
+}
+
+/* TODO: Replace placeholder with CSSNext & */
+
+.new-todo::-webkit-input-placeholder {
+  font-style: italic;
+  font-weight: 300;
+  color: #e6e6e6;
+}
+
+.new-todo::-moz-placeholder {
+  font-style: italic;
+  font-weight: 300;
+  color: #e6e6e6;
+}
+
+.new-todo::input-placeholder {
+  font-style: italic;
+  font-weight: 300;
+  color: #e6e6e6;
+}
+
+/* TODO: Replace placeholder with CSSNext & */
 
 .linethrough {
   text-decoration: line-through;
@@ -181,6 +209,7 @@ label[for='toggle-all'] {
   border: none; /* Mobile Safari */
   -webkit-appearance: none;
   appearance: none;
+  z-index: 10;
 }
 
 .todo-list li .toggle:after {
@@ -189,21 +218,6 @@ label[for='toggle-all'] {
 
 .todo-list li .toggle:checked:after {
   content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#bddad5" stroke-width="3"/><path fill="#5dc2af" d="M72 25L42 71 27 56l-4 4 20 20 34-52z"/></svg>');
-}
-
-.todo-list li label {
-  white-space: pre-line;
-  word-break: break-all;
-  padding: 15px 60px 15px 15px;
-  margin-left: 45px;
-  display: block;
-  line-height: 1.2;
-  transition: color 0.4s;
-}
-
-.todo-list li.completed label {
-  color: #d9d9d9;
-  text-decoration: line-through;
 }
 
 .todo-list li .destroy {
@@ -219,6 +233,7 @@ label[for='toggle-all'] {
   color: #cc9a9a;
   margin-bottom: 11px;
   transition: color 0.2s ease-out;
+  z-index: 10;
 }
 
 .todo-list li .destroy:hover {
@@ -233,13 +248,6 @@ label[for='toggle-all'] {
   display: block;
 }
 
-.todo-list li .edit {
-  display: none;
-}
-
-.todo-list li.editing:last-child {
-  margin-bottom: -1px;
-}
 
 .footer {
   color: #777;

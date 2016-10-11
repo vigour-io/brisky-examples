@@ -17,3 +17,12 @@
 
 Note: 
 - In benchmark, I have to define object to allow update.
+
+
+- When subscribing to events, would it be possible to do something like this?
+
+    on: {
+      (blur && enter): (e, stamp) => {
+        e.state.set({ text: e.target.value }, stamp)
+      }
+    }

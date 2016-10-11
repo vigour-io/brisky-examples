@@ -6,6 +6,7 @@
 
 - Cleanup Subscribe to amount of items in state, show total + ' items left'.
 -- Add default value to counter.
+-- Ensure that deleted items are accounted for.
 
 - Add filtering options. Filters:
 -- Add filtering options.
@@ -16,14 +17,3 @@
 
 Note: 
 - In benchmark, I have to define object to allow update.
-
-
-// Code-bank:
-
-const test = e.state.get('todos', {}).keys().length
-console.log('test: %O', test)
-
-const selectedFilter = e.state.root.get('selectedFilter')
-
-
-console.log('Event: %O || Stamp: %O', e, stamp)

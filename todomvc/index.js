@@ -62,6 +62,7 @@ const item = {
       tag: 'label',
       text: { $: 'text' },
       class: {
+        'input': true,
         linethrough: { $: 'done' }
       }
     },
@@ -94,6 +95,7 @@ const footer = {
     }
   },
   filters: {
+    $: 'todos',
     tag: 'ul',
     child: {
       tag: 'li',

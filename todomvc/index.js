@@ -30,7 +30,7 @@ const header = {
           if (e.target.value) {
             e.state.set({
               todos: {
-                [Date.now()]: { text: e.target.value } // Question: Why add Date.now()?
+                [Date.now()]: { text: e.target.value, done: false } // Question: Why add Date.now()?
               }
             }, stamp) // Store new item w/ text in state.
             e.target.value = '' // Reset value after adding a todo.
@@ -94,19 +94,11 @@ const footer = {
     text: {
       $: 'todos',
       $transform: () => {
-        let count = 0
-        state.get('todos', {}).each((item) => {
-          if (!item.get('done', false).compute()) {
-            count++
-          }
-        })
 
-        return `${count} items left`
       }
     }
   },
   filters: {
-    $: 'todos',
     tag: 'ul',
     child: {
       tag: 'li',
@@ -143,30 +135,27 @@ const footer = {
     tag: 'button',
     class: 'clear-completed',
     text: 'Clear completed',
-    $test: (state) => {
-      let todosExist = false
-
-      var todos = state.todos && state.todos.compute()
-      if (todos) {
-        state.get('todos', {}).each((item) => {
-          if (item.get('done', true).compute()) {
-            todosExist = true
-          }
-        })
-      }
-
-      return todosExist
-    },
+    $test: checkForTodos,
     on: {
       click: (e, stamp) => {
-        e.state.get('todos', {}).each((item, stamp) => {
-          if (item.get('done', true).compute()) {
-            item.remove(stamp)
-          }
-        })
+
       }
     }
   }
+}
+
+function checkForTodos (state) {
+  let todosExist = false
+  var todos = state.todos && state.todos.compute()
+  if (todos) {
+    state.get('todos', {}).each((item) => {
+      if (item.get('done', true).compute()) {
+        todosExist = true
+      }
+    })
+  }
+
+  return todosExist
 }
 
 const todoapp = {
@@ -187,15 +176,13 @@ const todoapp = {
           e.state.get('todos', {}).each((item) => { // Depending on boolean checkAllItems, toggle items.
             item.set({ done: itemsChecked ? false : true }, stamp)
           })
-
-          console.log('Event: %O || Stamp: %O', e, stamp)
         }
       }
     },
     list: {
       tag: 'ul',
       class: 'todo-list',
-      $: 'todos.$any',
+      $: 'todos.$any', // only add item if todo exists in state
       child: item // Whenever todos are added to state, spawn item in DOM.
     }
   },
@@ -209,15 +196,17 @@ const app = {
 }
 
 // Add app to DOM, initialize render:
-document.body.appendChild(render(app, state))
+document.body.appendChild(render(app, state, function (subs, tree, state, type, stamp, nsubs, ntree, sType, elem) {
+  console.log('subscriptions:', subs)
+}))
 
 /**
  * Debugging - Spawn 3 items:
  **/
 
-let object = { todos: {} }
-let iteration = 0
-for (iteration = 0; iteration < 3; iteration++) {
-  object.todos[iteration] = { text: 'lets do this' }
-}
-state.set(object)
+// let object = { todos: {} }
+// let iteration = 0
+// for (iteration = 0; iteration < 3; iteration++) {
+//   object.todos[iteration] = { text: 'lets do this', done: false }
+// }
+// state.set(object)

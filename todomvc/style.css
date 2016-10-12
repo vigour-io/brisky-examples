@@ -43,9 +43,6 @@ button {
   color: inherit;
   -webkit-appearance: none;
   appearance: none;
-  -webkit-font-smoothing: antialiased;
-  -moz-font-smoothing: antialiased;
-  font-smoothing: antialiased;
 }
 
 
@@ -58,9 +55,6 @@ button {
   font-weight: 100;
   text-align: center;
   color: rgba(175, 47, 47, 0.15);
-  -webkit-text-rendering: optimizeLegibility;
-  -moz-text-rendering: optimizeLegibility;
-  text-rendering: optimizeLegibility;
 }
 
 .done {
@@ -152,7 +146,6 @@ button {
 
 .main {
   position: relative;
-  z-index: 2;
   border-top: 1px solid var(--light-font-color);
 }
 
@@ -201,15 +194,13 @@ button {
 }
 
 .destroy {
-  display: none;
   position: absolute;
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: auto;
   margin: auto 0;
-  margin-bottom: 11px;
   top: 0;
   bottom: 0;
-  right: 10px;
+  right: 0;
   font-size: 30px;
   color: #cc9a9a;
   transition: color 0.2s ease-out;

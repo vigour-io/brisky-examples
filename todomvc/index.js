@@ -133,7 +133,7 @@ const footer = {
       $transform: (data) => {
         let count = data.keys().length
         data.each((item) => {
-          if (item.get('done', true).compute()) {
+          if (item.done.compute()) {
             count--
           }
         })
@@ -199,8 +199,8 @@ const footer = {
     $test: checkForCompletedTodos,
     on: {
       click: (e, stamp) => {
-        e.state.get('todos', {}).each((item, stamp) => {
-          if (item.get('done', true).compute()) {
+        e.state.todos.each((item, stamp) => {
+          if (item.done.compute()) {
             item.remove(stamp)
           }
         })
@@ -213,8 +213,8 @@ function checkForCompletedTodos (state) {
   let completedTodosExist = false
   var todos = state.todos && state.todos.compute()
   if (todos) {
-    state.get('todos', {}).each((item) => {
-      if (item.get('done', true).compute()) {
+    state.todos.each((item) => {
+      if (item.done.compute()) {
         completedTodosExist = true
       }
     })
@@ -250,6 +250,7 @@ state.set(selectedFilter)
 // Add app to DOM, initialize render:
 document.body.appendChild(render(app, state, function (subs, tree, state, type, stamp, nsubs, ntree, sType, elem) {
   // console.log('subscriptions: %O', subs)
+  // console.log('state: %O', state)
 }))
 
 /**

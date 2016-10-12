@@ -18,38 +18,36 @@ const state = global.state = s({
 state.set({ selectedFilter: state.filters[0] })
 
 const header = {
-  wrapper: {
-    toggleAll: {
-      $: 'todos.$test',
-      $test: state => state.keys().filter(val => state[val].val !== null).length,
-      tag: 'input',
-      props: { type: 'checkbox' },
-      on: {
-        click: (e, stamp) => {
-          const itemsChecked = e.state.root.checkAllItems.compute()
-          e.state.root.set({ checkAllItems: !itemsChecked }, stamp)
-          e.state.each((item) => {
-            if (item.done.val !== itemsChecked) {
-              item.set({ done: itemsChecked }, stamp)
-            }
-          })
-        }
-      }
-    },
-    newTodo: {
-      tag: 'input',
-      props: { placeholder: 'What needs to be done?' },
-      on: {
-        blur: clearInputField,
-        enter: (e, stamp) => {
-          if (e.target.value) {
-            e.state.set({
-              todos: {
-                [Date.now()]: { text: e.target.value, done: false }
-              }
-            }, stamp)
-            clearInputField(e)
+  toggleAll: {
+    $: 'todos.$test',
+    $test: state => state.keys().filter(val => state[val].val !== null).length,
+    tag: 'input',
+    props: { type: 'checkbox' },
+    on: {
+      click: (e, stamp) => {
+        const itemsChecked = e.state.root.checkAllItems.compute()
+        e.state.root.set({ checkAllItems: !itemsChecked }, stamp)
+        e.state.each((item) => {
+          if (item.done.val !== itemsChecked) {
+            item.set({ done: itemsChecked }, stamp)
           }
+        })
+      }
+    }
+  },
+  newTodo: {
+    tag: 'input',
+    props: { placeholder: 'What needs to be done?' },
+    on: {
+      blur: clearInputField,
+      enter: (e, stamp) => {
+        if (e.target.value) {
+          e.state.set({
+            todos: {
+              [Date.now()]: { text: e.target.value, done: false }
+            }
+          }, stamp)
+          clearInputField(e)
         }
       }
     }

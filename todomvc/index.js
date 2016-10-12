@@ -64,22 +64,24 @@ function clearInputField (e) {
 }
 
 const item = {
-  $: '$test',
-  $test: (state) => {
-    const filterType = state.root.get('selectedFilter').val
-    const itemIsComplete = state.get('done').compute()
-    switch (filterType) {
-      case 'all':
-        return true
-      case 'active':
-        return !itemIsComplete
-      case 'completed':
-        return itemIsComplete
+  tag: 'li',
+  class: {
+    hidden: {
+      $: 'done',
+      $transform: (val) => {
+        const filterType = state.root.get('selectedFilter').val
+        switch (filterType) {
+          case 'all':
+            return false
+          case 'active':
+            return val
+          case 'completed':
+            return !val
+        }
+      }
     }
   },
-  tag: 'li',
   view: {
-    class: 'view',
     toggle: {
       tag: 'input',
       class: {

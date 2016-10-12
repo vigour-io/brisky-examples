@@ -6,7 +6,7 @@
  *
  **/
 
-require('./style.reference.css')
+require('./style.css')
 
 const render = require('brisky/render')
 const s = require('vigour-state/s')
@@ -151,7 +151,6 @@ const footer = {
         tag: 'a',
         text: { $: true },
         class: {
-          'filter-link': true,
           selected: {
             $: '$test',
             $test: {

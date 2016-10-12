@@ -6,7 +6,7 @@
  *
  **/
 
-require('./style.css')
+require('./style.reference.css')
 
 const render = require('brisky/render')
 const s = require('vigour-state/s')

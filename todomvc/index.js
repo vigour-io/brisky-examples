@@ -261,9 +261,9 @@ document.body.appendChild(render(app, state, function (subs, tree, state, type, 
  * Debugging - Spawn 3 items:
  **/
 
-// let object = { todos: {} }
-// let iteration = 0
-// for (iteration = 0; iteration < 3; iteration++) {
-//   object.todos[iteration] = { text: 'lets do this', done: false }
-// }
-// state.set(object)
+let object = { todos: {} }
+let iteration = 0
+for (iteration = 0; iteration < 3; iteration++) {
+  object.todos[iteration] = { text: 'lets do this', done: false }
+}
+state.set(object)

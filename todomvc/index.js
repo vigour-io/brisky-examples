@@ -29,7 +29,7 @@ const header = {
           const itemsChecked = e.state.root.get('checkAllItems') ? e.state.root.get('checkAllItems').val : true
           e.state.root.set({ checkAllItems: !itemsChecked }, stamp)
           e.state.each((item) => {
-            if (item.get('done').val !== itemsChecked) {
+            if (item.done.val !== itemsChecked) {
               item.set({ done: itemsChecked }, stamp)
             }
           })

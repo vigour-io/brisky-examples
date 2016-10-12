@@ -56,11 +56,6 @@ button {
   color: rgba(175, 47, 47, 0.15);
 }
 
-.done {
-  text-decoration: line-through;
-  color: #d9d9d9;
-}
-
 .todo-app {
   background: var(--white);
   margin: 0px;
@@ -160,11 +155,23 @@ button {
   border-bottom: none;
 }
 
+.list-item.completed {
+  & .toggle {
+    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#bddad5" stroke-width="3"/><path fill="#5dc2af" d="M72 25L42 71 27 56l-4 4 20 20 34-52z"/></svg>');
+  }
+
+  & .edit {
+    text-decoration: line-through;
+    color: #d9d9d9;
+  }
+}
+
 .toggle {
   display: flex;
   align-content: center;
   position: absolute;
   margin: 0 auto;
+  margin-top: 13px;
   width: 40px;
   height: auto;
   top: 0;
@@ -177,15 +184,7 @@ button {
   outline: none;
   cursor: pointer;
   z-index: 10;
-}
-
-.toggle:after {
-  margin-top: 13px;
   content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#ededed" stroke-width="3"/></svg>');
-}
-
-.toggle.checked:after {
-  content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#bddad5" stroke-width="3"/><path fill="#5dc2af" d="M72 25L42 71 27 56l-4 4 20 20 34-52z"/></svg>');
 }
 
 .destroy {
@@ -259,7 +258,7 @@ button {
               0 17px 2px -6px rgba(0, 0, 0, 0.2);
 }
 
-.todo-count {
+.counter {
   line-height: 20px;
   text-align: left;
 }
@@ -269,7 +268,6 @@ button {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
-  align-content: center;
   right: 0;
   left: 0;
   margin: 0;
@@ -305,7 +303,7 @@ button {
   line-height: 20px;
   text-decoration: none;
   cursor: pointer;
-  position: relative;
+  outline: 0;
 }
 
 .clear-completed:hover {

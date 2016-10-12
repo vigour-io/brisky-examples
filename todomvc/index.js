@@ -41,9 +41,7 @@ const header = {
     input: {
       tag: 'input',
       class: 'new-todo',
-      props: {
-        placeholder: 'What needs to be done?'
-      },
+      props: { placeholder: 'What needs to be done?' },
       on: {
         blur: clearInputField,
         enter: (e, stamp) => {
@@ -75,7 +73,7 @@ const item = {
         return true
       } else {
         const done = state.done && state.done.compute()
-        return (filter === 'active' && !done) || filter === 'completed' && done
+        return (filter === 'active' && !done) || (filter === 'completed' && done)
       }
     },
     $: {
@@ -83,13 +81,13 @@ const item = {
       done: true
     }
   },
-  class: { 'list-item': true },
+  class: {
+    'list-item': true,
+    completed: { $: 'done' }
+  },
   view: {
     toggle: {
       tag: 'input',
-      class: {
-        checked: { $: 'done' }
-      },
       props: { type: 'checkbox' },
       on: {
         change: (e, stamp) => e.state.set({ done: e.target.checked }, stamp)
@@ -97,7 +95,6 @@ const item = {
     },
     destroy: {
       tag: 'button',
-      class: 'destroy',
       on: {
         click: (e, stamp) => e.state.remove(stamp)
       }
@@ -105,12 +102,7 @@ const item = {
   },
   edit: {
     tag: 'input',
-    class: {
-      done: { $: 'done' }
-    },
-    props: {
-      value: { $: 'text' }
-    },
+    props: { value: { $: 'text' } },
     on: {
       enter: setTodoText,
       blur: setTodoText
@@ -127,7 +119,6 @@ const footer = {
   $: 'todos.$test',
   $test: state => state.keys().filter(val => state[val].val !== null).length,
   counter: {
-    class: 'todo-count',
     tag: 'span',
     text: {
       $: true,

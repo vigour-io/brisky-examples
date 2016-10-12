@@ -18,14 +18,12 @@ const state = global.state = s({
 state.set({ selectedFilter: state.filters[0] })
 
 const header = {
-  class: 'header',
   wrapper: {
-    toggle: {
+    toggleAll: {
       $: 'todos.$test',
       $test: state => state.keys().filter(val => state[val].val !== null).length,
       tag: 'input',
       props: { type: 'checkbox' },
-      class: 'toggle-all',
       on: {
         click: (e, stamp) => {
           const itemsChecked = e.state.root.checkAllItems.compute()
@@ -38,9 +36,8 @@ const header = {
         }
       }
     },
-    input: {
+    newTodo: {
       tag: 'input',
-      class: 'new-todo',
       props: { placeholder: 'What needs to be done?' },
       on: {
         blur: clearInputField,
@@ -63,9 +60,9 @@ function clearInputField (e) {
   e.target.value = ''
 }
 
-const item = {
-  tag: 'li',
+const todoItem = {
   $: '$test',
+  tag: 'li',
   $test: {
     val: state => {
       const filter = state.root.selectedFilter.compute()
@@ -82,7 +79,7 @@ const item = {
     }
   },
   class: {
-    'list-item': true,
+    todoItem: true,
     completed: { $: 'done' }
   },
   view: {
@@ -136,7 +133,7 @@ const footer = {
     $: '$root.filters.$any',
     child: {
       tag: 'li',
-      class: 'filter-item',
+      class: 'filterItem',
       href: {
         tag: 'a',
         text: { $: true },
@@ -158,10 +155,9 @@ const footer = {
       }
     }
   },
-  button: {
+  clearCompleted: {
     $: '$test',
     tag: 'button',
-    class: 'clear-completed',
     text: 'Clear completed',
     $test: state => state.keys().filter(key => state[key].done.compute()).length,
     on: {
@@ -172,16 +168,14 @@ const footer = {
   }
 }
 
-const todoapp = {
-  class: 'todo-app',
+const todoApp = {
   header,
   main: {
     tag: 'section',
-    list: {
+    todoList: {
       $: 'todos.$any',
       tag: 'ul',
-      class: 'todo-list',
-      child: item
+      child: todoItem
     }
   },
   footer
@@ -190,7 +184,7 @@ const todoapp = {
 const app = {
   child: { class: true, child: 'Constructor' },
   title: { tag: 'h1', text: 'todos' },
-  todoapp
+  todoApp
 }
 
 document.body.appendChild(render(app, state))

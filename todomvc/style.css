@@ -70,7 +70,7 @@ button {
   color: rgba(175, 47, 47, 0.15);
 }
 
-.todo-app {
+.todoApp {
   background: var(--white);
   margin: 0;
   position: relative;
@@ -79,23 +79,23 @@ button {
 }
 
 .header {
-  & .new-todo {
+  & .newTodo {
     @apply --input;
   }
 
-  & .new-todo::-webkit-input-placeholder {
+  & .newTodo::-webkit-input-placeholder {
     @apply --placeholder;
   }
 
-  & .new-todo::-moz-placeholder {
+  & .newTodo::-moz-placeholder {
     @apply --placeholder;
   }
 
-  & .new-todo::input-placeholder {
+  & .newTodo::input-placeholder {
     @apply --placeholder;
   }
 
-  & .toggle-all {
+  & .toggleAll {
     position: absolute;
     top: 14px;
     left: -12px;
@@ -107,19 +107,19 @@ button {
     z-index: 10;
   }
 
-  & .toggle-all:before {
+  & .toggleAll:before {
     content: '❯';
     color: var(--light-font-color);
     font-size: 22px;
   }
 
-  & .toggle-all:checked:before {
+  & .toggleAll:checked:before {
     color: #737373;
   }
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {
-  .toggle-all {
+  .toggleAll {
     background: none;
     -webkit-transform: rotate(90deg);
     transform: rotate(90deg);
@@ -135,23 +135,23 @@ button {
   position: relative;
   border-top: 1px solid var(--light-font-color);
 
-  & .todo-list {
+  & .todoList {
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
-  & .list-item {
+  & .todoItem {
     position: relative;
     font-size: 24px;
     border-bottom: 1px solid #ededed;
   }
 
-  & .list-item:last-child {
+  & .todoItem:last-child {
     border-bottom: none;
   }
 
-  & .list-item.completed {
+  & .todoItem.completed {
     & .toggle {
       content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#bddad5" stroke-width="3"/><path fill="#5dc2af" d="M72 25L42 71 27 56l-4 4 20 20 34-52z"/></svg>');
     }
@@ -205,7 +205,7 @@ button {
     content: '×';
   }
 
-  & .list-item:hover .destroy {
+  & .todoItem:hover .destroy {
     display: block;
   }
 
@@ -213,15 +213,13 @@ button {
     @apply --input;
     transition: color 0.4s;
   }
-
-  & .edit:active,
-  .edit:focus {
-    border: 1px solid #999;
-    box-shadow: inset 0 -1px 5px 0 rgba(0, 0, 0, 0.2);
-  }
 }
 
-
+.edit:active,
+.edit:focus {
+  border: 1px solid #999;
+  box-shadow: inset 0 -1px 5px 0 rgba(0, 0, 0, 0.2);
+}
 
 
 /* Footer */
@@ -267,7 +265,7 @@ button {
     list-style: none;
   }
 
-  & .filter-item {
+  & .filterItem {
     text-transform: capitalize;
     cursor: pointer;
   }
@@ -288,18 +286,18 @@ button {
   & .href.selected {
     border-color: rgba(175, 47, 47, 0.2);
   }
+}
 
-  & .clear-completed,
-  .clear-completed:active {
-    height: 20px;
-    position: relative;
-    text-decoration: none;
-    cursor: pointer;
-  }
+.clearCompleted,
+.clearCompleted:active {
+  height: 20px;
+  position: relative;
+  text-decoration: none;
+  cursor: pointer;
+}
 
-  & .clear-completed:hover {
-    text-decoration: underline;
-  }
+.clearCompleted:hover {
+  text-decoration: underline;
 }
 
 @media (max-width: 430px) {

@@ -26,7 +26,7 @@ const header = {
       class: 'toggle-all',
       on: {
         click: (e, stamp) => {
-          const itemsChecked = e.state.root.get('checkAllItems') ? e.state.root.get('checkAllItems').val : true
+          const itemsChecked = e.state.root.checkAllItems.compute()
           e.state.root.set({ checkAllItems: !itemsChecked }, stamp)
           e.state.each((item) => {
             if (item.done.val !== itemsChecked) {
@@ -69,7 +69,7 @@ const item = {
     hidden: {
       $: 'done',
       $transform: (val) => {
-        const filterType = state.root.get('selectedFilter').val
+        const filterType = state.root.selectedFilter.val
         switch (filterType) {
           case 'all':
             return false
@@ -244,8 +244,11 @@ const app = {
   todoapp
 }
 
-let selectedFilter = { selectedFilter: 'all' }
+// Set default state values:
+const selectedFilter = { selectedFilter: 'all' }
+const checkAllItems = { checkAllItems: true }
 state.set(selectedFilter)
+state.set(checkAllItems)
 
 // Add app to DOM, initialize render:
 document.body.appendChild(render(app, state, function (subs, tree, state, type, stamp, nsubs, ntree, sType, elem) {

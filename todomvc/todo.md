@@ -2,10 +2,8 @@
 
 ###Todo:
 
-- Make better fix for global done checkbox.
-
 - Cleanup Subscribe to amount of items in state, show total + ' items left'.
--- Add default value to counter.
+-- Add default value to counter / trigger render first time.
 -- Ensure that deleted items are accounted for.
 
 - Add filtering options. Filters:
@@ -18,3 +16,5 @@
 Note: 
 - In benchmark, I have to define object to allow update.
 - I'm having the weirdest side-effect when testing for done in Clear completed.
+
+state.lookUp('current') ?

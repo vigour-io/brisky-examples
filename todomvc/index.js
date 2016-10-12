@@ -43,6 +43,7 @@ const header = {
         placeholder: 'What needs to be done?'
       },
       on: {
+        blur: clearInputField,
         enter: (e, stamp) => {
           if (e.target.value) {
             e.state.set({
@@ -52,8 +53,7 @@ const header = {
             }, stamp)
             clearInputField(e)
           }
-        },
-        blur: clearInputField
+        }
       }
     }
   }
@@ -66,7 +66,7 @@ function clearInputField (e) {
 const item = {
   $: '$test',
   $test: (state) => {
-    const filterType = state.root.get('selectedFilter') && state.root.get('selectedFilter').val || null
+    const filterType = state.root.get('selectedFilter').val
     const itemIsComplete = state.get('done').compute()
     switch (filterType) {
       case 'all':
@@ -120,6 +120,9 @@ function setTodoText (e, stamp) {
 
 const footer = {
   $: '$test',
+  $test: (state) => {
+    return state.todos && state.todos.compute()
+  },
   counter: {
     class: 'todo-count',
     tag: 'span',
@@ -201,9 +204,6 @@ const footer = {
         })
       }
     }
-  },
-  $test: (state) => {
-    return state.todos && state.todos.compute()
   }
 }
 
@@ -247,7 +247,7 @@ state.set(selectedFilter)
 
 // Add app to DOM, initialize render:
 document.body.appendChild(render(app, state, function (subs, tree, state, type, stamp, nsubs, ntree, sType, elem) {
-  // console.log('subscriptions:', subs)
+  // console.log('subscriptions: %O', subs)
 }))
 
 /**

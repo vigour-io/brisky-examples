@@ -10,11 +10,12 @@ require('./style.reference.css')
 
 const render = require('brisky/render')
 const s = require('vigour-state/s')
-const state = global.state = s({})
+const state = global.state = s({
+  filters: [ 'all', 'active', 'completed' ],
+  checkAllItems: true
+})
 
-// --- Use below to add connectivity:
-// const Hub = require('brisky-hub')
-// const state = global.state = new Hub({ url: 'ws://localhost:3030' })
+state.set({ selectedFilter: state.filters[0] })
 
 const header = {
   class: 'header',
@@ -65,22 +66,24 @@ function clearInputField (e) {
 
 const item = {
   tag: 'li',
-  class: {
-    'list-item': true,
-    hidden: {
-      $: 'done',
-      $transform: (val) => {
-        const filterType = state.root.selectedFilter.val
-        switch (filterType) {
-          case 'all':
-            return false
-          case 'active':
-            return val
-          case 'completed':
-            return !val
-        }
+  $: '$test',
+  $test: {
+    val: state => {
+      const filter = state.root.selectedFilter.compute()
+      if (filter === 'all') {
+        return true
+      } else {
+        const done = state.done && state.done.compute()
+        return (filter === 'active' && !done) || filter === 'completed' && done
       }
+    },
+    $: {
+      $root: { selectedFilter: true },
+      done: true
     }
+  },
+  class: {
+    'list-item': true
   },
   view: {
     toggle: {
@@ -122,73 +125,46 @@ function setTodoText (e, stamp) {
 }
 
 const footer = {
-  $: '$test',
-  $test: (state) => {
-    return state.todos && state.todos.compute()
-  },
+  $: 'todos.$test',
+  $test: state => state.keys().filter(val => state[val].val !== null).length,
   counter: {
     class: 'todo-count',
     tag: 'span',
     text: {
-      $: 'todos',
-      $transform: (data) => {
-        let count = data.keys().length
-        data.each((item) => {
-          if (item.done.compute()) {
-            count--
-          }
+      $: true,
+      $transform: data => {
+        var count = 0
+        data.each(item => {
+          if (item.done.compute() === false) { count++ }
         })
-
         return `${count} items left`
       }
     }
   },
   filters: {
     tag: 'ul',
+    $: '$root.filters.$any',
     child: {
       tag: 'li',
       class: 'filter-item',
-      href: { tag: 'a', class: 'filter-link' }
-    },
-    all: {
       href: {
-        text: 'All',
+        tag: 'a',
+        text: { $: true },
         class: {
+          'filter-link': true,
           selected: {
-            $: 'selectedFilter',
-            $transform: (val) => (val === 'all')
+            $: '$test',
+            $test: {
+              val: state => state.root.selectedFilter.origin() === state,
+              $: {
+                $root: { selectedFilter: true }
+              }
+            },
+            $transform: true
           }
         },
         on: {
-          click: (e, stamp) => e.state.set({ selectedFilter: 'all' }, stamp)
-        }
-      }
-    },
-    active: {
-      href: {
-        text: 'Active',
-        class: {
-          selected: {
-            $: 'selectedFilter',
-            $transform: (val) => (val === 'active')
-          }
-        },
-        on: {
-          click: (e, stamp) => e.state.set({ selectedFilter: 'active' }, stamp)
-        }
-      }
-    },
-    completed: {
-      href: {
-        text: 'Completed',
-        class: {
-          selected: {
-            $: 'selectedFilter',
-            $transform: (val) => (val === 'completed')
-          }
-        },
-        on: {
-          click: (e, stamp) => e.state.set({ selectedFilter: 'completed' }, stamp)
+          click: (e, stamp) => e.state.root.set({ selectedFilter: e.state }, stamp)
         }
       }
     }
@@ -198,30 +174,13 @@ const footer = {
     tag: 'button',
     class: 'clear-completed',
     text: 'Clear completed',
-    $test: checkForCompletedTodos,
+    $test: state => state.keys().filter(key => state[key].done.compute()).length,
     on: {
-      click: (e, stamp) => {
-        e.state.todos.each((item, stamp) => {
-          if (item.done.compute()) {
-            item.remove(stamp)
-          }
-        })
-      }
+      click: (e, stamp) => e.state.each(item => {
+        if (item.done.compute()) { item.remove(stamp) }
+      })
     }
   }
-}
-
-function checkForCompletedTodos (state) {
-  let completedTodosExist = false
-  if (state.todos && state.todos.compute()) {
-    state.todos.each((item) => {
-      if (item.done.compute()) {
-        completedTodosExist = true
-      }
-    })
-  }
-
-  return completedTodosExist
 }
 
 const todoapp = {
@@ -245,25 +204,25 @@ const app = {
   todoapp
 }
 
-// Set default state values:
-const selectedFilter = { selectedFilter: 'all' }
-const checkAllItems = { checkAllItems: true }
-state.set(selectedFilter)
-state.set(checkAllItems)
+document.body.appendChild(render(app, state))
 
-// Add app to DOM, initialize render:
-document.body.appendChild(render(app, state, function (subs, tree, state, type, stamp, nsubs, ntree, sType, elem) {
-  // console.log('subscriptions: %O', subs)
-  // console.log('state: %O', state)
-}))
-
-/**
- * Debugging - Spawn 3 items:
- **/
-
+var d = Date.now()
 let object = { todos: {} }
-let iteration = 0
-for (iteration = 0; iteration < 3; iteration++) {
-  object.todos[iteration] = { text: 'lets do this', done: false }
+let iteration
+
+for (iteration = 0; iteration < 1e2; iteration++) {
+  object.todos[iteration] = { text: `Something to do ${iteration}`, done: false }
 }
 state.set(object)
+
+for (iteration = 0; iteration < 1e2; iteration++) {
+  object.todos[iteration] = { done: true }
+}
+state.set(object)
+
+for (iteration = 0; iteration < 1e2; iteration++) {
+  object.todos[iteration] = null
+}
+state.set(object)
+
+console.log('Benchmark: ', Date.now() - d, 'ms')

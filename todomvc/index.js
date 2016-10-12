@@ -66,6 +66,7 @@ function clearInputField (e) {
 const item = {
   tag: 'li',
   class: {
+    'list-item': true,
     hidden: {
       $: 'done',
       $transform: (val) => {
@@ -146,7 +147,8 @@ const footer = {
     tag: 'ul',
     child: {
       tag: 'li',
-      href: { tag: 'a' }
+      class: 'filter-item',
+      href: { tag: 'a', class: 'filter-link' }
     },
     all: {
       href: {
@@ -211,8 +213,7 @@ const footer = {
 
 function checkForCompletedTodos (state) {
   let completedTodosExist = false
-  var todos = state.todos && state.todos.compute()
-  if (todos) {
+  if (state.todos && state.todos.compute()) {
     state.todos.each((item) => {
       if (item.done.compute()) {
         completedTodosExist = true

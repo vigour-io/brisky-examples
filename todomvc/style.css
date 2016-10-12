@@ -49,7 +49,6 @@ button {
 /* Top-level */
 
 .title {
-  position: relative;
   width: 100%;
   font-size: 100px;
   font-weight: 100;
@@ -60,10 +59,6 @@ button {
 .done {
   text-decoration: line-through;
   color: #d9d9d9;
-}
-
-.hidden {
-  display: none;
 }
 
 .todo-app {
@@ -116,8 +111,8 @@ button {
   text-align: center;
   border: none;
   outline: none;
-  z-index: 10;
   cursor: pointer;
+  z-index: 10;
 }
 
 .toggle-all:before {
@@ -179,9 +174,9 @@ button {
   border: none;
   -webkit-appearance: none;
   appearance: none;
-  z-index: 10;
   outline: none;
   cursor: pointer;
+  z-index: 10;
 }
 
 .toggle:after {
@@ -194,6 +189,7 @@ button {
 }
 
 .destroy {
+  display: none;
   position: absolute;
   width: 60px;
   height: auto;
@@ -204,9 +200,9 @@ button {
   font-size: 30px;
   color: #cc9a9a;
   transition: color 0.2s ease-out;
-  z-index: 10;
   outline: none;
   cursor: pointer;
+  z-index: 10;
 }
 
 .destroy:hover {
@@ -281,12 +277,12 @@ button {
   list-style: none;
 }
 
-.filters .filter-item {
+.filter-item {
   text-transform: capitalize;
   cursor: pointer;
 }
 
-.filters .filter-item .href {
+.href {
   margin: 3px;
   padding: 3px 7px;
   border: 1px solid transparent;
@@ -295,12 +291,11 @@ button {
   color: inherit;
 }
 
-.filters .filter-item .href.selected,
-.filters .filter-item .href:hover {
+.href:hover {
   border-color: rgba(175, 47, 47, 0.1);
 }
 
-.filters .filter-item .href.selected {
+.href.selected {
   border-color: rgba(175, 47, 47, 0.2);
 }
 

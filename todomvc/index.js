@@ -21,7 +21,8 @@ const header = {
   class: 'header',
   wrapper: {
     toggle: {
-      $: 'todos',
+      $: 'todos.$test',
+      $test: state => state.keys().filter(val => state[val].val !== null).length,
       tag: 'input',
       props: { type: 'checkbox' },
       class: 'toggle-all',
@@ -82,9 +83,7 @@ const item = {
       done: true
     }
   },
-  class: {
-    'list-item': true
-  },
+  class: { 'list-item': true },
   view: {
     toggle: {
       tag: 'input',

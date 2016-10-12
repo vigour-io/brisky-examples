@@ -1,13 +1,5 @@
 'use strict'
-
-/**
- *
- * TodoMVC for brisky-examples
- *
- **/
-
 require('./style.css')
-
 const render = require('brisky/render')
 const s = require('vigour-state/s')
 const state = global.state = s({
@@ -39,7 +31,6 @@ const header = {
     tag: 'input',
     props: { placeholder: 'What needs to be done?' },
     on: {
-      blur: clearInputField,
       enter: (e, stamp) => {
         if (e.target.value) {
           e.state.set({
@@ -47,15 +38,11 @@ const header = {
               [Date.now()]: { text: e.target.value, done: false }
             }
           }, stamp)
-          clearInputField(e)
+          e.target.value = ''
         }
       }
     }
   }
-}
-
-function clearInputField (e) {
-  e.target.value = ''
 }
 
 const todoItem = {

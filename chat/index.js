@@ -38,11 +38,6 @@ const listMenu = {
 
 const rooms = {
   class: 'room-window',
-  title: {
-    class: 'main-title',
-    tag: 'h1',
-    text: 'Brisky Chat ™'
-  },
   username: {
     $: '$root.users.$any',
     class: 'username-wrapper',
@@ -131,7 +126,6 @@ const user = {
 }
 
 const app = {
-  // child: { class: true, child: 'Constructor' },
   class: 'chat-application',
   $: 'user.$switch',
   $switch: state => state.compute() ? 'chat' : 'user',

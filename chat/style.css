@@ -50,7 +50,7 @@ body {
 	width: 100%;
 }
 
-.channel-window {
+.room-window {
 	flex: 0 1 auto;
   display: flex;
   flex-flow: column;
@@ -62,26 +62,43 @@ body {
 	font-size: 10px;
 }
 
-.title {
+.main-title {
+	font-size: 12px;
+	margin: 0;
+	margin-bottom: 10px;
+}
+
+.username {
 	font-size: 10px;
 	margin: 0;
 	margin-bottom: 20px;
+	cursor: pointer;
 }
 
-.channels-menu:not(:last-child) {
+.username:before {
+	content:"\003e";
+	margin-right: 6px;
+}
+
+.username:hover {
+	opacity: 0.8;
+}
+
+.menu-wrapper:not(:last-child) {
 	margin-bottom: 20px;
 }
 
-.channels-menu {
+.menu-wrapper {
 	& .title {
-		margin: 0px;
+		font-size: 12px;
+		margin: 0;
 	}
 }
 
-.channels-list {
+.menu-list {
 	margin: 0;
 	padding: 0;
-	padding-left: 20px;
+	padding-left: 16px;
 
 	& .list-item {
 		font-size: 10px;
@@ -105,6 +122,22 @@ body {
 
 .messages {
 	flex: 1 auto;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.message {
+	padding: 10px;
+	padding-top: 5px;
+}
+
+.message:not(:last-child) {
+	padding-bottom: 5px;
+}
+
+.message:first-child {
+	padding-top: 10px;
 }
 
 .interaction {

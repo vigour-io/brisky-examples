@@ -2,7 +2,7 @@
   --font-family: 'Droid Sans Mono', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --main-background: rgb(227, 227, 227); /* #E3E3E3 */
   --border-color: #DDDDDD; /* #DDDDDD */
-  --window-background: rgb(245, 245, 245);
+  --near-white: rgb(245, 245, 245);
 }
 
 html,
@@ -17,11 +17,11 @@ body {
 }
 
 body {
-	background: var(--main-background);
   font-family: var(--font-family);
   font-size: 14px;
   line-height: 1.4em;
   font-weight: 300;
+	background: var(--main-background);
 }
 
 .header {
@@ -32,7 +32,7 @@ body {
 
 	& .title {
 		font-size: 16px;
-		color: white;
+		color: var(--near-white);
 	}
 }
 
@@ -64,32 +64,61 @@ body {
 
 .messages-window {
   flex: 2 auto;
-  min-height: 100px;
+  min-height: 400px;
   height: 100%;
   display: flex;
   flex-flow: column;
 	border-right: 1px solid var(--border-color);
-	background: var(--window-background);
+	background: white;
 }
 
 .active-users-window {
   flex: 1 auto;
-  min-height: 100px;
+  min-height: 400px;
   height: 100%;
   display: flex;
   flex-flow: column;
-	background: var(--window-background);
+	background: white;
+}
+
+.interaction {
+  display: flex;
+  flex-flow: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+	width: 100%;
+	height: auto;
+	padding: 10px;
+	background: darkgray;
 }
 
 .new-message {
-	width: 100%;
-	height: 30px;
+	flex: 1 auto;
+	height: auto;
+	padding: 6px 10px;
+	line-height: 20px;
 	outline: none;
 	border: none;
   margin: 0;
-  padding: 0;
-	background: white;
+	background: var(--near-white);
 	border-top: 1px solid var(--border-color);
+}
+
+.send-message {
+	background: black;
+	color: white;
+	height: 100%;
+	line-height: 22px;
+	padding: 6px 10px;
+	outline: none;
+	border: none;
+	cursor: pointer;
+}
+
+.send-message:active,
+.send-message:hover {
+	background: darkgray;
 }
 
 @media (max-width: 600px) {

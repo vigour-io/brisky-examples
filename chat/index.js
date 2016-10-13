@@ -9,6 +9,7 @@ const chatApp = {
   header: {
     class: 'header',
     title: {
+      class: 'title',
       tag: 'h1',
       text: 'Brisky Chat ™'
     }
@@ -22,14 +23,24 @@ const chatApp = {
       class: 'active-users-window'
     }
   },
-  input: {
-    tag: 'input',
-    class: 'new-message'
+  interaction: {
+    class: 'interaction',
+    input: {
+      class: 'new-message',
+      tag: 'input',
+      props: {
+        placeholder: 'Enter message...'
+      }
+    },
+    button: {
+      class: 'send-message',
+      tag: 'button',
+      text: 'Send'
+    }
   }
 }
 
 const app = {
-  child: { class: true, child: 'Constructor' },
   chatApp
 }
 

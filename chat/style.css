@@ -1,6 +1,7 @@
 :root {
   --font-family: 'Droid Sans Mono', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --main-background: rgb(227, 227, 227); /* #E3E3E3 */
+  --feature-background: #078279; /* #078279 */
   --border-color: #DDDDDD; /* #DDDDDD */
   --near-white: rgb(245, 245, 245);
 }
@@ -50,6 +51,31 @@ body {
 	width: 100%;
 }
 
+.username-screen {
+	flex: 1 auto;
+	width: 100%;
+	background: var(--feature-background);
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+}
+
+.set-username {
+	height: auto;
+	width: auto;
+	padding: 6px 10px;
+	line-height: 20px;
+	outline: none;
+	border: none;
+  margin: 0;
+	background: var(--near-white);
+	border: 2px solid transparent;
+	border-radius: 6px;
+}
+
 .room-window {
 	flex: 0 1 auto;
   display: flex;
@@ -57,7 +83,7 @@ body {
   min-width: 200px;
   width: auto;
   padding: 10px 16px;
-	background: #078279;
+	background: var(--feature-background);
 	color: var(--near-white);
 	font-size: 10px;
 }
@@ -68,20 +94,21 @@ body {
 	margin-bottom: 10px;
 }
 
+.username-wrapper {
+	margin-bottom: 20px;
+}
+
 .username {
 	font-size: 10px;
 	margin: 0;
-	margin-bottom: 20px;
 	cursor: pointer;
+	color: lightgray;
 }
 
 .username:before {
-	content:"\003e";
+	content: '\25C9';
 	margin-right: 6px;
-}
-
-.username:hover {
-	opacity: 0.8;
+	color: #77d634;
 }
 
 .menu-wrapper:not(:last-child) {
@@ -128,8 +155,9 @@ body {
 }
 
 .message {
+	font-size: 12px;
 	padding: 10px;
-	padding-top: 5px;
+	padding-top: 0px;
 }
 
 .message:not(:last-child) {
@@ -138,6 +166,14 @@ body {
 
 .message:first-child {
 	padding-top: 10px;
+}
+
+.sent-time {
+	opacity: 0.5;
+}
+
+.sent-time:after {
+	content: ': ';
 }
 
 .interaction {

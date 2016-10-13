@@ -1,10 +1,14 @@
 'use strict'
 require('./style.css')
 const render = require('brisky/render')
+const vstamp = require('vigour-stamp')
 const s = require('vigour-state/s')
 const state = global.state = s({
-  messageMenus: [ 'Rooms', 'Messages' ]
+  messageMenus: [ 'Rooms', 'Messages' ],
+  user: { $type: 'string' }
 })
+
+// chat screen
 
 const listMenu = {
   class: 'menu-wrapper',
@@ -26,7 +30,7 @@ const listMenu = {
       link: {
         class: 'list-link',
         tag: 'a',
-        text: 'fo shizzle my nizzle'
+        text: 'menu-text...'
       }
     }
   }
@@ -40,12 +44,18 @@ const rooms = {
     text: 'Brisky Chat ™'
   },
   username: {
-    class: 'username',
-    tag: 'a',
-    text: 'John Doe'
+    $: '$root.users.$any',
+    class: 'username-wrapper',
+    child: {
+      class: 'username',
+      tag: 'a',
+      text: { $: true }
+    }
   },
-  $: '$root.messageMenus.$any',
-  child: listMenu
+  messageMenus: {
+    $: '$root.messageMenus.$any',
+    child: listMenu
+  }
 }
 
 const messageItem = {
@@ -53,12 +63,13 @@ const messageItem = {
   tag: 'li',
   text: '',
   time: {
+    class: 'sent-time',
     tag: 'span',
     text: {
       $: 'time',
       $transform: data => {
         console.log('data: %O', data)
-        return ''
+        return '12:00'
       }
     }
   },
@@ -86,7 +97,7 @@ const chat = {
         enter: (e, stamp) => {
           e.state.set({
             messages: {
-              [Date.now()]: { time: Date.now(), text: e.target.value }
+              [vstamp.val(stamp)]: { time: Date.now(), text: e.target.value }
             }
           }, stamp)
           e.target.value = ''
@@ -96,17 +107,42 @@ const chat = {
   }
 }
 
-const chatApp = {
-  class: 'chat-application',
-  main: {
-    class: 'main-window',
-    rooms,
-    chat
+// username screen
+
+const user = {
+  class: 'username-screen',
+  wrapper: {
+    class: 'set-username-wrapper',
+    input: {
+      class: 'set-username',
+      tag: 'input',
+      props: { placeholder: 'Set your username' },
+      on: {
+        enter: (e, stamp) => {
+          const id = e.target.value
+          e.state.root.set({
+            users: { [id]: id },
+            user: '$root.users.' + id
+          }, stamp)
+        }
+      }
+    }
   }
 }
 
 const app = {
-  chatApp
+  // child: { class: true, child: 'Constructor' },
+  class: 'chat-application',
+  $: 'user.$switch',
+  $switch: state => state.compute() ? 'chat' : 'user',
+  properties: {
+    chat: {
+      class: 'main-window',
+      rooms,
+      chat
+    },
+    user
+  }
 }
 
 document.body.appendChild(render(app, state))

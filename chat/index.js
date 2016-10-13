@@ -63,8 +63,11 @@ const messageItem = {
     text: {
       $: 'time',
       $transform: data => {
-        console.log('data: %O', data)
-        return '12:00'
+        const time = new Date(data)
+        const hours = formatTime(time.getHours())
+        const minutes = formatTime(time.getMinutes())
+
+        return `${hours}:${minutes}`
       }
     }
   },
@@ -72,6 +75,10 @@ const messageItem = {
     tag: 'span',
     text: { $: 'text' }
   }
+}
+
+function formatTime (value) {
+  return (value < 10 ? `0${value}` : value)
 }
 
 const chat = {

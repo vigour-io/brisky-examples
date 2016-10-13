@@ -6,6 +6,13 @@ const state = global.state = s({})
 
 const chatApp = {
   class: 'chat-application',
+  header: {
+    class: 'header',
+    title: {
+      tag: 'h1',
+      text: 'Brisky Chat ™'
+    }
+  },
   main: {
     class: 'main-window',
     chat: {

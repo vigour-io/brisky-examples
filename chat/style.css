@@ -1,0 +1,46 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.chat-application {
+	position: absolute;
+  display: flex;
+  flex-flow: column;
+	width: 100%;
+  min-height: 100% !important;
+  height: auto;
+  left: 0;
+  top: 0;
+	background: #E3E3E3;
+}
+
+.main-window {
+
+}
+
+.messages-window {
+  flex: 2;
+  display: flex;
+  flex-flow: column;
+	background: red;
+}
+
+.active-users-window {
+  flex: 1;
+  display: flex;
+  flex-flow: column;
+	background: blue;
+}
+
+.new-message {
+	width: 100%;
+	height: 30px;
+	background: white;
+}
+
+@media (max-width: 600px) {
+
+}

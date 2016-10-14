@@ -1,29 +1,4 @@
-:root {
-  --font-family: 'Droid Sans Mono', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --bg-color-a: #001e49; /* #dark-blue */
-  --bg-color-b: #fff; /* white */
-  --bg-color-c: #e6e6e6; /* light grey */
-  --font-color-a: #fff;
-}
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: var(--font-family);
-  font-size: 14px;
-  line-height: 1.4em;
-  font-weight: 300;
-	background: var(--bg-color-a);
-}
+@import '@vigour-io/style';
 
 .chat-application {
 	position: absolute;
@@ -37,7 +12,7 @@ body {
   height: auto;
   left: 0;
   top: 0;
-	background: var(--bg-color-a);
+	background: var(--color-a);
 }
 
 .main-window {
@@ -54,7 +29,7 @@ body {
 .username-screen {
 	flex: 1 auto;
 	width: 100%;
-	background: var(--bg-color-a);
+	background: var(--color-a);
   display: flex;
   flex-flow: row;
   flex-wrap: wrap;
@@ -76,6 +51,7 @@ body {
 	background: var(--bg-color-b);
 	border: 2px solid transparent;
 	border-radius: 6px;
+  color: var(--font-color-a);
 }
 
 .room-window {
@@ -85,7 +61,7 @@ body {
   min-width: 200px;
   width: auto;
   padding: 10px 16px;
-	background: var(--bg-color-a);
+	background: var(--color-a);
 	color: var(--font-color-a);
 	font-size: 10px;
 }
@@ -94,14 +70,13 @@ body {
 	margin-top: 6px;
 	margin-bottom: 20px;
 	padding-bottom: 4px;
-	border-bottom: 1px solid rgba(0,0,0,0.1);
 }
 
 .username {
 	font-size: 14px;
 	margin: 0;
 	cursor: pointer;
-	color: white;
+	color: var(--font-color-a);
 }
 
 .username:before {
@@ -159,6 +134,7 @@ body {
 	font-size: 12px;
 	padding: 10px;
 	padding-top: 0px;
+  color: var(--font-color-b);
 }
 
 .message:not(:last-child) {

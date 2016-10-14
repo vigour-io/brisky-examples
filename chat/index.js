@@ -4,37 +4,10 @@ const render = require('brisky/render')
 const vstamp = require('vigour-stamp')
 const s = require('vigour-state/s')
 const state = global.state = s({
-  messageMenus: [ 'Rooms', 'Messages' ],
   user: { $type: 'string' }
 })
 
 // chat screen
-
-const listMenu = {
-  class: 'menu-wrapper',
-  header: {
-    $: true,
-    class: 'header',
-    title: {
-      class: 'title',
-      tag: 'h2',
-      text: { $: true }
-    }
-  },
-  list: {
-    class: 'menu-list',
-    tag: 'ul',
-    item: {
-      class: 'list-item',
-      tag: 'li',
-      link: {
-        class: 'list-link',
-        tag: 'a',
-        text: 'menu-text...'
-      }
-    }
-  }
-}
 
 const rooms = {
   class: 'room-window',
@@ -48,8 +21,30 @@ const rooms = {
     }
   },
   messageMenus: {
-    $: '$root.messageMenus.$any',
-    child: listMenu
+    $: '$root.channels',
+    class: 'menu-wrapper',
+    header: {
+      class: 'header',
+      title: {
+        class: 'title',
+        tag: 'h2',
+        text: 'Channels:'
+      }
+    },
+    list: {
+      class: 'menu-list',
+      tag: 'ul',
+      item: {
+        $: '$root.channels.$any',
+        class: 'list-item',
+        tag: 'li',
+        child: {
+          class: 'list-link',
+          tag: 'a',
+          text: { $: true }
+        }
+      }
+    }
   }
 }
 

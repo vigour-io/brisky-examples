@@ -48,7 +48,7 @@
 	outline: none;
 	border: none;
   margin: 0;
-	background: var(--bg-color-b);
+	background: var(--color-d);
 	border: 2px solid transparent;
 	border-radius: 6px;
   color: var(--font-color-a);
@@ -76,7 +76,7 @@
 	font-size: 14px;
 	margin: 0;
 	cursor: pointer;
-	color: var(--font-color-a);
+	color: white;
 }
 
 .username:before {

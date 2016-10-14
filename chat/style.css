@@ -1,9 +1,9 @@
 :root {
   --font-family: 'Droid Sans Mono', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --main-background: rgb(227, 227, 227); /* #E3E3E3 */
-  --feature-background: #078279; /* #078279 */
-  --border-color: #DDDDDD; /* #DDDDDD */
-  --near-white: rgb(245, 245, 245);
+  --bg-color-a: #001e49; /* #dark-blue */
+  --bg-color-b: #fff; /* white */
+  --bg-color-c: #e6e6e6; /* light grey */
+  --font-color-a: #fff;
 }
 
 html,
@@ -22,7 +22,7 @@ body {
   font-size: 14px;
   line-height: 1.4em;
   font-weight: 300;
-	background: var(--main-background);
+	background: var(--bg-color-a);
 }
 
 .chat-application {
@@ -37,7 +37,7 @@ body {
   height: auto;
   left: 0;
   top: 0;
-	background: var(--main-background);
+	background: var(--bg-color-a);
 }
 
 .main-window {
@@ -54,7 +54,7 @@ body {
 .username-screen {
 	flex: 1 auto;
 	width: 100%;
-	background: var(--feature-background);
+	background: var(--bg-color-a);
   display: flex;
   flex-flow: row;
   flex-wrap: wrap;
@@ -66,14 +66,14 @@ body {
 .set-username {
 	height: auto;
 	width: auto;
-	padding: 6px 10px;
+	padding: 10px 14px;
 	line-height: 20px;
 	font-size: 18px;
 	font-weight: 300;
 	outline: none;
 	border: none;
   margin: 0;
-	background: var(--near-white);
+	background: var(--bg-color-b);
 	border: 2px solid transparent;
 	border-radius: 6px;
 }
@@ -85,8 +85,8 @@ body {
   min-width: 200px;
   width: auto;
   padding: 10px 16px;
-	background: var(--feature-background);
-	color: var(--near-white);
+	background: var(--bg-color-a);
+	color: var(--font-color-a);
 	font-size: 10px;
 }
 
@@ -196,7 +196,7 @@ body {
 	outline: none;
 	border: none;
   margin: 0;
-	background: var(--near-white);
+	background: var(--bg-color-c);
 	border: 2px solid transparent;
 	border-radius: 6px;
 }

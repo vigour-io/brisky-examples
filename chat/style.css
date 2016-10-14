@@ -166,11 +166,34 @@ span {
 }
 
 .message:not(:last-child) {
-	padding-bottom: 5px;
+	padding-bottom: 7px;
 }
 
 .message:first-child {
 	padding-top: 10px;
+}
+
+.message p {
+	font-weight: 300;
+}
+
+.sent-username {
+	font-weight: 500;
+	cursor: pointer;
+}
+
+.sent-username:hover {
+	opacity: 0.5;
+}
+
+.sent-username:before {
+	content: '[';
+	margin-right: 1px;
+}
+
+.sent-username:after {
+	content: '] ';
+	margin-left: 1px;
 }
 
 .sent-time {
@@ -179,6 +202,10 @@ span {
 
 .sent-time:after {
 	content: ': ';
+}
+
+.sent-message {
+	margin-top: 4px;
 }
 
 .interaction {
@@ -203,6 +230,7 @@ span {
 	background: var(--bg-color-c);
 	border: 2px solid rgba(211, 211, 211, 0.5);
 	border-radius: 6px;
+	font-size: 13px;
 }
 
 .new-message:active,

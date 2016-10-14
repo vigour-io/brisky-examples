@@ -52,6 +52,11 @@ const messageItem = {
   class: 'message',
   tag: 'li',
   text: '',
+  username: {
+    class: 'sent-username',
+    tag: 'span',
+    text: 'Rick'
+  },
   time: {
     class: 'sent-time',
     tag: 'span',
@@ -67,7 +72,8 @@ const messageItem = {
     }
   },
   message: {
-    tag: 'span',
+    class: 'sent-message',
+    tag: 'p',
     text: { $: 'text' }
   }
 }

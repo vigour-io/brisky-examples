@@ -1,17 +1,25 @@
 @import '@vigour-io/style';
 
 :root {
-  --font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	--font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+html,		
+body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
 }
 
 body {
-  font-family: var(--font-family);
-  font-size: 14px;
-  line-height: 1.4em;
-  font-weight: 300;
-  -webkit-font-smoothing: antialiased;
-  -moz-font-smoothing: antialiased;
-  font-smoothing: antialiased;
+	position: absolute;
+	font-family: var(--font-family);
+	font-size: 14px;
+	line-height: 1.4em;
+	font-weight: 300;
+	-webkit-font-smoothing: antialiased;
+	-moz-font-smoothing: antialiased;
+	font-smoothing: antialiased;
 }
 
 span {
@@ -20,26 +28,26 @@ span {
 
 .chat-application {
 	position: absolute;
-  display: flex;
-  flex-flow: column;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: flex-start;
+	display: flex;
+	flex-flow: column;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-items: flex-start;
 	width: 100%;
-  min-height: 100% !important;
-  height: auto;
-  left: 0;
-  top: 0;
+	min-height: 100% !important;
+	height: auto;
+	left: 0;
+	top: 0;
 	background: var(--color-a);
 }
 
 .main-window {
 	flex: 1 auto;
-  display: flex;
-  flex-flow: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: stretch;
+	display: flex;
+	flex-flow: row;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-items: stretch;
 	height: auto;
 	width: 100%;
 }
@@ -48,12 +56,12 @@ span {
 	flex: 1 auto;
 	width: 100%;
 	background: var(--color-a);
-  display: flex;
-  flex-flow: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  font-size: 12px;
+	display: flex;
+	flex-flow: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	font-size: 12px;
 }
 
 .set-username {
@@ -65,20 +73,20 @@ span {
 	font-weight: 300;
 	outline: none;
 	border: none;
-  margin: 0;
+	margin: 0;
 	background: var(--color-d);
 	border: 2px solid transparent;
 	border-radius: 6px;
-  color: var(--font-color-a);
+	color: var(--font-color-a);
 }
 
 .room-window {
 	flex: 0 1 auto;
-  display: flex;
-  flex-flow: column;
-  min-width: 200px;
-  width: auto;
-  padding: 10px 16px;
+	display: flex;
+	flex-flow: column;
+	min-width: 200px;
+	width: auto;
+	padding: 10px 16px;
 	background: var(--color-a);
 	color: var(--font-color-a);
 	font-size: 10px;
@@ -107,12 +115,12 @@ span {
 	border-radius: 50%;
 	background-color: none;
 	margin-right: 10px;
-  border: 2px solid #ab9ba9;
+	border: 2px solid #ab9ba9;
 }
 
 .username.online:before {
 	background-color: #38978D;
-  border: 2px solid #38978D;
+	border: 2px solid #38978D;
 }
 
 .menu-wrapper:not(:last-child) {
@@ -145,9 +153,9 @@ span {
 }
 
 .messages-window {
-  flex: 1 auto;
-  display: flex;
-  flex-flow: column;
+	flex: 1 auto;
+	display: flex;
+	flex-flow: column;
 	background: white;
 }
 
@@ -162,7 +170,7 @@ span {
 	font-size: 16px;
 	padding: 10px;
 	padding-top: 0px;
-  color: var(--font-color-b);
+	color: var(--font-color-b);
 }
 
 .message:not(:last-child) {
@@ -209,11 +217,11 @@ span {
 }
 
 .interaction {
-  display: flex;
-  flex-flow: row;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  align-items: flex-start;
+	display: flex;
+	flex-flow: row;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	align-items: flex-start;
 	width: 100%;
 	height: auto;
 	padding: 10px;
@@ -226,7 +234,7 @@ span {
 	line-height: 20px;
 	outline: none;
 	border: none;
-  margin: 0;
+	margin: 0;
 	background: var(--bg-color-c);
 	border: 2px solid rgba(211, 211, 211, 0.5);
 	border-radius: 6px;

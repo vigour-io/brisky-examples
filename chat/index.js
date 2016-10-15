@@ -2,10 +2,15 @@
 require('./style.css')
 const render = require('brisky/render')
 const vstamp = require('vigour-stamp')
-const s = require('vigour-state/s')
-const state = global.state = s({
+// const s = require('vigour-state/s')
+const Hub = require('brisky-hub')
+const state = global.state = new Hub({
+  id: Math.random(),
+  url: 'ws://morten.local:3031',
   user: { $type: 'string' }
 })
+
+console.log(state.id)
 
 // chat screen
 
@@ -55,7 +60,7 @@ const messageItem = {
   username: {
     class: 'sent-username',
     tag: 'span',
-    text: 'Rick'
+    text: 'Jim'
   },
   time: {
     class: 'sent-time',
@@ -148,10 +153,3 @@ const app = {
 }
 
 document.body.appendChild(render(app, state))
-
-// let object = { messages: {} }
-// let iteration
-// for (iteration = 0; iteration < 3; iteration++) {
-//   object.messages[iteration] = { text: `message` }
-// }
-// state.set(object)

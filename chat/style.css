@@ -4,6 +4,16 @@
 	--font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
 body {
 	position: absolute;
 	font-family: var(--font-family);
@@ -17,10 +27,6 @@ body {
 
 span {
 	font-weight: 300;
-}
-
-* {
-	box-sizing: border-box;
 }
 
 .chat-application {
@@ -90,6 +96,10 @@ span {
 }
 
 .username-wrapper {
+	display: flex;
+	flex-flow: column wrap;
+	justify-content: flex-start;
+	align-items: flex-start;
 	margin-top: 6px;
 	margin-bottom: 20px;
 	padding-bottom: 4px;

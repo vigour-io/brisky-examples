@@ -1,5 +1,5 @@
 'use strict'
 const Hub = require('brisky-hub')
-new Hub({
-	port: 3030
+new Hub({ // eslint-disable-line
+  port: 3030
 })

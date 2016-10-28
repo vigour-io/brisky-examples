@@ -32,13 +32,8 @@
   "devDependencies": {
     "budo": "^9.2.1",
     "pre-commit": "^1.1.3",
-<<<<<<< HEAD
-    "standard": "^8.4.0",
-    "vigour-doc": "^1.1.5"
-=======
     "standard": "^8.5.0",
     "vigour-doc": "^1.1.6"
->>>>>>> feature/todomvc
   },
   "browserify": {
     "transform": [

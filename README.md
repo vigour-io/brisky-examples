@@ -3,7 +3,7 @@
 [![Build Status](https://api.travis-ci.org/vigour-io/brisky-examples.svg)](https://travis-ci.org/vigour-io/brisky-examples)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
-Examples for most features of [brisky](https://github.com/vigour-io/brisky) a blazing fast js ui libary
+Examples for most features of [brisky](https://github.com/vigour-io/brisky) - A lightning fast JS library for building state driven user interfaces.
 
 Install and start the basic example
 `npm i & npm start basic`

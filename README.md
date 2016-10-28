@@ -4,6 +4,11 @@ Examples for most features of [brisky](https://github.com/vigour-io/brisky) a bl
 Install and start the basic example
 `npm i & npm start basic`
 
+####helloworld
+Simple Hello World example
+
+`npm start helloworld`
+
 ####dbmon
 Db monster -- currently faster then all implementations on [js-repaint-perf](http://mathieuancelin.github.io/js-repaint-perfs/) even faster then the [vanilla](http://mathieuancelin.github.io/js-repaint-perfs/vanilla-optimized/) example! When comparing make sure to move the slider to max updates
 
@@ -39,4 +44,8 @@ Order property, shared types
 
 `npm start order`
 
+####todomvc
+Standard TodoMV* implementation done in Brisky
+- Also showcases speed benchmark in comparison with other frameworks.
 
+`npm start todomvc`

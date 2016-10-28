@@ -19,7 +19,7 @@
     "url": "https://github.com/vigour-io/brisky-examples/issues"
   },
   "dependencies": {
-    "@vigour-io/style": "^1.0.3",
+    "@vigour-io/css": "^2.0.5",
     "bubleify": "0.6.0",
     "brisky": "^1.3.6",
     "postcssify": "^2.6.2",

@@ -27,7 +27,7 @@ Uses focus and condition, connects a third party api and localstorage
 
 
 ### [collection](https://github.com/vigour-io/brisky-examples/tree/master/collection)
-Rendering of 14k dom elements, uses optmization strategies for static items
+Rendering of 14k dom elements, uses optimization strategies for static items
 
 `npm start collection`
 

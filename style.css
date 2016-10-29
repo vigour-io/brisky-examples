@@ -12,9 +12,11 @@ div:focus {
   outline: none;
   background-color: var(--white);
   color: var(--fg2);
+
   & .title {
     border-bottom: 1px solid var(--fg2);
   }
+
   & .basic-item {
     border: 1px solid var(--fg2);
   }
@@ -33,25 +35,20 @@ input:focus {
 .holder .search.title {
   width: 100%;
   max-width: 400px;
-  margin-top:10px;
-  margin-bottom: 15px;
   text-align: center;
   background: none;
-  border: none;
   font-size: 18px;
   color: var(--white);
   font-family: 'Droid Sans Mono';
   background-color: var(--fg2);
   display: inline-block;
-  margin-left: 15px;
-  margin-right: 15px;
+  margin: 15px;
+  margin-top: 10px;
   border: 1px solid white;
   padding: 20px;
-  // padding-bottom: 15px;
 }
 
 .filter {
-  margin-left: 15px;
   margin-left: 15px;
   display: inline-block;
 }
@@ -93,6 +90,7 @@ body {
 
 .app {
   text-transform: uppercase;
+
   & * {
     text-transform: none;
   }
@@ -126,6 +124,7 @@ body {
   max-width: 90%;
   font-size: 8px;
   border: 1px solid var(--white);
+
   & .texts {
     font-size: 15px;
     margin-left: 5px;
@@ -139,12 +138,14 @@ body {
 }
 
 .poster-item {
+  width: 330px;
+
   & .poster {
     display: inline-block;
     width: 300px;
     object-fit: cover;
   }
-  width: 330px;
+
   & .title {
     font-size: 12px !important;
   }
@@ -155,18 +156,20 @@ body {
   vertical-align: middle;
   min-width: 150px;
   margin: 5px;
-  padding: 5px;
   display: inline-block;
-  border: 1px solid  var(--white);
+  border: 1px solid var(--white);
   font-size: 11px;
   padding: 15px;
+
   & .header {
     font-weight: bold;
   }
+
   & .nested {
     margin-top: 7.5px;
     margin-bottom: 7.5px;
   }
+
   & .input {
     width: 100%;
     background: none;
@@ -175,16 +178,19 @@ body {
     margin-bottom: 7.5px;
     color: var(--white);
   }
+
   & .nested * {
     padding: 5px;
     border: 1px solid var(--white);
   }
+
   & .img {
     padding: 10px;
     height: 100px;
     background-image: url('http://25.media.tumblr.com/tumblr_md8rg6Ijkp1rpm93ro1_250.jpg');
     background-size: cover;
   }
+
   & .title {
     text-align: center;
     font-size: 22px;
@@ -193,6 +199,7 @@ body {
     text-transform: uppercase;
     margin-bottom: 15px;
   }
+
   & .subtitle {
     font-size: 14px;
     border-bottom: 1px solid white;
@@ -224,8 +231,8 @@ body {
   height: 15px;
 }
 
-.symbol:before,
-.symbol:after {
+.symbol::before,
+.symbol::after {
   content: "";
   position: absolute;
   top: 0;
@@ -233,11 +240,11 @@ body {
   width: 15px;
   height: 15px;
   border: 1px solid var(--white);
-  border-radius: 10px 10px 0 10px;
+  border-radius: 10px 10px 0;
   transform: rotate(-45deg);
 }
 
-.symbol:after {
+.symbol::after {
   left: auto;
   right: 0;
   border-radius: 10px 10px 10px 0;

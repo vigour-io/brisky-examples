@@ -12,8 +12,8 @@ html {
 }
 
 *,
-*:before,
-*:after {
+*::before,
+*::after {
   box-sizing: inherit;
 }
 
@@ -25,7 +25,7 @@ body {
   font-weight: 300;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
-  font-smoothing: antialiased;
+  font-smoothing: antialiased; /* stylelint-disable-line */
   background-color: transparent;
   color: #000;
 }
@@ -80,7 +80,6 @@ span {
   font-size: 18px;
   font-weight: 300;
   outline: none;
-  border: none;
   margin: 0;
   background: var(--color-d);
   border: 2px solid transparent;
@@ -117,7 +116,7 @@ span {
   color: white;
 }
 
-.username:before {
+.username::before {
   content: '';
   display: inline-block;
   width: 8px;
@@ -130,7 +129,7 @@ span {
   border: 2px solid #ab9ba9;
 }
 
-.username.online:before {
+.username.online::before {
   background-color: #38978d;
   border: 2px solid #38978d;
 }
@@ -181,7 +180,7 @@ span {
 .message {
   font-size: 16px;
   padding: 10px;
-  padding-top: 0px;
+  padding-top: 0;
   color: var(--font-color-b);
 }
 
@@ -206,12 +205,12 @@ span {
   opacity: 0.5;
 }
 
-.sent-username:before {
+.sent-username::before {
   content: '[';
   margin-right: 1px;
 }
 
-.sent-username:after {
+.sent-username::after {
   content: '] ';
   margin-left: 1px;
 }
@@ -220,7 +219,7 @@ span {
   opacity: 0.5;
 }
 
-.sent-time:after {
+.sent-time::after {
   content: ': ';
 }
 
@@ -245,7 +244,6 @@ span {
   padding: 6px 10px;
   line-height: 20px;
   outline: none;
-  border: none;
   margin: 0;
   background: var(--bg-color-c);
   border: 2px solid rgba(211, 211, 211, 0.5);
@@ -256,7 +254,4 @@ span {
 .new-message:active,
 .new-message:hover {
   border: 2px solid rgba(211, 211, 211, 1);
-}
-
-@media (max-width: 600px) {
 }

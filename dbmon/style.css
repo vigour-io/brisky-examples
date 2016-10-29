@@ -1,4 +1,6 @@
+/* stylelint-disable */
 @import ./bootstrap.min.css;
+/* stylelint-enable */
 
 .query {
   position: relative;

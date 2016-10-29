@@ -4,7 +4,7 @@
   "version": "0.0.7",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/standard/bin/cmd.js",
+    "test": "standard && stylelint '**/*.css' -i .gitignore",
     "start": "node index.js",
     "docs": "node_modules/vigour-doc/bin/vdoc",
     "build-search": "browserify ./search/index.js > bundle.min.js"
@@ -33,23 +33,29 @@
     "budo": "^9.2.1",
     "pre-commit": "^1.1.3",
     "standard": "^8.5.0",
-    "vigour-doc": "^1.1.6"
-  },
-  "browserify": {
-    "transform": [
-      "postcssify",
-      "bubleify"
-    ]
+    "vigour-doc": "^1.1.6",
+    "stylelint": "^7.5.0",
+    "stylelint-config-standard": "^14.0.0"
   },
   "homepage": "https://github.com/vigour-io/brisky-examples",
+  "contributors": [
+    "Youri Daamen <youri@vigour.io>",
+    "Jim de Beer <jim@vigour.io>",
+    "Morten Broesby-Olsen  <morten@vigour.io>"
+  ],
   "keywords": [
     "reactive",
     "state",
     "brisky-examples",
     "DOM"
   ],
-  "contributors": [
-    "Youri Daamen <youri@vigour.io>",
-    "Jim de Beer <jim@vigour.io>"
-  ]
+  "browserify": {
+    "transform": [
+      "postcssify",
+      "bubleify"
+    ]
+  },
+  "stylelint": {
+    "extends": "stylelint-config-standard"
+  }
 }

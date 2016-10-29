@@ -10,14 +10,13 @@
     font-style: italic;
     font-weight: 300;
     color: var(--light-font-color);
-  };
+  }
 
   --input: {
     position: relative;
     width: 100%;
     font-size: 24px;
     line-height: 1.4em;
-    font-weight: 300;
     font-family: inherit;
     font-weight: inherit;
     color: var(--default-font-color);
@@ -26,7 +25,7 @@
     background: rgba(0, 0, 0, 0.003);
     box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
     outline: none;
-  };
+  }
 }
 
 * {
@@ -46,7 +45,7 @@ body {
   font-weight: 300;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
-  font-smoothing: antialiased;
+  font-smoothing: antialiased; /* stylelint-disable-line */
 }
 
 button {
@@ -74,8 +73,7 @@ button {
   background: var(--white);
   margin: 0;
   position: relative;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2),
-              0 25px 50px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
 }
 
 .header {
@@ -91,7 +89,7 @@ button {
     @apply --placeholder;
   }
 
-  & .newTodo::input-placeholder {
+  & .newTodo::input-placeholder { /* stylelint-disable-line */
     @apply --placeholder;
   }
 
@@ -107,18 +105,18 @@ button {
     z-index: 10;
   }
 
-  & .toggleAll:before {
+  & .toggleAll::before {
     content: '❯';
     color: var(--light-font-color);
     font-size: 22px;
   }
 
-  & .toggleAll:checked:before {
+  & .toggleAll:checked::before {
     color: #737373;
   }
 }
 
-@media screen and (-webkit-min-device-pixel-ratio:0) {
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
   .toggleAll {
     background: none;
     -webkit-transform: rotate(90deg);
@@ -127,7 +125,6 @@ button {
     appearance: none;
   }
 }
-
 
 /* Main */
 
@@ -201,7 +198,7 @@ button {
     color: #af5b5e;
   }
 
-  & .destroy:after {
+  & .destroy::after {
     content: '×';
   }
 
@@ -211,7 +208,7 @@ button {
 
   & .edit {
     @apply --input;
-    transition: color 0.4s;
+    transition: color 0.4s; /* stylelint-disable-line */
   }
 }
 
@@ -220,7 +217,6 @@ button {
   border: 1px solid #999;
   box-shadow: inset 0 -1px 5px 0 rgba(0, 0, 0, 0.2);
 }
-
 
 /* Footer */
 
@@ -233,11 +229,7 @@ button {
   height: 50px;
   margin-top: 50px;
   overflow: hidden;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2),
-              0 8px 0 -3px #f6f6f6,
-              0 9px 1px -3px rgba(0, 0, 0, 0.2),
-              0 16px 0 -6px #f6f6f6,
-              0 17px 2px -6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 8px 0 -3px #f6f6f6, 0 9px 1px -3px rgba(0, 0, 0, 0.2), 0 16px 0 -6px #f6f6f6, 0 17px 2px -6px rgba(0, 0, 0, 0.2);
 }
 
 .footer {
@@ -304,6 +296,7 @@ button {
   .footer {
     height: 80px;
   }
+
   .filters {
     bottom: 10px;
   }

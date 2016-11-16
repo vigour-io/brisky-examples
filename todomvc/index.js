@@ -173,24 +173,3 @@ const app = {
 }
 
 document.body.appendChild(render(app, state))
-
-var d = Date.now()
-let object = { todos: {} }
-let iteration
-
-for (iteration = 0; iteration < 1e2; iteration++) {
-  object.todos[iteration] = { text: `Something to do ${iteration}`, done: false }
-}
-state.set(object)
-
-for (iteration = 0; iteration < 1e2; iteration++) {
-  object.todos[iteration] = { done: true }
-}
-state.set(object)
-
-for (iteration = 0; iteration < 1e2; iteration++) {
-  object.todos[iteration] = null
-}
-state.set(object)
-
-console.log('Benchmark: ', Date.now() - d, 'ms')

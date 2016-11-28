@@ -90,8 +90,9 @@ module.exports = {
 }
 
 function getMovies (url, state, next, cache) {
-  http.get(url, res => {
+  const req = http.get(url, res => {
     var data = ''
+    res.on('error', err => state.root.emit('error', err))
     res.on('data', chunk => {
       if (cache) { cache.write(chunk) }
       data += chunk
@@ -104,6 +105,7 @@ function getMovies (url, state, next, cache) {
       }
     })
   })
+  req.on('error', err => state.root.emit('error', err))
 }
 
 function parseMovies (data, state) {

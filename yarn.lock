@@ -809,9 +809,9 @@ brisky-get-reference@^1.0.0:
   dependencies:
     bubleify "^0.5.1"
 
-brisky-hub@^1.1.8:
-  version "1.1.8"
-  resolved "https://registry.yarnpkg.com/brisky-hub/-/brisky-hub-1.1.8.tgz#693d1d0a7552916e996ad906476c368b01c0850e"
+brisky-hub:
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/brisky-hub/-/brisky-hub-1.1.9.tgz#58618ccb618c20530db30cd4b401662b7acf64b8"
   dependencies:
     bubleify "0.5.1"
     clocksy "^1.1.0"

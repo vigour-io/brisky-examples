@@ -1,9 +1,7 @@
-'use strict'
-require('vigour-util/require')() // fix for css requires in node
 require('./benchmark.css')
-const render = require('brisky/render')
-const State = require('vigour-state')
-const isNumber = require('vigour-util/is/number')
+const render = require('brisky-render')
+const struct = require('brisky-struct')
+const isNumber = (val) => typeof val === 'number' && !isNaN(val)
 const raf = global.requestAnimationFrame || process.nextTick
 
 exports.ui = {
@@ -11,15 +9,14 @@ exports.ui = {
   benchmark: {
     class: 'benchmark',
     init: {
-      text: { $: 'first', $add: ' ms initial render' }
+      text: { $: 'first', $transform: val => val + ' ms initial render' }
     },
     ms: {
       text: {
         $: 'ms',
-        $transform (val) {
-          return isNumber(val) ? Math.round(val) : 'not measured'
-        },
-        $add: ' ms periodic updates'
+        $transform: val => `${isNumber(val)
+          ? Math.round(val)
+          : 'not measured'} ms periodic updates`
       }
     },
     update: {
@@ -35,7 +32,7 @@ exports.ui = {
       }
     },
     elems: {
-      text: { $: 'elems', $add: ' dom-nodes' }
+      text: { $: 'elems', $transform: val => val + ' dom-nodes' }
     }
   }
 }
@@ -43,7 +40,7 @@ exports.ui = {
 exports.init = function (amount, app, method, update, state) {
   app.inject = exports.ui
   if (state) {
-    if (state.isState) {
+    if (state.inherits) {
       state.set({
         collection: { sync: false },
         elems: { sync: false },
@@ -59,8 +56,8 @@ exports.init = function (amount, app, method, update, state) {
   for (let i = 0; i < amount; i++) {
     state.collection[i] = method(i, 0)
   }
-  if (!state.isState) {
-    state = new State(state, false)
+  if (!state.inherits) {
+    state = struct(state, false)
   }
   if (update) { update(state, 0) }
   var ms = Date.now()
